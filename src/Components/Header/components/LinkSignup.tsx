@@ -1,28 +1,23 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const LinkSignup = (props) => {
-  return (
-    <Link to="/signup" component={LinkRef}>
-      {props.children}
-    </Link>
-  );
-};
+  let history = useHistory();
 
-const LinkRef = React.forwardRef((props, ref) => {
-  const onClick = (e) => {
-    e.preventDefault();
-    props.navigate();
+  const onClick = (event) => {
+    event.preventDefault();
+
+    history.push('/register');
   };
 
   return (
-    <A ref={ref} onClick={onClick}>
+    <A href={props.href} onClick={onClick}>
       {props.children}
     </A>
   );
-});
+};
 
 const A = styled.a`
   font-size: 16px;

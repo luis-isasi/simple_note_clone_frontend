@@ -6,6 +6,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import Home from './Page/Home';
 import Login from './Page/Login';
+import PageDefault from './Page/PageDefault';
+import Signup from './Page/Signup';
 import { CssReset } from './GlobalStyle';
 
 const GlobalStyle = createGlobalStyle`
@@ -30,9 +32,15 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Router extac path="/login">
+          <Route exact path="/login">
             <Login />
-          </Router>
+          </Route>
+          <Route exact path="/register">
+            <Signup />
+          </Route>
+          <Route>
+            <PageDefault />
+          </Route>
         </Switch>
       </Router>
     </ApolloProvider>

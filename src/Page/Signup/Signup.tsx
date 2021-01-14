@@ -1,27 +1,20 @@
 import * as React from 'react';
-import { useReducer } from 'react';
 
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import LinkSignup from '../../Components/Header/components/LinkSignup';
+import LinkLogin from '../../Components/Header/components/LinkLogin';
 
 const Login = () => {
   return (
     <DivLogin>
-      <p>Log In</p>
+      <p>Create an account</p>
       <Form>
         <input type="text" />
         <input type="password" />
-        <button>Log in</button>
+        <button>Sign up</button>
       </Form>
-      <div>
-        <input type="checkbox"></input>
-        <b>Rembember Me</b>
-      </div>
-      <Link to="/forgot">Forgot you password?</Link>
       <p>
-        Don't have an account? <LinkSignup>Sign Up</LinkSignup>{' '}
+        Already have an account? <LinkLogin>Log in</LinkLogin>{' '}
       </p>
     </DivLogin>
   );
