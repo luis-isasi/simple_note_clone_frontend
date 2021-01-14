@@ -20,6 +20,20 @@ module.exports = {
         test: /\.(tsx|ts)$/,
         use: 'babel-loader',
       },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
+      {
+        test: /\.png|jpe?g|gif|mp4|svg|webm$/i,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 90000,
+          },
+        },
+      },
     ],
   },
 

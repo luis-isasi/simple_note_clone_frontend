@@ -10,6 +10,10 @@ import PageDefault from './Page/PageDefault';
 import Signup from './Page/Signup';
 import { CssReset } from './GlobalStyle';
 
+import RedirectIfUserExists from './Components/RedirectIfUserExists';
+
+import { AppContextProvider } from './Context/App';
+
 const GlobalStyle = createGlobalStyle`
   body{
     margin: 0px;
@@ -25,25 +29,31 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <GlobalStyle />
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Signup />
-          </Route>
-          <Route>
-            <PageDefault />
-          </Route>
-        </Switch>
-      </Router>
-    </ApolloProvider>
+    <AppContextProvider>
+      <ApolloProvider client={client}>
+        <GlobalStyle />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/login">
+              <RedirectIfUserExists>
+                <Login />
+              </RedirectIfUserExists>
+            </Route>
+            <Route exact path="/register">
+              <RedirectIfUserExists>
+                <Signup />
+              </RedirectIfUserExists>
+            </Route>
+            <Route>
+              <PageDefault />
+            </Route>
+          </Switch>
+        </Router>
+      </ApolloProvider>
+    </AppContextProvider>
   );
 };
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-// import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import HeaderDesktop from '../../Components/Header/HeaderDesktop';
 import LinkSignup from '../../Components/Header/components/LinkSignup';
 const Home = () => {

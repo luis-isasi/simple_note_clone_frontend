@@ -12,7 +12,7 @@ module.exports = {
   },
   devtool: 'source-map',
   mode: 'development',
-  resolve: { extensions: ['.js', '.tsx', 'ts', '.jsx'] },
+  resolve: { extensions: ['.js', '.tsx', '.ts', '.jsx'] },
   module: {
     rules: [
       {
@@ -20,6 +20,20 @@ module.exports = {
         exclude: /node_modules/,
         test: /\.(tsx|ts)$/,
         use: 'babel-loader',
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
+      {
+        test: /\.(png|jpe?g|jpg|gif|svg)$/i,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 90000,
+          },
+        },
       },
     ],
   },
