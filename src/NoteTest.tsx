@@ -7,7 +7,9 @@ const NOTES = gql`
     notes {
       id
       text
-      user
+      user {
+        email
+      }
     }
   }
 `;
