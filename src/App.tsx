@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const httpLink = createHttpLink({
-  uri: 'https://simple-note-clone-backend.herokuapp.com/graphql/',
+  uri: 'https://simple-note-clone-backend.herokuapp.com/graphql',
   credentials: 'include',
 });
 
@@ -44,7 +44,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      // Authorization: token,
+      Authorization: token,
     },
   };
 });
