@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styled, { css } from 'styled-components';
-
 import NotesIcon from '@material-ui/icons/Notes';
+import { Link } from 'react-router-dom';
 
 import LinkLogin from './components/LinkLogin';
 import LinkSignup from './components/LinkSignup';
@@ -12,7 +12,7 @@ const HeaderDesktop = () => {
     <Header>
       <div>
         <NotesIcon />
-        <h1>SimpleNote</h1>
+        <LinkStyle to="/">SimpleNote</LinkStyle>
       </div>
       <Nav>
         <LinkLogin>Log in</LinkLogin>
@@ -40,11 +40,13 @@ const Header = styled.header`
     width: 150px;
     ${FlexRow}
   }
+`;
 
-  div > h1 {
-    font-weight: 400;
-    font-size: 20px;
-  }
+const LinkStyle = styled(Link)`
+  font-weight: 400;
+  font-size: 20px;
+  text-decoration: none;
+  color: #000000;
 `;
 
 const Nav = styled.nav`

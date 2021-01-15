@@ -2,22 +2,78 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useMutation } from '@apollo/client';
 
 import HeaderDesktop from '../../Components/Header/HeaderDesktop';
-
+import LOGIN_USER from '../../graphql/loginUser.graphql';
 import UnDrawLogin from '../../img/UnDrawLogin.svg';
+import { useAppContext } from '../../Context/App';
+
+const initialFormState = {
+  email: '',
+  password: '',
+};
+
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_VALUE':
+      return {
+        ...state,
+        [action.name]: action.value,
+      };
+    default:
+      return initialFormState;
+  }
+};
 
 const Login = () => {
+  const appData = useAppContext();
+
+  const [state, distpach] = React.useReducer(formReducer, initialFormState);
+
+  const [loginUser] = useMutation(LOGIN_USER);
+
+  const onChange = (e) => {
+    console.log(state);
+    distpach({
+      type: 'SET_VALUE',
+      name: e.target.name,
+      value: e.target.value,
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log('enviando Log in');
+    loginUser({ variables: state }).then((response) => {
+      appData.signinUser(response.data.login);
+    });
+  };
+
   return (
     <>
       <HeaderDesktop />
       <DivLogin>
         <img src={UnDrawLogin} alt="logo" />
         <p id="textLogin">Log In</p>
-        <Form>
-          <input type="text" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button id="btnLogin">Log in</button>
+        <Form onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="email"
+            value={state.email}
+            placeholder="Email"
+            onChange={onChange}
+          />
+          <input
+            type="password"
+            name="password"
+            value={state.value}
+            placeholder="Password"
+            onChange={onChange}
+          />
+          <button type="submit" id="btnLogin">
+            Log in
+          </button>
         </Form>
         <div id="divRemember">
           <input type="checkbox"></input>
@@ -78,7 +134,7 @@ const LinkStyle = styled(Link)`
   color: #3361cc;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   input {
     box-sizing: border-box;
     width: 100%;
