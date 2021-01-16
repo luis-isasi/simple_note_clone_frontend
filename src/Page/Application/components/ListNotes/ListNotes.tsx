@@ -40,16 +40,23 @@ const ListNotes = () => {
 };
 
 const Ul = styled.ul`
-  background-color: gray;
+  background-color: #ffffff;
 `;
 
 const BtnNote = styled.button`
   cursor: pointer;
   border: none;
-  height: 50px;
+  height: 64px;
   width: 100%;
   background-color: #ffffff;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #c3c4c7;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
+  &:focus {
+    background-color: #cfddfd;
+  }
 `;
 const rotate = keyframes`
   from {

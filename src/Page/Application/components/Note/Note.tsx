@@ -65,7 +65,6 @@ const P = styled.p`
   font-family: inherit;
   font-size: 22px;
   font-weight: 300;
-  font-family: inherit;
 `;
 
 const TextArea = styled.textarea`
