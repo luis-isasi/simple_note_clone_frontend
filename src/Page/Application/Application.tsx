@@ -21,17 +21,15 @@ const App = () => {
 };
 
 const Div = styled.div`
-  background-color: skyblue;
+  background-color: #c3c4c7;
   height: 100vh;
   width: 100%;
   display: grid;
   grid-template-columns: 325px 1fr;
   grid-template-rows: 56px 1fr;
-  gap: 4px;
+  gap: 1px;
 
   div {
-    padding: 20px 0;
-    font-size: 30px;
     background-color: white;
   }
 `;

@@ -43,16 +43,45 @@ const Note = () => {
   };
 
   return (
-    <div>
-      <h1>MY NOTE</h1>
-      <TextArea onChange={onChange} value={value}></TextArea>
-    </div>
+    <Div>
+      {value ? (
+        <TextArea onChange={onChange} value={value}></TextArea>
+      ) : (
+          <P>Selecciona una nota para comenzar a editar 📝</P>
+        )}
+    </Div>
   );
 };
 
+const Div = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const P = styled.p`
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  font-family: inherit;
+`;
+
 const TextArea = styled.textarea`
-  width: 500px;
-  height: 500px;
+  width: 80%;
+  max-width: 1200px;
+  height: 90%;
+  border: none;
+  resize: none;
+  /* margin-top: 50px; */
+  font-size: 18px;
+  font-weight: 300;
+  font-family: inherit;
+
+  &:focus {
+    border: 1px solid white;
+  }
 `;
 
 export default Note;
