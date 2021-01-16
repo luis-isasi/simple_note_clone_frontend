@@ -1,0 +1,10 @@
+query GetNotes {
+    notes {
+      id
+      text
+      user {
+        id
+        email
+      }
+    }
+  }

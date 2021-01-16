@@ -4,6 +4,7 @@ import Note from '../Page/Application/components/Note';
 type NoteState = {
   note: Note;
   selectNote(note: Note): void;
+  colorIcon: string;
 };
 
 type Note = {
@@ -26,8 +27,9 @@ export const NoteContextProvider = ({ children }) => {
     setNote(note);
   };
 
+  const colorIcon = '#3361cc';
   return (
-    <NoteContext.Provider value={{ note, selectNote }}>
+    <NoteContext.Provider value={{ note, selectNote, colorIcon }}>
       {children}
     </NoteContext.Provider>
   );

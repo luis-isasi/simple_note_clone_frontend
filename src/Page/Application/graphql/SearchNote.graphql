@@ -1,0 +1,18 @@
+query SearchNote (
+  $text: String!,
+){
+  notes(
+    find: {
+      where: {
+        text: {
+          contains: $text
+        }
+      }
+    }
+  ) {
+    text
+    tags {
+      name
+    }
+    }
+}

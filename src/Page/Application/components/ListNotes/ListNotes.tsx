@@ -3,27 +3,15 @@ import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
+import GET_NOTES from '../../graphql/GetNotes.graphql';
 import { useNoteContext } from 'Context/NoteContext';
-
-const NOTES = gql`
-  query GetNotes {
-    notes {
-      id
-      text
-      user {
-        id
-        email
-      }
-    }
-  }
-`;
 
 const ListNotes = () => {
   const noteData = useNoteContext();
 
-  const { loading, error, data } = useQuery(NOTES);
+  const { loading, error, data } = useQuery(GET_NOTES);
 
   // console.log(noteData.note);
 

@@ -10,7 +10,7 @@ import Note from './components/Note';
 const App = () => {
   return (
     <NoteContextProvider>
-      <Div>
+      <Div color="test">
         <SidebarSearch />
         <div></div>
         <ListNotes />
