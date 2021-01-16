@@ -7,7 +7,6 @@ const NOTES = gql`
     notes {
       id
       text
-      user
     }
   }
 `;
@@ -18,8 +17,8 @@ const NoteTest = () => {
   // const token = JSON.parse(localStorage.getItem('user_session'));
   // console.log(token);
 
-  // console.log(loading);
-  // console.log(error);
+  console.log(loading);
+  console.log(error);
   console.log(data);
   return (
     <div>

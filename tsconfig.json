@@ -9,6 +9,21 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "Components/*": [
+        "src/Components/*"
+      ],
+      "Images/": [
+        "src/Images/*"
+      ],
+      "Context/*": [
+        "src/Context/*"
+      ],
+      "Page/*": [
+        "src/Page/*"
+      ],
+    }
   },
   "include": [
     "./src"
@@ -16,5 +31,5 @@
   "exclude": [
     "./node_modules/",
     "./dist"
-  ],
+  ]
 }

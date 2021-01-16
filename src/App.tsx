@@ -14,6 +14,7 @@ import Home from './Page/Home';
 import Login from './Page/Login';
 import PageDefault from './Page/PageDefault';
 import Signup from './Page/Signup';
+import Application from './Page/Application';
 import { CssReset } from './GlobalStyle';
 
 import RedirectIfUserExists from './Components/RedirectIfUserExists';
@@ -28,11 +29,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0px;
     font-family: 'Roboto', sans-serif;
     ${CssReset}
+    font
   }
 `;
 
 const httpLink = createHttpLink({
-  uri: 'https://simple-note-clone-backend.herokuapp.com/graphql/',
+  uri: 'https://simple-note-clone-backend.herokuapp.com/graphql',
   credentials: 'include',
 });
 
@@ -44,15 +46,15 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      // Authorization: token,
+      Authorization: token,
     },
   };
 });
 
 const client = new ApolloClient({
-  // uri: 'https://simple-note-clone-backend.herokuapp.com/graphql ',
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  connectToDevTools: true,
 });
 
 const App = () => {
@@ -74,6 +76,9 @@ const App = () => {
               <RedirectIfUserExists>
                 <Signup />
               </RedirectIfUserExists>
+            </Route>
+            <Route exact path="/app">
+              <Application />
             </Route>
             <Route exact path="/notetest">
               <NoteTest />

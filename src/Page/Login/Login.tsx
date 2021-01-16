@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 
-import HeaderDesktop from '../../Components/Header/HeaderDesktop';
+import HeaderDesktop from 'Components/Header/HeaderDesktop';
 import LOGIN_USER from '../../graphql/loginUser.graphql';
-import UnDrawLogin from '../../img/UnDrawLogin.svg';
-import { useAppContext } from '../../Context/App';
+import UnDrawLogin from 'Images/UnDrawLogin.svg';
+import { useAppContext } from 'Context/App';
 
 const initialFormState = {
   email: '',

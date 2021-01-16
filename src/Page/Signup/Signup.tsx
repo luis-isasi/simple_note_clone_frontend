@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import HeaderDesktop from '../../Components/Header/HeaderDesktop';
-import { useAppContext } from '../../Context/App';
+import HeaderDesktop from 'Components/Header/HeaderDesktop';
+import { useAppContext } from 'Context/App';
 import CREATE_USER from '../../graphql/createUser.graphql';
-import UnDrawSignup from '../../img/UnDrawSignup.svg';
+import UnDrawSignup from 'Images/UnDrawSignup.svg';
 
 const Signup = () => {
   const appData = useAppContext();
