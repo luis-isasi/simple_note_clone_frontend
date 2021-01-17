@@ -3,43 +3,45 @@ import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
-import { useQuery } from '@apollo/client';
-
-import GET_NOTES from '../../graphql/GetNotes.graphql';
-import { useNoteContext } from 'Context/NoteContext';
+import { useNoteContext } from 'Page/Application/context/NoteContext';
 
 const ListNotes = () => {
   const noteData = useNoteContext();
-
-  const { loading, error, data } = useQuery(GET_NOTES);
-
-  // console.log(noteData.note);
+  const idNoteSelected = noteData.note ? noteData.note.id : '';
 
   const selectNote = (note) => {
     noteData.selectNote(note);
   };
 
   const renderNotes = () => {
-    return data.notes.map((note) => {
+    return noteData.listNotes.map((note) => {
       return (
         <BtnNote
           key={note.id}
           onClick={() => {
             selectNote(note);
           }}
+          selected={note.id === idNoteSelected ? true : false}
         >
-          {note.text}
+          <p>{note.text}</p>
         </BtnNote>
       );
     });
   };
 
-  if (loading) return <IconAnimation style={{ fontSize: '60px' }} />;
-  if (error || !data) return <p>Estamos teniendo problemas con el servidor</p>;
+  if (!noteData.listNotes)
+    return (
+      <Ul>
+        <IconAnimation style={{ fontSize: '60px' }} />
+      </Ul>
+    );
+
   return <Ul>{renderNotes()}</Ul>;
 };
 
 const Ul = styled.ul`
+  display: flex;
+  flex-flow: column;
   background-color: #ffffff;
 `;
 
@@ -48,16 +50,24 @@ const BtnNote = styled.button`
   border: none;
   height: 64px;
   width: 100%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #c3c4c7;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 400;
+  padding: 0px;
+  background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
 
-  &:focus {
-    background-color: #cfddfd;
+  p {
+    height: 100%;
+    width: 90%;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 300;
+    text-align: left;
+    line-height: 64px;
+    border-bottom: 1px solid #c3c4c7;
   }
 `;
+
 const rotate = keyframes`
   from {
     transform: rotate(0deg);
@@ -66,8 +76,8 @@ const rotate = keyframes`
     transform: rotate(360deg)
   }
 `;
+
 const IconAnimation = styled(AutorenewIcon)`
-  font-size: 400px;
   margin: auto;
   animation: ${rotate} 0.85s linear infinite;
 `;

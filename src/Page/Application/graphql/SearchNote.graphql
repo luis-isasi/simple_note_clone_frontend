@@ -10,7 +10,12 @@ query SearchNote (
       }
     }
   ) {
+    id
     text
+    user {
+      id
+      email
+    }
     tags {
       name
     }

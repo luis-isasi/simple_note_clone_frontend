@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
-import { useNoteContext } from 'Context/NoteContext';
+import { useNoteContext } from 'Page/Application/context/NoteContext';
 import UPDATE_NOTE from '../../graphql/updateNote.graphql';
 
 const Note = () => {
@@ -23,7 +23,6 @@ const Note = () => {
 
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
-      console.log('run mutation');
       updateNote({
         variables: {
           id,

@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import CreateNote from './CreateNote';
-import Search from './search';
+import Search from './Search';
 import Main from './Main';
 
 const SidebarSearch = () => {

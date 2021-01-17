@@ -2,18 +2,12 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
-import { useQuery } from '@apollo/client';
 
-import SEARCH_NOTE from '../../graphql/SearchNote.graphql';
+import useSearchNote from './useSearchNote';
 
-const search = () => {
+const Search = () => {
   const [search, setSearch] = React.useState('');
-
-  const { loading, error, data } = useQuery(SEARCH_NOTE, {
-    variables: { search },
-  });
-  // console.log(search);
-  // console.log({ data });
+  const { } = useSearchNote(search);
 
   const onChange = (e) => {
     setSearch(e.target.value);
@@ -79,4 +73,4 @@ const InputSearch = styled.input`
   }
 `;
 
-export default search;
+export default Search;

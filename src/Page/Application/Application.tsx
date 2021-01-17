@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import { NoteContextProvider } from 'Context/NoteContext';
+import { NoteContextProvider } from 'Page/Application/context/NoteContext';
 import SidebarSearch from './components/SidebarSearch';
 import ListNotes from './components/ListNotes';
 import Note from './components/Note';

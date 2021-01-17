@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Note from '../Page/Application/components/Note';
 
 type NoteState = {
   note: Note;
   selectNote(note: Note): void;
-  colorIcon: string;
+  listNotes: Note[];
+  setListNotes(note: Note[]): void;
 };
 
 type Note = {
@@ -22,14 +22,14 @@ const NoteContext = React.createContext<NoteState | undefined>(undefined);
 
 export const NoteContextProvider = ({ children }) => {
   const [note, setNote] = React.useState(undefined);
+  const [listNotes, setListNotes] = React.useState(undefined);
 
   const selectNote = (note: Note) => {
     setNote(note);
   };
 
-  const colorIcon = '#3361cc';
   return (
-    <NoteContext.Provider value={{ note, selectNote, colorIcon }}>
+    <NoteContext.Provider value={{ note, selectNote, listNotes, setListNotes }}>
       {children}
     </NoteContext.Provider>
   );
