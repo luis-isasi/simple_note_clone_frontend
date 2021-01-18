@@ -43,7 +43,7 @@ const Note = () => {
 
   return (
     <Div>
-      {value ? (
+      {noteData.note ? (
         <TextArea onChange={onChange} value={value}></TextArea>
       ) : (
           <P>Selecciona una nota para comenzar a editar 📝</P>

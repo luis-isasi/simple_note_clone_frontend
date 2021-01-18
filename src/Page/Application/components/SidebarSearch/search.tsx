@@ -2,15 +2,25 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
+import { useQuery } from '@apollo/client';
 
-import useSearchNote from './useSearchNote';
+import { useNoteContext } from '../../context/NoteContext';
+import SEARCH_NOTE from '../../graphql/SearchNote.graphql';
 
 const Search = () => {
+  const noteData = useNoteContext();
   const [search, setSearch] = React.useState('');
-  const { } = useSearchNote(search);
+
+  const { loading, error, data } = useQuery(SEARCH_NOTE, {
+    variables: { text: search },
+  });
+
+  if (search !== '' && data) noteData.setListNotes(data.notes);
+  if (!search) noteData.updateListNote();
 
   const onChange = (e) => {
     setSearch(e.target.value);
+    //si es que se realiza una busqueda
   };
 
   const onClickClear = () => {
