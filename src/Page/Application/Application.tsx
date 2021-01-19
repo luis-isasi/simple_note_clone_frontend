@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { NoteContextProvider } from 'Page/Application/context/NoteContext';
 import SidebarSearch from './components/SidebarSearch';
+import HeaderApp from './components/HeaderApp';
 import ListNotes from './components/ListNotes';
 import Note from './components/Note';
 
@@ -12,7 +13,7 @@ const App = () => {
     <NoteContextProvider>
       <Div color="test">
         <SidebarSearch />
-        <div></div>
+        <HeaderApp />
         <ListNotes />
         <Note />
       </Div>
@@ -30,7 +31,7 @@ const Div = styled.div`
   gap: 1px;
 
   div {
-    background-color: white;
+    background-color: #ffffff;
   }
 `;
 export default App;

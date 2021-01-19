@@ -38,7 +38,6 @@ export const NoteContextProvider = ({ children }) => {
     }
   }, [data]);
 
-  console.log({ listNotes });
   const selectNote = (note: Note) => {
     setNote(note);
   };
