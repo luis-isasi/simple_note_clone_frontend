@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import styled, { css } from 'styled-components';
 
-import ToggleSidebar from './ToggleSidebar';
-import DeleteNote from './DeleteNote';
-import InformationNote from './InformationNote';
-import Share from './Share';
+import ToggleSidebar from './components/ToggleSidebar';
+import DeleteNote from './components/DeleteNote';
+import InformationNote from './components/InformationNote';
+import Share from './components/Share';
 import { colorIcon } from '../../StylesApp';
 
 const HeaderApp = (props) => {

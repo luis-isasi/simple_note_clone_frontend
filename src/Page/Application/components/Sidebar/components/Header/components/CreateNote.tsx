@@ -7,7 +7,7 @@ import { useMutation, useApolloClient } from '@apollo/client';
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
 import { colorIcon } from '../../../../../StylesApp';
-
+import { HoverText } from 'StylesApp';
 import { useNoteContext } from '../../../../../context/NoteContext';
 
 const CreateNote = () => {
@@ -23,7 +23,7 @@ const CreateNote = () => {
               fragment: NOTE_FRAGMENT,
             });
 
-            return [...existingNotes, newNoteRef];
+            return [newNoteRef, ...existingNotes];
           },
         },
       });
@@ -83,7 +83,14 @@ const BtnNewNote = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-
   ${colorIcon}
+
+  &:hover {
+    &:before {
+      content: 'New Note';
+      ${HoverText};
+      /* left: 80px;   */
+    }
+  }
 `;
 export default CreateNote;

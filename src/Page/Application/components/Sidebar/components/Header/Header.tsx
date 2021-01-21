@@ -24,6 +24,12 @@ const Div = styled.div`
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid #c3c4c7;
+
+  * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export default Header;

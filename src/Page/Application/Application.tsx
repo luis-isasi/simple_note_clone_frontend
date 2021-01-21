@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import Sidebar from './components/Sidebar';
 import HeaderApp from './components/HeaderApp';
@@ -52,4 +52,5 @@ const Div = styled.div`
     background-color: #ffffff;
   }
 `;
+
 export default App;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { colorIcon } from '../../../../../StylesApp';
+import { HoverText } from 'StylesApp';
 
 const Main = () => {
   return (
@@ -18,5 +19,12 @@ const BtnMain = styled.button`
   border: none;
   cursor: pointer;
   ${colorIcon};
+
+  &:hover {
+    &:before {
+      content: 'Main';
+      ${HoverText}
+    }
+  }
 `;
 export default Main;

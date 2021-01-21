@@ -20,6 +20,10 @@ module.exports = {
       Context: path.resolve(__dirname, '../src/Context/'),
       Page: path.resolve(__dirname, '../src/Page/'),
       GraphqlApp: path.resolve(__dirname, '../src/Page/Application/graphql/'),
+      StylesApp: path.resolve(
+        __dirname,
+        '../src/Page/Application/StylesApp.tsx'
+      ),
     },
   },
   module: {

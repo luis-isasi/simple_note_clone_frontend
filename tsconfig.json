@@ -26,6 +26,9 @@
       "GraphqlApp/*": [
         "src/Page/Application/graphql/*"
       ],
+      "StylesApp": [
+        "src/Page/Application/StylesApp.tsx"
+      ]
     }
   },
   "include": [
