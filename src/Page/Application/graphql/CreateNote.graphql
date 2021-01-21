@@ -1,15 +1,9 @@
+#import "./NoteFragment.graphql"
 mutation CreateNote (
   $text: String!
 ){
-    createNote ( input: {text: $text}){
-      id
-      text
-      user {
-        id
-        email
-      }  
-      tags {
-        name
-      }
-    }
+  createNote ( input: {text: $text}){
+    ...NewNote
+  }
 }
+

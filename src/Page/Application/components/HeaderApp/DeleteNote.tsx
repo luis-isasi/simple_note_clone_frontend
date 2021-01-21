@@ -11,7 +11,7 @@ const DeleteNote = () => {
 
   const [deleteNote] = useMutation(DELETE_NOTE);
 
-  console.log(noteData.note);
+  // console.log(noteData.note);
   const onClick = () => {
     deleteNote({ variables: { id: noteData.note.id } });
   };

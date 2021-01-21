@@ -1,0 +1,13 @@
+fragment NewNote on Note {
+  id
+  text
+  user {
+    id
+    email
+  }
+  tags {
+    name
+  }
+}
+
+

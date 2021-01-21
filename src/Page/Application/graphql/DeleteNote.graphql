@@ -1,7 +1,8 @@
+#import "./NoteFragment.graphql"
 mutation DeleteNote (
   $id: ID!
 ){
   deleteNote(id: $id){
-    id
+    ...NewNote
   }
 }

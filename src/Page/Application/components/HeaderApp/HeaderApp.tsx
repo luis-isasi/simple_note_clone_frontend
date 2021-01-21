@@ -8,17 +8,15 @@ import InformationNote from './InformationNote';
 import Share from './Share';
 import { colorIcon } from '../../StylesApp';
 
-const HeaderApp = () => {
+const HeaderApp = (props) => {
   return (
-    <Header>
-      <DivLeft>
-        <ToggleSidebar />
-      </DivLeft>
-      <DivRight>
+    <Header className={props.className}>
+      <ToggleSidebar />
+      <DivOptions>
         <Share />
         <DeleteNote />
         <InformationNote />
-      </DivRight>
+      </DivOptions>
     </Header>
   );
 };
@@ -37,30 +35,18 @@ const styleIcon = css`
   cursor: pointer;
 `;
 
-const Header = styled.header`
+const Header = styled.header.attrs((props) => ({
+  className: props.className,
+}))`
   background-color: #ffffff;
   ${flexRowCenter}
   justify-content: space-between;
-
   * {
     ${colorIcon}
   }
 `;
 
-const DivLeft = styled.div`
-  ${flexRowCenter}
-  width: 36px;
-  height: 36px;
-  margin-left: 16px;
-  transform: rotate(90deg);
-
-  * {
-    ${styleIcon};
-    ${flexRowCenter};
-  }
-`;
-
-const DivRight = styled.div`
+const DivOptions = styled.div`
   ${flexRowCenter}
   width: 170px;
   height: 36px;

@@ -1,31 +1,44 @@
 import * as React from 'react';
 
+import debounce from 'lodash/debounce';
 import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useQuery } from '@apollo/client';
 
-import { useNoteContext } from '../../context/NoteContext';
-import SEARCH_NOTE from '../../graphql/SearchNote.graphql';
+import { useNoteContext } from '../../../../../context/NoteContext';
+import GET_NOTES from 'GraphqlApp/SearchNote.graphql';
 
 const Search = () => {
   const noteData = useNoteContext();
+  const [searchGraphqlVariable, setSearchGV] = React.useState('');
   const [search, setSearch] = React.useState('');
 
-  const { loading, error, data } = useQuery(SEARCH_NOTE, {
-    variables: { text: search },
+  const { error, data } = useQuery(GET_NOTES, {
+    variables: { text: searchGraphqlVariable },
   });
 
-  if (search !== '' && data) noteData.setListNotes(data.notes);
-  if (!search) noteData.updateListNote();
+  React.useEffect(() => {
+    if (!error && data) {
+      // noteData.setListNotes(data.notes.reverse());
+      noteData.setListNotes(data.notes);
+    }
+  }, [data]);
 
   const onChange = (e) => {
     setSearch(e.target.value);
-    //si es que se realiza una busqueda
+    searchNote(e.target.value);
   };
 
   const onClickClear = () => {
     setSearch('');
   };
+
+  const searchNote = React.useCallback(
+    debounce((value) => {
+      setSearchGV(value);
+    }, 300),
+    []
+  );
 
   return (
     <DivSearch>

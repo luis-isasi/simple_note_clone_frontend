@@ -23,6 +23,9 @@
       "Page/*": [
         "src/Page/*"
       ],
+      "GraphqlApp/*": [
+        "src/Page/Application/graphql/*"
+      ],
     }
   },
   "include": [

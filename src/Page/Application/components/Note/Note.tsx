@@ -1,18 +1,19 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
 import { useNoteContext } from 'Page/Application/context/NoteContext';
-import UPDATE_NOTE from '../../graphql/updateNote.graphql';
+import UPDATE_NOTE from '../../graphql/UpdateNote.graphql';
 
-const Note = () => {
+const Note = (props) => {
   const noteData = useNoteContext();
   const [value, setValue] = React.useState(
     noteData.note ? noteData.note.text : ''
   );
 
+  const client = useApolloClient();
   const [updateNote] = useMutation(UPDATE_NOTE);
 
   React.useEffect(() => {
@@ -42,7 +43,7 @@ const Note = () => {
   };
 
   return (
-    <Div>
+    <Div className={props.className}>
       {noteData.note ? (
         <TextArea onChange={onChange} value={value}></TextArea>
       ) : (
@@ -52,7 +53,9 @@ const Note = () => {
   );
 };
 
-const Div = styled.div`
+const Div = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
   width: 100%;
   height: 100%;
   display: flex;

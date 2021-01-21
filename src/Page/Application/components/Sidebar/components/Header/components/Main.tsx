@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { colorIcon } from '../../StylesApp';
+import { colorIcon } from '../../../../../StylesApp';
 
 const Main = () => {
   return (

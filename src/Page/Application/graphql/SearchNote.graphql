@@ -1,4 +1,6 @@
-query SearchNote (
+#import "./NoteFragment.graphql"
+
+query SearchNotes (
   $text: String!,
 ){
   notes(
@@ -10,14 +12,6 @@ query SearchNote (
       }
     }
   ) {
-    id
-    text
-    user {
-      id
-      email
-    }
-    tags {
-      name
-    }
-    }
+    ...NewNote
+  }
 }

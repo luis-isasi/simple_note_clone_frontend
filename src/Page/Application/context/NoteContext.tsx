@@ -1,15 +1,11 @@
 import * as React from 'react';
 
-import { useQuery } from '@apollo/client';
-import GET_NOTES from '../graphql/GetNotes.graphql';
-
 type NoteState = {
   note: Note;
   selectNote(note: Note): void;
   listNotes: Note[];
   setListNotes(note: Note[]): void;
-  updateListNote(): void;
-  newNote(note: Note): void;
+  addNote(note: Note): void;
 };
 
 type Note = {
@@ -29,27 +25,20 @@ export const NoteContextProvider = ({ children }) => {
   const [note, setNote] = React.useState(undefined);
   const [listNotes, setListNotes] = React.useState(undefined);
 
-  const { loading, error, data } = useQuery(GET_NOTES);
-
-  React.useEffect(() => {
-    if (data) {
-      console.log('seteando la list desde effect context');
-      setListNotes(data.notes);
-    }
-  }, [data]);
+  console.log({ note });
 
   const selectNote = (note: Note) => {
     setNote(note);
   };
 
-  const updateListNote = () => {
-    if (data && !error) {
-      setListNotes(data.notes);
-    }
-  };
-  const newNote = (note: Note) => {
-    console.log('desde newnote');
-    setListNotes([...listNotes, note]);
+  // const updateListNote = () => {
+  //   if (data && !error) {
+  //     setListNotes(data.notes);
+  //   }
+  // };
+
+  const addNote = (note: Note) => {
+    setListNotes([note, ...listNotes]);
   };
 
   return (
@@ -59,8 +48,7 @@ export const NoteContextProvider = ({ children }) => {
         selectNote,
         listNotes,
         setListNotes,
-        updateListNote,
-        newNote,
+        addNote,
       }}
     >
       {children}

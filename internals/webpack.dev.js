@@ -19,6 +19,7 @@ module.exports = {
       Images: path.resolve(__dirname, '../src/Images/'),
       Context: path.resolve(__dirname, '../src/Context/'),
       Page: path.resolve(__dirname, '../src/Page/'),
+      GraphqlApp: path.resolve(__dirname, '../src/Page/Application/graphql/'),
     },
   },
   module: {

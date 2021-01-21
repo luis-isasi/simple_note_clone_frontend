@@ -23,26 +23,29 @@ const ListNotes = () => {
           }}
           selected={note.id === idNoteSelected ? true : false}
         >
-          <p>{note.text}</p>
+          <p>{note.text || <NewNote>New Note...</NewNote>}</p>
         </BtnNote>
       );
     });
   };
 
-  if (!noteData.listNotes)
+  if (!noteData.listNotes) {
     return (
       <Ul>
         <IconAnimation style={{ fontSize: '60px' }} />
       </Ul>
     );
+  }
 
   return <Ul>{renderNotes()}</Ul>;
 };
 
+//----------Styles----------
 const Ul = styled.ul`
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-flow: column;
-  background-color: #ffffff;
 `;
 
 const BtnNote = styled.button`
@@ -82,4 +85,7 @@ const IconAnimation = styled(AutorenewIcon)`
   animation: ${rotate} 0.85s linear infinite;
 `;
 
+const NewNote = styled.strong`
+  color: #918f90;
+`;
 export default ListNotes;
