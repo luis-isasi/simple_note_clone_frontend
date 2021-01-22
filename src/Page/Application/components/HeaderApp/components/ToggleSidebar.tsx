@@ -3,17 +3,17 @@ import * as React from 'react';
 import styled from 'styled-components';
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
 
-import { useSidebarContext } from '../../../context/SidebarContext';
+import { useAppContext } from 'ContextApp/AppContext';
 import { HoverText } from 'StylesApp';
 
 const ToggleSidebar = () => {
-  const sidebarData = useSidebarContext();
+  const dataApp = useAppContext();
 
   const onClick = () => {
-    sidebarData.setSidebar(!sidebarData.state);
+    dataApp.setSidebar(!dataApp.sidebar);
   };
   return (
-    <Button onClick={onClick} hide={sidebarData.state} id="btnToggle">
+    <Button onClick={onClick} hide={dataApp.sidebar} id="btnToggle">
       <VerticalAlignBottomIcon />
     </Button>
   );

@@ -20,6 +20,9 @@
       "Context/*": [
         "src/Context/*"
       ],
+      "ContextApp/*": [
+        "src/Page/Application/context/*"
+      ],
       "Page/*": [
         "src/Page/*"
       ],

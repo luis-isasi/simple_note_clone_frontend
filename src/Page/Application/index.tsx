@@ -1,16 +1,14 @@
 import * as React from 'react';
 
-import { NoteContextProvider } from './context/NoteContext';
-import { SidebarContextProvider } from './context/SidebarContext';
+import { AppContextProvider } from './context/AppContext';
+
 import Application from './Application';
 
 const index = () => {
   return (
-    <NoteContextProvider>
-      <SidebarContextProvider>
-        <Application />
-      </SidebarContextProvider>
-    </NoteContextProvider>
+    <AppContextProvider>
+      <Application />
+    </AppContextProvider>
   );
 };
 

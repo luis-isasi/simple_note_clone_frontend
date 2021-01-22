@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 import { useQuery } from '@apollo/client';
 
-import { useNoteContext } from '../../context/NoteContext';
-import GET_NOTES from 'GraphqlApp/SearchNote.graphql';
+import { useNoteListContext } from './context/NoteListContext';
+import { useAppContext } from 'ContextApp/AppContext';
+import GET_NOTES from 'GraphqlApp/GetNote.graphql';
 import Header from './components/Header';
 import ListNotes from './components/ListNotes';
 
 const Sidebar = (props) => {
-  const noteData = useNoteContext();
+  const noteListData = useNoteListContext();
+  const appData = useAppContext();
   const [searchGraphqlVariable, setSearchGV] = React.useState('');
   const [search, setSearch] = React.useState('');
 
@@ -21,9 +23,9 @@ const Sidebar = (props) => {
   //verificamos que no haya un error y haya data para setearlo en el context
   React.useEffect(() => {
     if (!error && data) {
-      noteData.setListNotes(data.notes);
+      noteListData.setListNotes(data.notes);
     }
-  }, [error, data, noteData]);
+  }, [error, data, noteListData]);
 
   const onChange = (event) => {
     //extraremos el value
@@ -54,8 +56,10 @@ const Sidebar = (props) => {
         loading={loading}
         error={error}
         listNotes={loading ? undefined : data.notes}
-        note={noteData.note}
-        selectNote={noteData.selectNote}
+        note={appData.note}
+        selectNote={appData.setNote}
+        searchGraphqlVariable={searchGraphqlVariable}
+        onClickClear={onClickClear}
       />
     </Div>
   );
@@ -65,6 +69,7 @@ const Div = styled.div.attrs((props) => ({
   className: props.className,
 }))`
   display: flex;
+  min-height: 100vh;
   flex-flow: column;
 `;
 export default Sidebar;

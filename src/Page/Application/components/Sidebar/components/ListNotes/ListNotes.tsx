@@ -5,15 +5,40 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 import CreateNote from '../Header/components/CreateNote';
 
-const ListNotes = ({ loading, error, listNotes, note, selectNote }) => {
+const ListNotes = ({
+  loading,
+  error,
+  listNotes,
+  note,
+  selectNote,
+  searchGraphqlVariable,
+  onClickClear,
+}) => {
   const idNoteSelected = note ? note.id : '';
+  console.log({ searchGraphqlVariable });
+
   const renderNotes = () => {
+    if (searchGraphqlVariable && !listNotes.length) {
+      console.log('SE HA REALIZADO UNA BUSQUEDA SIN RESULTADOS');
+      return (
+        <DivNoNotes>
+          <NoNotes>No Results</NoNotes>
+          <CreateNote
+            hover={false}
+            searchGraphqlVariable={searchGraphqlVariable}
+            onClickClear={onClickClear}
+          >
+            {`Create a new note with "${searchGraphqlVariable}"`}
+          </CreateNote>
+        </DivNoNotes>
+      );
+    }
     //si no hay Notas a renderizar le avisamos y le damos la opcion de crear una
     if (!listNotes.length) {
       return (
         <DivNoNotes>
           <NoNotes>No Notes</NoNotes>
-          <CreateNote>Create a new note</CreateNote>
+          <CreateNote hover={false}>Create a new note</CreateNote>
         </DivNoNotes>
       );
     }

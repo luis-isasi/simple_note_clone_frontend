@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { useMutation } from '@apollo/client';
 
-import { useNoteContext } from '../../../context/NoteContext';
+import { useAppContext } from 'ContextApp/AppContext';
 import DELETE_NOTE from '../../../graphql/DeleteNote.graphql';
 import { HoverText } from 'StylesApp';
 
 const DeleteNote = () => {
-  const noteData = useNoteContext();
+  const appData = useAppContext();
 
   const [deleteNote] = useMutation(DELETE_NOTE, {
     update(cache, { data: deleteNote }) {
@@ -24,8 +24,8 @@ const DeleteNote = () => {
   });
 
   const onClick = () => {
-    deleteNote({ variables: { id: noteData.note.id } });
-    noteData.selectNote(undefined);
+    deleteNote({ variables: { id: appData.note.id } });
+    appData.setNote(undefined);
   };
   return (
     <Button onClick={onClick}>

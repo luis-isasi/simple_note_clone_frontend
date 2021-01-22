@@ -1,19 +1,18 @@
 import * as React from 'react';
 
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import Sidebar from './components/Sidebar';
 import HeaderApp from './components/HeaderApp';
 import Note from './components/Note';
-
-import { useSidebarContext } from './context/SidebarContext';
+import { useAppContext } from 'ContextApp/AppContext';
 
 const App = () => {
-  const sidebarData = useSidebarContext();
+  const dataApp = useAppContext();
 
   return (
-    <Div toggleSidebar={sidebarData.state}>
-      {sidebarData.state && <Sidebar className="sidebar" />}
+    <Div toggleSidebar={dataApp.sidebar}>
+      {dataApp.sidebar && <Sidebar className="sidebar" />}
       <HeaderApp className="headerApp" />
       <Note className="note" />
     </Div>

@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 type NoteState = {
-  note: Note;
-  selectNote(note: Note): void;
   listNotes: Note[];
   setListNotes(note: Note[]): void;
   addNote(note: Note): void;
@@ -19,41 +17,34 @@ type User = {
   email: string;
 };
 
-const NoteContext = React.createContext<NoteState | undefined>(undefined);
+const NoteListContext = React.createContext<NoteState | undefined>(undefined);
 
 export const NoteContextProvider = ({ children }) => {
-  const [note, setNote] = React.useState(undefined);
   const [listNotes, setListNotes] = React.useState(undefined);
-
-  const selectNote = (note: Note) => {
-    setNote(note);
-  };
 
   const addNote = (note: Note) => {
     setListNotes([note, ...listNotes]);
   };
 
   return (
-    <NoteContext.Provider
+    <NoteListContext.Provider
       value={{
-        note,
-        selectNote,
         listNotes,
         setListNotes,
         addNote,
       }}
     >
       {children}
-    </NoteContext.Provider>
+    </NoteListContext.Provider>
   );
 };
 
-export const useNoteContext = () => {
-  const noteData = React.useContext(NoteContext);
+export const useNoteListContext = () => {
+  const noteListData = React.useContext(NoteListContext);
 
-  if (noteData === undefined) {
+  if (noteListData === undefined) {
     throw new Error('useNoteContext must be within the NoteContextProvide.');
   }
 
-  return noteData;
+  return noteListData;
 };

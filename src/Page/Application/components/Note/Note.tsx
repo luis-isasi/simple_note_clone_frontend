@@ -4,25 +4,25 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
-import { useNoteContext } from 'Page/Application/context/NoteContext';
+import { useAppContext } from 'ContextApp/AppContext';
 import UPDATE_NOTE from '../../graphql/UpdateNote.graphql';
 
 const Note = (props) => {
-  const noteData = useNoteContext();
+  const appData = useAppContext();
   const [value, setValue] = React.useState(
-    noteData.note ? noteData.note.text : ''
+    appData.note ? appData.note.text : ''
   );
   const [updateNote] = useMutation(UPDATE_NOTE);
 
   //accedemos al textarea de Note
 
   React.useEffect(() => {
-    if (noteData.note) {
-      setValue(noteData.note.text);
+    if (appData.note) {
+      setValue(appData.note.text);
       const textAreaNote = document.querySelector('#textNote');
       textAreaNote.focus();
     }
-  }, [noteData.note]);
+  }, [appData.note]);
 
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
@@ -41,12 +41,12 @@ const Note = (props) => {
       target: { value: _value },
     } = e;
     setValue(_value);
-    onUpdateNodeDebounce(noteData.note.id, _value);
+    onUpdateNodeDebounce(appData.note.id, _value);
   };
 
   return (
     <Div className={props.className}>
-      {noteData.note ? (
+      {appData.note ? (
         <TextArea
           onChange={onChange}
           value={value}

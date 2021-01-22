@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import { useMutation } from '@apollo/client';
 
@@ -8,10 +8,16 @@ import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
 import { colorIcon } from '../../../../../StylesApp';
 import { HoverText } from 'StylesApp';
-import { useNoteContext } from '../../../../../context/NoteContext';
+import { useAppContext } from 'ContextApp/AppContext';
 
-const CreateNote = ({ children }) => {
-  const noteData = useNoteContext();
+const CreateNote = ({
+  children,
+  hover,
+  searchGraphqlVariable,
+  onClickClear,
+}) => {
+  const dataApp = useAppContext();
+
   const [createNote, { data: _dataMutation }] = useMutation(CREATE_NOTE, {
     update(cache, { data: { createNote } }) {
       cache.modify({
@@ -27,7 +33,8 @@ const CreateNote = ({ children }) => {
         },
       });
       // outline: none;
-      noteData.selectNote(createNote);
+      dataApp.setNote(createNote);
+      onClickClear();
     },
     // refetchQueries: [
     //   {
@@ -42,15 +49,16 @@ const CreateNote = ({ children }) => {
   // React.useEffect(() => {
   //   if (_dataMutation) {
   //     console.log('seteando la list desde effect CreateNote');
-  //     noteData.addNote(_dataMutation.createNote);
-  //     noteData.selectNote(_dataMutation.createNote);
+  //     dataApp.addNote(_dataMutation.createNote);
+  //     dataApp.selectNote(_dataMutation.createNote);
   //   }
   // }, [_dataMutation]);
 
   const onClick = () => {
+    let _text = searchGraphqlVariable || '';
     createNote({
       variables: {
-        text: '',
+        text: _text,
       },
     }).then((response) => {
       // const { notes } = apolloClient.readQuery({
@@ -68,20 +76,17 @@ const CreateNote = ({ children }) => {
       //     notes: [...notes, newNote],
       //   },
       // });
-      // noteData.selectNote(newNote);
+      // dataApp.selectNote(newNote);
     });
   };
   return (
-    <BtnNewNote onClick={onClick}>{children || <NoteAddIcon />}</BtnNewNote>
+    <BtnNewNote onClick={onClick} hover={hover}>
+      {children || <NoteAddIcon />}
+    </BtnNewNote>
   );
 };
 
-const BtnNewNote = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  ${colorIcon}
-
+const hover = css`
   &:hover {
     &:before {
       content: 'New Note';
@@ -89,4 +94,14 @@ const BtnNewNote = styled.button`
     }
   }
 `;
+
+const BtnNewNote = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  ${colorIcon}
+
+  ${(props) => (props.hover === undefined ? hover : null)};
+`;
+
 export default React.memo(CreateNote);
