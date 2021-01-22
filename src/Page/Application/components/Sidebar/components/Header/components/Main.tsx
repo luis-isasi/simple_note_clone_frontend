@@ -7,8 +7,11 @@ import { colorIcon } from '../../../../../StylesApp';
 import { HoverText } from 'StylesApp';
 
 const Main = () => {
+  const onClick = () => {
+    console.log('ONCLICK');
+  };
   return (
-    <BtnMain>
+    <BtnMain onClick={onClick}>
       <MenuIcon />
     </BtnMain>
   );
@@ -27,4 +30,4 @@ const BtnMain = styled.button`
     }
   }
 `;
-export default Main;
+export default React.memo(Main);

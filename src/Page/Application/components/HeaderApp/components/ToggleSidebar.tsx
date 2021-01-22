@@ -9,8 +9,6 @@ import { HoverText } from 'StylesApp';
 const ToggleSidebar = () => {
   const sidebarData = useSidebarContext();
 
-  const btn = document.querySelector('#btnToggle');
-  console.log({ btn });
   const onClick = () => {
     sidebarData.setSidebar(!sidebarData.state);
   };

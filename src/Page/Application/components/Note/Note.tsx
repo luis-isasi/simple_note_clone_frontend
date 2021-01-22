@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
 import { useNoteContext } from 'Page/Application/context/NoteContext';
@@ -12,13 +12,15 @@ const Note = (props) => {
   const [value, setValue] = React.useState(
     noteData.note ? noteData.note.text : ''
   );
-
-  const client = useApolloClient();
   const [updateNote] = useMutation(UPDATE_NOTE);
+
+  //accedemos al textarea de Note
 
   React.useEffect(() => {
     if (noteData.note) {
       setValue(noteData.note.text);
+      const textAreaNote = document.querySelector('#textNote');
+      textAreaNote.focus();
     }
   }, [noteData.note]);
 
@@ -45,13 +47,20 @@ const Note = (props) => {
   return (
     <Div className={props.className}>
       {noteData.note ? (
-        <TextArea onChange={onChange} value={value}></TextArea>
+        <TextArea
+          onChange={onChange}
+          value={value}
+          autoFocus
+          id="textNote"
+        ></TextArea>
       ) : (
           <P>Selecciona una nota para comenzar a editar 📝</P>
         )}
     </Div>
   );
 };
+
+//--------------styled-----------------
 
 const Div = styled.div.attrs((props) => ({
   className: props.className,
@@ -69,20 +78,17 @@ const P = styled.p`
   font-weight: 300;
 `;
 
-const TextArea = styled.textarea`
+const TextArea = styled.textarea.attrs((props) => ({
+  id: props.id,
+}))`
   width: 80%;
   max-width: 1200px;
   height: 90%;
   border: none;
   resize: none;
-  /* margin-top: 50px; */
   font-size: 18px;
   font-weight: 300;
   font-family: inherit;
-
-  &:focus {
-    border: 1px solid white;
-  }
 `;
 
 export default Note;

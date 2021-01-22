@@ -25,17 +25,9 @@ export const NoteContextProvider = ({ children }) => {
   const [note, setNote] = React.useState(undefined);
   const [listNotes, setListNotes] = React.useState(undefined);
 
-  console.log({ note });
-
   const selectNote = (note: Note) => {
     setNote(note);
   };
-
-  // const updateListNote = () => {
-  //   if (data && !error) {
-  //     setListNotes(data.notes);
-  //   }
-  // };
 
   const addNote = (note: Note) => {
     setListNotes([note, ...listNotes]);

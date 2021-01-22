@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
@@ -10,8 +10,7 @@ import { colorIcon } from '../../../../../StylesApp';
 import { HoverText } from 'StylesApp';
 import { useNoteContext } from '../../../../../context/NoteContext';
 
-const CreateNote = () => {
-  // const apolloClient = useApolloClient();
+const CreateNote = ({ children }) => {
   const noteData = useNoteContext();
   const [createNote, { data: _dataMutation }] = useMutation(CREATE_NOTE, {
     update(cache, { data: { createNote } }) {
@@ -73,9 +72,7 @@ const CreateNote = () => {
     });
   };
   return (
-    <BtnNewNote onClick={onClick}>
-      <NoteAddIcon />
-    </BtnNewNote>
+    <BtnNewNote onClick={onClick}>{children || <NoteAddIcon />}</BtnNewNote>
   );
 };
 
@@ -89,8 +86,7 @@ const BtnNewNote = styled.button`
     &:before {
       content: 'New Note';
       ${HoverText};
-      /* left: 80px;   */
     }
   }
 `;
-export default CreateNote;
+export default React.memo(CreateNote);

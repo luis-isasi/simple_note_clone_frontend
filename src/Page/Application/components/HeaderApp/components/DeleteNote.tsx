@@ -11,11 +11,21 @@ import { HoverText } from 'StylesApp';
 const DeleteNote = () => {
   const noteData = useNoteContext();
 
-  const [deleteNote] = useMutation(DELETE_NOTE);
-  console.log('asfasfa');
+  const [deleteNote] = useMutation(DELETE_NOTE, {
+    update(cache, { data: deleteNote }) {
+      cache.modify({
+        fields: {
+          notes(existingNotes, { DELETE }) {
+            return DELETE;
+          },
+        },
+      });
+    },
+  });
 
   const onClick = () => {
     deleteNote({ variables: { id: noteData.note.id } });
+    noteData.selectNote(undefined);
   };
   return (
     <Button onClick={onClick}>
