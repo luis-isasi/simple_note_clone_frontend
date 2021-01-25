@@ -18,6 +18,11 @@ const CreateNote = ({
 }) => {
   const dataApp = useAppContext();
 
+  // console.log({ onClickClear });
+  // console.log({ searchGraphqlVariable });
+  // console.log({ children });
+  // console.log({ hover });
+
   const [createNote, { data: _dataMutation }] = useMutation(CREATE_NOTE, {
     update(cache, { data: { createNote } }) {
       cache.modify({
@@ -34,13 +39,13 @@ const CreateNote = ({
       });
       // outline: none;
       dataApp.setNote(createNote);
-      onClickClear();
+      if (onClickClear) onClickClear();
     },
     // refetchQueries: [
     //   {
     //     query: GET_NOTES,
     //     variables: {
-    //       text: '',
+    // text: '',
     //     },
     //   },
     // ],

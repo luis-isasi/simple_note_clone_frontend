@@ -14,12 +14,15 @@ const ListNotes = ({
   searchGraphqlVariable,
   onClickClear,
 }) => {
-  const idNoteSelected = note ? note.id : '';
-  console.log({ searchGraphqlVariable });
+  const noteSelectedId = note ? note.id : '';
+
+  // console.log({ listNotes });
+  // console.log({ note });
 
   const renderNotes = () => {
+    console.log({ listNotes });
+
     if (searchGraphqlVariable && !listNotes.length) {
-      console.log('SE HA REALIZADO UNA BUSQUEDA SIN RESULTADOS');
       return (
         <DivNoNotes>
           <NoNotes>No Results</NoNotes>
@@ -50,7 +53,7 @@ const ListNotes = ({
         onClick={() => {
           selectNote(note);
         }}
-        selected={note.id === idNoteSelected ? true : false}
+        selected={note.id === noteSelectedId}
       >
         <div>
           <p>{note.text || <NewNote>New Note...</NewNote>}</p>

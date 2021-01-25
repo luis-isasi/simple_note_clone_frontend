@@ -17,7 +17,7 @@ const Header = ({ search, onChange, onClickClear }) => {
 };
 
 const Div = styled.div`
-  min-height: 56px;
+  min-height: 55px;
   width: 100%;
   display: flex;
   flex-flow: row;

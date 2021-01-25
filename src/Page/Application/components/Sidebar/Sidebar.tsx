@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 import { useQuery } from '@apollo/client';
 
-import { useNoteListContext } from './context/NoteListContext';
+// import { useNoteListContext } from './context/NoteListContext';
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNote.graphql';
 import Header from './components/Header';
 import ListNotes from './components/ListNotes';
 
 const Sidebar = (props) => {
-  const noteListData = useNoteListContext();
+  // const noteListData = useNoteListContext();
   const appData = useAppContext();
+
   const [searchGraphqlVariable, setSearchGV] = React.useState('');
   const [search, setSearch] = React.useState('');
 
@@ -21,11 +22,11 @@ const Sidebar = (props) => {
   });
 
   //verificamos que no haya un error y haya data para setearlo en el context
-  React.useEffect(() => {
-    if (!error && data) {
-      noteListData.setListNotes(data.notes);
-    }
-  }, [error, data, noteListData]);
+  // React.useEffect(() => {
+  //   if (!error && data) {
+  //     noteListData.setListNotes(data.notes);
+  //   }
+  // }, [error, data, noteListData]);s
 
   const onChange = (event) => {
     //extraremos el value
@@ -69,7 +70,8 @@ const Div = styled.div.attrs((props) => ({
   className: props.className,
 }))`
   display: flex;
-  min-height: 100vh;
   flex-flow: column;
+  min-height: 100vh;
+  border-right: 1px solid #c3c4c7;
 `;
 export default Sidebar;

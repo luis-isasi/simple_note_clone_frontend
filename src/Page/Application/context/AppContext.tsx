@@ -30,6 +30,8 @@ export const AppContextProvider = ({ children }) => {
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
 
+  console.log({ note });
+
   return (
     <AppContext.Provider
       value={{
