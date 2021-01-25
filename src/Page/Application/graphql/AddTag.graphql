@@ -1,0 +1,13 @@
+mutation AddTag(
+  $name: String!
+  $noteId: ID!
+){
+  createTag(name: $name, noteId: $noteId){
+    id
+    name
+    user {
+      id
+      email
+    }
+  }
+}

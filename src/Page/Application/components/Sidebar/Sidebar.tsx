@@ -72,6 +72,6 @@ const Div = styled.div.attrs((props) => ({
   display: flex;
   flex-flow: column;
   min-height: 100vh;
-  border-right: 1px solid #c3c4c7;
+  border-right: 1px solid #d6d4d4;
 `;
 export default Sidebar;

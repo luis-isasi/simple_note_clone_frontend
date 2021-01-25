@@ -6,7 +6,12 @@ fragment NewNote on Note {
     email
   }
   tags {
+    id
     name
+    notes {
+    id
+    text
+    }
   }
 }
 

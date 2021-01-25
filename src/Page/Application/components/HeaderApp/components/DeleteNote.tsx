@@ -13,13 +13,11 @@ const DeleteNote = () => {
 
   const [deleteNote] = useMutation(DELETE_NOTE, {
     update(cache, { data: { deleteNote } }) {
-      console.log({ deleteNote });
       cache.modify({
         // id: cache.identify(deleteNote),
         fields: {
           notes(existingNotes, { DELETE }) {
-            console.log({ existingNotes });
-
+            // console.log({ existingNotes });
             return DELETE;
           },
         },

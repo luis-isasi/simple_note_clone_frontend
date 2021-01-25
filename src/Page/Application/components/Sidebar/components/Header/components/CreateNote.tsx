@@ -18,11 +18,7 @@ const CreateNote = ({
 }) => {
   const dataApp = useAppContext();
 
-  // console.log({ onClickClear });
-  // console.log({ searchGraphqlVariable });
-  // console.log({ children });
-  // console.log({ hover });
-
+  //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote, { data: _dataMutation }] = useMutation(CREATE_NOTE, {
     update(cache, { data: { createNote } }) {
       cache.modify({

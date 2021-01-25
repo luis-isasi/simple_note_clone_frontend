@@ -13,17 +13,6 @@ const App = () => {
   return (
     <Div toggleSidebar={dataApp.sidebar}>
       {dataApp.sidebar && <Sidebar className="sidebar" />}
-      {/* <div style={{ backgroundColor: 'white' }} className="sidebar">
-        SIDEBAR
-      </div>
-      <div style={{ backgroundColor: 'white' }} className="headerApp">
-        HEADER app
-      </div>
-      <div style={{ backgroundColor: 'white' }} className="note">
-        {' '}
-        NOTE{' '}
-      </div> */}
-
       <HeaderApp className="headerApp" />
       <Note className="note" />
     </Div>
@@ -43,7 +32,7 @@ const Div = styled.div`
     props.toggleSidebar ? toggleSidebarTrue : toggleSidebarfalse};
   grid-template-rows: 56px 1fr;
   grid-template-columns: ${(props) =>
-    props.toggleSidebar ? ' 325px 1fr' : '1fr'};
+    props.toggleSidebar ? ' 328px 1fr' : '1fr'};
 
   .sidebar {
     grid-area: sidebar;
@@ -51,7 +40,7 @@ const Div = styled.div`
 
   .headerApp {
     grid-area: headerApp;
-    border-bottom: 1px solid #c3c4c7;
+    border-bottom: 1px solid #d6d4d4;
   }
   .note {
     grid-area: note;

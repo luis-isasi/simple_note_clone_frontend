@@ -1,23 +1,65 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
+import { useMutation, gql } from '@apollo/client';
+
+import ADD_TAG from 'GraphqlApp/AddTag.graphql';
+import { useAppContext } from 'ContextApp/AppContext';
 
 const AddTag = () => {
+  const { note } = useAppContext();
   const [tag, setTag] = React.useState('');
 
-  const tags = ['mouse', 'react'];
+  const [createTag] = useMutation(ADD_TAG, {
+    // update(cache, { data: { createTag } }) {
+    //   cache.modify({
+    //     fields: {
+    //       tags(existingTags = []) {
+    //         const tag = cache.writeFragment({
+    //           data: createTag,
+    //           fragment: gql`
+    //             fragment NewTag on Tag {
+    //               id
+    //               name
+    //               user {
+    //                 id
+    //                 email
+    //               }
+    //             }
+    //           `,
+    //         });
+    //         return [...existingTags, tag];
+    //       },
+    //     },
+    //   });
+    // },
+  });
+
   const renderTags = () => {
-    return tags.map((tag, index) => <BtnTag key={index}>{tag}</BtnTag>);
+    return note.tags.map((tag) => (
+      <BtnTag key={tag.id} onClick={deleteTag}>
+        {tag.name}
+      </BtnTag>
+    ));
   };
 
+  const deleteTag = () => {
+    console.log('elminando tag');
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log({ value: tag });
+    //creamos nuevo tag con el su name e id
+    createTag({
+      variables: {
+        name: tag,
+        noteId: note.id,
+      },
+    });
   };
 
   return (
     <DivTag>
-      <UlTag>{renderTags()}</UlTag>
+      {renderTags()}
       <form onSubmit={onSubmit}>
         <InputTag
           placeholder="Add a tag"
@@ -33,32 +75,43 @@ const AddTag = () => {
 
 //--------------styled-----------------
 const DivTag = styled.div`
+  box-sizing: border-box;
   width: 100%;
+  min-height: 45px;
+  height: auto;
+  max-height: 60px;
+  padding: 0px 10px;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   align-items: center;
-`;
+  /* background-color: gray; */
+  overflow-y: scroll;
 
-const UlTag = styled.ul`
-  width: auto;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  &::-webkit-scrollbar {
+    /* -webkit-appearance: none; */
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c2c1c1;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
 `;
 
 const BtnTag = styled.button`
   border-radius: 16px;
-  background-color: #d4d5d8;
+  background-color: #dcdcde;
   color: #3f4042;
   border: none;
-  padding: 4px 8px;
+  padding: 3px 14px;
+  margin: 4px;
   margin-left: 4px;
+  cursor: pointer;
 `;
+
 const InputTag = styled.input`
   border: none;
-  height: 32px;
+  height: 18px;
   padding: 6px 10px;
 `;
 

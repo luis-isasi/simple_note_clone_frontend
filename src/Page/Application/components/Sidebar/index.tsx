@@ -1,14 +1,9 @@
 import * as React from 'react';
 
-// import { NoteListContextProvider } from './context/NoteListContext';
 import Sidebar from './Sidebar';
 
 const index = () => {
-  return (
-    // <NoteListContextProvider>
-    <Sidebar />
-    // </NoteListContextProvider>
-  );
+  return <Sidebar />;
 };
 
 export default index;
