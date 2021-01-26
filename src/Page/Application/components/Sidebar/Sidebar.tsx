@@ -4,14 +4,12 @@ import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 import { useQuery } from '@apollo/client';
 
-// import { useNoteListContext } from './context/NoteListContext';
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNote.graphql';
 import Header from './components/Header';
 import ListNotes from './components/ListNotes';
 
-const Sidebar = (props) => {
-  // const noteListData = useNoteListContext();
+const Sidebar = ({ className }) => {
   const appData = useAppContext();
 
   const [searchGraphqlVariable, setSearchGV] = React.useState('');
@@ -20,13 +18,6 @@ const Sidebar = (props) => {
   const { loading, error, data } = useQuery(GET_NOTES, {
     variables: { text: searchGraphqlVariable },
   });
-
-  //verificamos que no haya un error y haya data para setearlo en el context
-  // React.useEffect(() => {
-  //   if (!error && data) {
-  //     noteListData.setListNotes(data.notes);
-  //   }
-  // }, [error, data, noteListData]);s
 
   const onChange = (event) => {
     //extraremos el value
@@ -51,7 +42,7 @@ const Sidebar = (props) => {
   );
 
   return (
-    <Div className={props.className}>
+    <Div className={className}>
       <Header search={search} onChange={onChange} onClickClear={onClickClear} />
       <ListNotes
         loading={loading}
@@ -69,6 +60,8 @@ const Sidebar = (props) => {
 const Div = styled.div.attrs((props) => ({
   className: props.className,
 }))`
+  flex-basis: 328px;
+  max-width: 328px;
   display: flex;
   flex-flow: column;
   min-height: 100vh;

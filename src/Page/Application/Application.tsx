@@ -2,53 +2,93 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import Main from './components/Main';
+import Info from './components/Info';
 import Sidebar from './components/Sidebar';
 import HeaderApp from './components/HeaderApp';
 import Note from './components/Note';
 import { useAppContext } from 'ContextApp/AppContext';
+import {
+  MainActive,
+  MainNoActive,
+  InfoActive,
+  InfoNoActive,
+  SidebarNoActive,
+} from './StylesApp';
 
 const App = () => {
-  const dataApp = useAppContext();
+  const { main, info, sidebar } = useAppContext();
 
   return (
-    <Div toggleSidebar={dataApp.sidebar}>
-      {dataApp.sidebar && <Sidebar className="sidebar" />}
-      <HeaderApp className="headerApp" />
-      <Note className="note" />
-    </Div>
+    <DivApp>
+      {main && <Main className="mainActive" id="main" />}
+      <Div className={(main || info) && 'hideApp'}>
+        <Sidebar className={!sidebar && 'sidebarNoActive'} />
+        <Content>
+          <HeaderApp className="headerApp" />
+          <Note className="note" />
+        </Content>
+      </Div>
+      {info && <Info className="infoActive" id="info" />}
+    </DivApp>
   );
 };
 
-const toggleSidebarTrue = `'sidebar headerApp'
-'sidebar note'`;
+//---------------STYLE------------
 
-const toggleSidebarfalse = `'headerApp' 'note'`;
-
-const Div = styled.div`
+const DivApp = styled.div`
+  display: flex;
+  flex-flow: row;
   height: 100vh;
   width: 100%;
-  display: grid;
-  grid-template-areas: ${(props) =>
-    props.toggleSidebar ? toggleSidebarTrue : toggleSidebarfalse};
-  grid-template-rows: 56px 1fr;
-  grid-template-columns: ${(props) =>
-    props.toggleSidebar ? ' 328px 1fr' : '1fr'};
+  overflow: hidden;
 
-  .sidebar {
-    grid-area: sidebar;
+  .hideApp {
+    opacity: 0.5;
+    * {
+      pointer-events: none;
+    }
   }
 
-  .headerApp {
-    grid-area: headerApp;
-    border-bottom: 1px solid #d6d4d4;
-  }
-  .note {
-    grid-area: note;
+  .mainActive {
+    animation: ${MainActive} 0.2s linear;
+    margin-left: 0px;
   }
 
-  div {
-    /* background-color: #ffffff; */
+  .mainNoActive {
+    animation: ${MainNoActive} 0.2s linear;
+    margin-left: -260px;
   }
+
+  .infoActive {
+    animation: ${InfoActive} 0.2s linear;
+    margin-right: 0px;
+  }
+
+  .infoNoActive {
+    animation: ${InfoNoActive} 0.2s linear;
+    margin-right: -328px;
+  }
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-flow: row;
+  height: 100%;
+  width: 100%;
+  /* min-width: 100%; */
+
+  .sidebarNoActive {
+    margin-left: -328px;
+    animation: ${SidebarNoActive} 0.25s;
+  }
+`;
+
+const Content = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
 `;
 
 export default App;

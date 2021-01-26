@@ -84,11 +84,9 @@ const DivTag = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  /* background-color: gray; */
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
     width: 12px;
   }
   &::-webkit-scrollbar-thumb {

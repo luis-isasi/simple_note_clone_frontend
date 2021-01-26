@@ -70,18 +70,11 @@ const Div = styled.div.attrs((props) => ({
   className: props.className,
 }))`
   width: 100%;
-  height: 100%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`;
-
-const P = styled.p`
-  font-family: inherit;
-  font-size: 22px;
-  font-weight: 300;
-  margin: auto;
 `;
 
 const TextArea = styled.textarea.attrs((props) => ({
@@ -107,6 +100,15 @@ const TextArea = styled.textarea.attrs((props) => ({
     border-radius: 10px;
     border: 3px solid #ffffff;
   }
+`;
+
+const P = styled.p`
+  padding: 14px;
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  text-align: center;
+  margin: auto;
 `;
 
 export default Note;

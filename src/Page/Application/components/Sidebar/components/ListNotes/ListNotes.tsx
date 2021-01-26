@@ -16,12 +16,7 @@ const ListNotes = ({
 }) => {
   const noteSelectedId = note ? note.id : '';
 
-  // console.log({ listNotes });
-  // console.log({ note });
-
   const renderNotes = () => {
-    console.log({ listNotes });
-
     if (searchGraphqlVariable && !listNotes.length) {
       return (
         <DivNoNotes>

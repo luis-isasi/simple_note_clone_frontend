@@ -4,10 +4,17 @@ import styled from 'styled-components';
 import InfoIcon from '@material-ui/icons/Info';
 
 import { HoverText } from 'StylesApp';
+import { useAppContext } from 'ContextApp/AppContext';
 
 const InformationNote = () => {
+  const AppData = useAppContext();
+
+  const onClick = () => {
+    //mostrando info de la Note seleccionada
+    AppData.setInfo(true);
+  };
   return (
-    <Button>
+    <Button onClick={onClick}>
       <InfoIcon />
     </Button>
   );

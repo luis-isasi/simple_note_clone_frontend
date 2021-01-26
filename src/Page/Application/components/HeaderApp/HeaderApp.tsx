@@ -38,9 +38,11 @@ const styleIcon = css`
 const Header = styled.header.attrs((props) => ({
   className: props.className,
 }))`
-  background-color: #ffffff;
   ${flexRowCenter}
+  background-color: #ffffff;
   justify-content: space-between;
+  flex-basis: 55px;
+  border-bottom: 1px solid #d6d4d4;
   * {
     ${colorIcon}
   }
@@ -49,7 +51,6 @@ const Header = styled.header.attrs((props) => ({
 const DivOptions = styled.div`
   ${flexRowCenter}
   width: 170px;
-  height: 36px;
 
   * {
     ${styleIcon}

@@ -5,11 +5,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { colorIcon } from '../../../../../StylesApp';
 import { HoverText } from 'StylesApp';
+import { useAppContext } from 'ContextApp/AppContext';
 
 const Main = () => {
+  const AppData = useAppContext();
+
   const onClick = () => {
-    console.log('ONCLICK');
+    //Mostrando Main
+    AppData.setMain(true);
   };
+
   return (
     <BtnMain onClick={onClick}>
       <MenuIcon />
