@@ -27,7 +27,7 @@ const AppContext = React.createContext<AppState | undefined>(undefined);
 export const AppContextProvider = ({ children }) => {
   const [note, setNote] = React.useState(undefined);
   const [sidebar, setSidebar] = React.useState(true);
-  const [main, setMain] = React.useState(false);
+  const [main, setMain] = React.useState(true);
   const [info, setInfo] = React.useState(false);
 
   return (

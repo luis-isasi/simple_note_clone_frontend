@@ -4,10 +4,6 @@ import styled from 'styled-components';
 
 import { useAppContext } from 'ContextApp/AppContext';
 
-import NotesIcon from '@material-ui/icons/Notes';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-
 const Info = ({ className, id }) => {
   const AppData = useAppContext();
 
