@@ -1,8 +1,6 @@
 import { css, keyframes } from 'styled-components';
 
-export const colorIcon = css`
-  color: #3361cc;
-`;
+export const colorIcon = '#3361cc';
 
 const hoverAnimation = keyframes`
   from {

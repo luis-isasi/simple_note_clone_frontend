@@ -100,7 +100,7 @@ const BtnNewNote = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  ${colorIcon}
+  color: ${colorIcon};
 
   ${(props) => (props.hover === undefined ? hover : null)};
 `;

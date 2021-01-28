@@ -1,6 +1,9 @@
 fragment NewNote on Note {
   id
   text
+  createdAt
+  updatedAt
+  pinned
   user {
     id
     email

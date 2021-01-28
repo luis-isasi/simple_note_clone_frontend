@@ -15,6 +15,9 @@ type Note = {
   id: string;
   text: string;
   user: User;
+  createdAt: string;
+  updatedAt: string;
+  tags: Tag[];
 };
 
 type User = {
@@ -22,12 +25,18 @@ type User = {
   email: string;
 };
 
+type Tag = {
+  id: string;
+  name: string;
+  notes: Note[];
+};
+
 const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export const AppContextProvider = ({ children }) => {
   const [note, setNote] = React.useState(undefined);
   const [sidebar, setSidebar] = React.useState(true);
-  const [main, setMain] = React.useState(true);
+  const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
 
   return (

@@ -26,7 +26,7 @@ const BtnMain = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  ${colorIcon};
+  color: ${colorIcon};
 
   &:hover {
     &:before {

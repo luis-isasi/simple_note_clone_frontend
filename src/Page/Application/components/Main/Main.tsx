@@ -50,7 +50,6 @@ const Div = styled.div.attrs((props) => ({
   height: 100%;
   max-height: 100%;
   min-width: 260px;
-
   border-right: 1px solid #d6d4d4;
   display: flex;
   flex-direction: column;

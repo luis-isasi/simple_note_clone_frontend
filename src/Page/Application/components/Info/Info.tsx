@@ -3,6 +3,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { useAppContext } from 'ContextApp/AppContext';
+import InfoNote from './components/InfoNote';
+import PinNote from './components/PinNote';
+import Markdown from './components/Markdown';
 
 const Info = ({ className, id }) => {
   const AppData = useAppContext();
@@ -29,10 +32,9 @@ const Info = ({ className, id }) => {
 
   return (
     <Div className={className} id={id}>
-      <div>
-        <button>PRIMER BUTTON</button>
-        <button>SEGUNDO BUTTON</button>
-      </div>
+      <InfoNote />
+      <PinNote />
+      <Markdown />
     </Div>
   );
 };
@@ -42,17 +44,18 @@ const Div = styled.div.attrs((props) => ({
   className: props.className,
   id: props.id,
 }))`
-  background-color: skyblue;
+  border-left: 1px solid #d6d4d4;
   height: 100%;
   min-width: 320px;
 
-  div {
-    background-color: gray;
-    height: 100%;
-    width: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  * {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: normal;
   }
 `;
 export default Info;

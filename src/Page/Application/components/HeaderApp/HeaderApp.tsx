@@ -44,7 +44,7 @@ const Header = styled.header.attrs((props) => ({
   flex-basis: 55px;
   border-bottom: 1px solid #d6d4d4;
   * {
-    ${colorIcon}
+    color: ${colorIcon};
   }
 `;
 
