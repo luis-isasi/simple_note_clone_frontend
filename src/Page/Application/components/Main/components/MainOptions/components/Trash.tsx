@@ -20,7 +20,7 @@ const Button = styled.button`
   border-bottom: 1px solid #d6d4d4;
 
   > :nth-child(1) {
-    ${colorIcon}
+    color: ${colorIcon};
   }
 `;
 export default Trash;

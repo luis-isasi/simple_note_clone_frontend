@@ -19,7 +19,7 @@ const Button = styled.button`
   ${BtnsMain}
 
   > :nth-child(1) {
-    ${colorIcon}
+    color: ${colorIcon};
   }
 `;
 

@@ -11,8 +11,9 @@ const InformationNote = () => {
 
   const onClick = () => {
     //mostrando info de la Note seleccionada
-    AppData.setInfo(true);
+    AppData.showInfo(true);
   };
+
   return (
     <Button onClick={onClick}>
       <InfoIcon />

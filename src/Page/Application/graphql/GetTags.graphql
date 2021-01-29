@@ -1,0 +1,14 @@
+query GetTags{
+  tags {
+    id
+    name
+    notes {
+      id
+      text
+    }
+    user {
+      id
+      email
+    }
+  }
+}

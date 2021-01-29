@@ -22,7 +22,7 @@ const App = () => {
   return (
     <DivApp>
       {main && <Main className="mainActive" id="main" />}
-      <Div className={(main || info) && 'hideApp'}>
+      <Div className={(main || info) && 'hideApp'} id="Application">
         <Sidebar className={!sidebar && 'sidebarNoActive'} />
         <Content>
           <HeaderApp className="headerApp" />
@@ -35,7 +35,6 @@ const App = () => {
 };
 
 //---------------STYLE------------
-
 const DivApp = styled.div`
   display: flex;
   flex-flow: row;
@@ -44,7 +43,7 @@ const DivApp = styled.div`
   overflow: hidden;
 
   .hideApp {
-    opacity: 0.5;
+    opacity: 0.35;
     * {
       pointer-events: none;
     }
@@ -76,7 +75,6 @@ const Div = styled.div`
   flex-flow: row;
   height: 100%;
   width: 100%;
-  /* min-width: 100%; */
 
   .sidebarNoActive {
     margin-left: -328px;

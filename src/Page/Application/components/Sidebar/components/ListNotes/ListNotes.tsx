@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import styled, { keyframes } from 'styled-components';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
+import styled from 'styled-components';
 
 import CreateNote from '../Header/components/CreateNote';
+import { IconAnimation, Error } from 'StylesApp';
 
 const ListNotes = ({
   loading,
@@ -57,17 +57,19 @@ const ListNotes = ({
     ));
   };
 
-  return (
-    <Ul>
-      {loading ? (
-        <IconAnimation style={{ fontSize: '60px' }} />
-      ) : error ? (
+  const handledListNotes = () => {
+    if (loading) {
+      return <IconAnimation style={{ fontSize: '60px' }} />;
+    }
+    if (error) {
+      return (
         <Error> Hay un Error en nuestro servidor, intentalo mas tarde </Error>
-      ) : (
-            renderNotes()
-          )}
-    </Ul>
-  );
+      );
+    }
+    return renderNotes();
+  };
+
+  return <Ul>{handledListNotes()}</Ul>;
 };
 
 //----------Styles----------
@@ -122,28 +124,8 @@ const BtnNote = styled.button`
   }
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg)
-  }
-`;
-
-const IconAnimation = styled(AutorenewIcon)`
-  margin: auto;
-  animation: ${rotate} 0.85s linear infinite;
-`;
-
 const NewNote = styled.strong`
   color: #918f90;
-`;
-
-const Error = styled.p`
-  font-family: inherit;
-  font-size: 22px;
-  font-weight: 300;
 `;
 
 const DivNoNotes = styled.div`

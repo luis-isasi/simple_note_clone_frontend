@@ -7,7 +7,7 @@ import ADD_TAG from 'GraphqlApp/AddTag.graphql';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const AddTag = () => {
-  const { note } = useAppContext();
+  const { note, addTagToCurrentNote, deleteTagInCurrentNote } = useAppContext();
   const [tag, setTag] = React.useState('');
 
   const [createTag] = useMutation(ADD_TAG, {
@@ -35,17 +35,18 @@ const AddTag = () => {
     // },
   });
 
+  const deleteTag = (tag) => () => {
+    deleteTagInCurrentNote(tag);
+  };
+
   const renderTags = () => {
     return note.tags.map((tag) => (
-      <BtnTag key={tag.id} onClick={deleteTag}>
+      <BtnTag key={tag.id} onClick={deleteTag(tag)}>
         {tag.name}
       </BtnTag>
     ));
   };
 
-  const deleteTag = () => {
-    console.log('elminando tag');
-  };
   const onSubmit = (e) => {
     e.preventDefault();
     //creamos nuevo tag con el su name e id

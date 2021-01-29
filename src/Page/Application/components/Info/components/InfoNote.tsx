@@ -9,13 +9,18 @@ import { colorIcon } from 'StylesApp';
 const InfoNote = () => {
   const {
     note: { createdAt, updatedAt, text },
+    showInfo,
   } = useAppContext();
+
+  const onClick = () => {
+    showInfo(false);
+  };
 
   return (
     <Div>
       <HeadInfo>
         <strong>INFO</strong>
-        <Button>
+        <Button onClick={onClick}>
           <CloseIcon />
         </Button>
       </HeadInfo>
@@ -87,6 +92,7 @@ const HeadInfo = styled.div`
 
 const Button = styled.button`
   color: ${colorIcon} !important;
+  cursor: pointer;
   border: none;
   background-color: transparent;
 `;

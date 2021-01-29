@@ -2,21 +2,26 @@ import * as React from 'react';
 
 import styled, { css } from 'styled-components';
 
+import { useAppContext } from 'ContextApp/AppContext';
 import ToggleSidebar from './components/ToggleSidebar';
 import DeleteNote from './components/DeleteNote';
-import InformationNote from './components/InformationNote';
+import InformationNote from './components/InfoNoteIcon';
 import Share from './components/Share';
 import { colorIcon } from '../../StylesApp';
 
 const HeaderApp = (props) => {
+  const { note } = useAppContext();
+
   return (
     <Header className={props.className}>
       <ToggleSidebar />
-      <DivOptions>
-        <Share />
-        <DeleteNote />
-        <InformationNote />
-      </DivOptions>
+      {note && (
+        <DivOptions>
+          <Share />
+          <DeleteNote />
+          <InformationNote />
+        </DivOptions>
+      )}
     </Header>
   );
 };

@@ -1,34 +1,26 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
+import { useQuery } from '@apollo/client';
+
+import GET_TAG from 'GraphqlApp/GetTags.graphql';
+import { IconAnimation, Error } from 'StylesApp';
 
 const Tags = () => {
-  const tagsArr = [
-    'react',
-    'vue',
-    'angular',
-    'react',
-    'vue',
-    'angular',
-    'react',
-    'vue',
-    'angular',
-    'react',
-    'angular',
-    'react',
-    'vue',
-    'angular',
-    'react',
-    'react',
-    'angular',
-    'react',
-    'vue',
-    'angular',
-    'react',
-  ];
+  const { loading, error, data } = useQuery(GET_TAG);
+
   const renderTags = () => {
-    return tagsArr.map((tag, index) => <Button key={index}>{tag}</Button>);
+    if (loading) {
+      return <IconAnimation style={{ fontSize: '60px' }} />;
+    }
+    if (error) {
+      return (
+        <Error>Hay un Error en nuestro servidor, intentalo mas tarde</Error>
+      );
+    }
+    return data.tags.map(({ id, name }) => <Button key={id}>{name}</Button>);
   };
+
   return (
     <Div>
       <Title>
@@ -109,4 +101,5 @@ const Button = styled.button`
   font-size: 14px;
   font-weight: normal;
 `;
+
 export default Tags;

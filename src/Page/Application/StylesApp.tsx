@@ -1,4 +1,6 @@
-import { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 export const colorIcon = '#3361cc';
 
@@ -46,4 +48,26 @@ export const InfoActive = keyframes`
 export const InfoNoActive = keyframes`
   0% { margin-right: 0px; }
   100% { margin-right: -328px; }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg)
+  }
+`;
+
+export const IconAnimation = styled(AutorenewIcon)`
+  margin: auto;
+  animation: ${rotate} 0.85s linear infinite;
+`;
+
+export const Error = styled.p`
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 300;
+  text-align: center;
+  margin: auto;
 `;

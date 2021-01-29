@@ -12,7 +12,7 @@ const Main = () => {
 
   const onClick = () => {
     //Mostrando Main
-    AppData.setMain(true);
+    AppData.showMain();
   };
 
   return (
