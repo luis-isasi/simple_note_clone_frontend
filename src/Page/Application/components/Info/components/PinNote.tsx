@@ -4,12 +4,32 @@ import styled from 'styled-components';
 
 import { Switch, Input, Label } from './SwitchStyled';
 
-const PinNote = () => {
+const PinNote = ({
+  note,
+  note: { id, pinned },
+  pinNote,
+  unpinNote,
+  setNote,
+}) => {
+  console.log({ pinned });
+
+  const handledInputCheck = (e) => {
+    const checked = e.target.checked;
+
+    if (checked) {
+      setNote({ ...note, pinned: true });
+      pinNote({ variables: { noteId: id } });
+    } else {
+      setNote({ ...note, pinned: false });
+      unpinNote({ variables: { noteId: id } });
+    }
+  };
+
   return (
     <Div>
       <span>Pin to top</span>
       <Switch>
-        <Input id="checkPin" />
+        <Input id="checkPin" onChange={handledInputCheck} checked={pinned} />
         <Label htmlFor="checkPin" />
       </Switch>
     </Div>
@@ -27,4 +47,4 @@ const Div = styled.div`
   border-bottom: 1px solid #d6d4d4;
   color: #646970;
 `;
-export default PinNote;
+export default React.memo(PinNote);

@@ -3,8 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { colorIcon } from '../../../../../StylesApp';
-import { HoverText } from 'StylesApp';
+import { HoverText, colorIcon } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const Main = () => {

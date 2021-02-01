@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import CreateNote from '../Header/components/CreateNote';
-import { IconAnimation, Error } from 'StylesApp';
+import { colorIcon } from 'StylesApp';
 
 const ListNotes = ({
   loading,
@@ -15,8 +16,42 @@ const ListNotes = ({
   onClickClear,
 }) => {
   const noteSelectedId = note ? note.id : '';
+  const indexNote = React.useRef(0);
+  const listNoteLength = React.useRef(listNotes.length);
+
+  React.useEffect(() => {
+    const newNotesLength = listNotes.length;
+    const oldNotesLength = listNoteLength.current;
+
+    // Cuando son iguales es porque es la primera vez que se renderiza,
+    // entonces seleccionamos el primero
+    if (newNotesLength === oldNotesLength) {
+      selectNote(listNotes[indexNote.current]);
+    }
+
+    //DELETE LAST NOTE
+    if (oldNotesLength > newNotesLength) {
+      listNoteLength.current = newNotesLength;
+      let index = indexNote.current;
+
+      if (newNotesLength === index) {
+        selectNote(listNotes[indexNote.current - 1]);
+        indexNote.current = index - 1;
+      } else {
+        selectNote(listNotes[indexNote.current]);
+      }
+    }
+
+    //ADDING NEW NOTE
+    if (oldNotesLength < newNotesLength) {
+      listNoteLength.current = newNotesLength;
+      indexNote.current = 0;
+      selectNote(listNotes[indexNote.current]);
+    }
+  }, [listNotes]);
 
   const renderNotes = () => {
+    //SE REALIZO UNA BUSQUEDAD PERO NO HAY RESULTADOS, DAMOS LA OPCION DE CREAR UNO CON EL VALUE SEARCH
     if (searchGraphqlVariable && !listNotes.length) {
       return (
         <DivNoNotes>
@@ -31,6 +66,7 @@ const ListNotes = ({
         </DivNoNotes>
       );
     }
+
     //si no hay Notas a renderizar le avisamos y le damos la opcion de crear una
     if (!listNotes.length) {
       return (
@@ -41,35 +77,35 @@ const ListNotes = ({
       );
     }
 
+    //filter Notes
+    let notesPinned = [];
+    let notesNoPinned = [];
+
+    listNotes.forEach((note) => {
+      //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
+      if (note.pinned) notesPinned.push(note);
+      else notesNoPinned.push(note);
+    });
+
     //renderizamos todas las notas
-    return listNotes.map((note) => (
+    return [...notesPinned, ...notesNoPinned].map((_note, index) => (
       <BtnNote
-        key={note.id}
+        key={_note.id}
         onClick={() => {
-          selectNote(note);
+          indexNote.current = index;
+          selectNote(_note);
         }}
-        selected={note.id === noteSelectedId}
+        selected={_note.id === noteSelectedId}
       >
-        <div>
-          <p>{note.text || <NewNote>New Note...</NewNote>}</p>
+        <div className="pinned">{_note.pinned && <AttachFileIcon />}</div>
+        <div className="noteText">
+          <p>{_note.text || <NewNote>New Note...</NewNote>}</p>
         </div>
       </BtnNote>
     ));
   };
 
-  const handledListNotes = () => {
-    if (loading) {
-      return <IconAnimation style={{ fontSize: '60px' }} />;
-    }
-    if (error) {
-      return (
-        <Error> Hay un Error en nuestro servidor, intentalo mas tarde </Error>
-      );
-    }
-    return renderNotes();
-  };
-
-  return <Ul>{handledListNotes()}</Ul>;
+  return <Ul>{renderNotes()}</Ul>;
 };
 
 //----------Styles----------
@@ -99,10 +135,23 @@ const BtnNote = styled.button`
   padding: 0px;
   background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
   display: flex;
-  flex-flow: column;
-  align-items: flex-end;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: flex-start;
 
-  div {
+  .pinned {
+    background-color: transparent;
+    color: ${colorIcon};
+    margin-top: 4px;
+    margin-left: 4px;
+    > * {
+      transform: rotate(45deg);
+      font-size: 18px;
+    }
+  }
+
+  .noteText {
+    box-sizing: border-box;
     background-color: transparent !important;
     display: flex;
     justify-content: center;

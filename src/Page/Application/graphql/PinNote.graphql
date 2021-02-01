@@ -1,0 +1,8 @@
+mutation PinNote (
+  $noteId: ID!
+){
+  pinNote(noteId: $noteId) {
+    id
+    pinned
+  }
+}

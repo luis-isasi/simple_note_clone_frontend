@@ -1,5 +1,8 @@
 import * as React from 'react';
+
 import { useApolloClient, gql } from '@apollo/client';
+
+import { Note, Tag } from 'TypesApp';
 
 type AppState = {
   note: Note;
@@ -12,25 +15,6 @@ type AppState = {
   showMain(): void;
   info: boolean;
   showInfo(show: boolean): void;
-};
-
-type Note = {
-  id: string;
-  text: string;
-  user: User;
-  createdAt: string;
-  updatedAt: string;
-  tags: Tag[];
-};
-
-type User = {
-  id: string;
-  email: string;
-};
-
-type Tag = {
-  id: string;
-  name: string;
 };
 
 const AppContext = React.createContext<AppState | undefined>(undefined);
@@ -90,12 +74,35 @@ export const AppContextProvider = ({ children }) => {
   };
 
   const addTagInCurrentNote = (tag: Tag) => {
-    // update the note from the  context
+    // update the note from the context
     setNote({
       ...note,
       tags: [...note.tags, tag],
     });
     // update the cache
+    client.cache.modify({
+      //le pasamos la nota seleccionada para acceder dentro de ella
+      id: client.cache.identify(note),
+      //accedemos a el campo "tags" y creamos una referencia
+      fields: {
+        tags(existingsTags = []) {
+          const newTagRef = client.cache.writeFragment({
+            data: tag,
+            fragment: gql`
+              fragment newTag on Tag {
+                id
+                name
+                notes {
+                  id
+                  text
+                }
+              }
+            `,
+          });
+          return [...existingsTags, newTagRef];
+        },
+      },
+    });
   };
 
   const deleteTagInCurrentNote = (tag: Tag) => {

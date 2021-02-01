@@ -8,6 +8,7 @@ import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNote.graphql';
 import Header from './components/Header';
 import ListNotes from './components/ListNotes';
+import { IconAnimation, Error } from 'StylesApp';
 
 const Sidebar = ({ className }) => {
   const appData = useAppContext();
@@ -41,18 +42,34 @@ const Sidebar = ({ className }) => {
     []
   );
 
-  return (
-    <Div className={className}>
-      <Header search={search} onChange={onChange} onClickClear={onClickClear} />
+  // Condicionales para renderizar ListNotes, lo hacemos para asegurarnos
+  // que listNotes no llegue como undefined
+  function renderListNotes() {
+    if (loading) {
+      return <IconAnimation style={{ fontSize: '60px' }} />;
+    }
+    if (error) {
+      return (
+        <Error> Hay un Error en nuestro servidor, intentalo mas tarde </Error>
+      );
+    }
+    return (
       <ListNotes
         loading={loading}
         error={error}
-        listNotes={loading ? undefined : data.notes}
+        listNotes={data.notes}
         note={appData.note}
         selectNote={appData.setNote}
         searchGraphqlVariable={searchGraphqlVariable}
         onClickClear={onClickClear}
       />
+    );
+  }
+
+  return (
+    <Div className={className}>
+      <Header search={search} onChange={onChange} onClickClear={onClickClear} />
+      {renderListNotes()}
     </Div>
   );
 };

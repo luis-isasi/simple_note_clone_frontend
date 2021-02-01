@@ -5,15 +5,15 @@ import WifiIcon from '@material-ui/icons/Wifi';
 
 const Conection = () => {
   return (
-    <Button>
+    <A>
       <WifiIcon />
       <p>Server connection</p>
-    </Button>
+    </A>
   );
 };
 
 //-------------styled----------
-const Button = styled.button`
+const A = styled.a`
   > * {
     margin-right: 12px;
   }

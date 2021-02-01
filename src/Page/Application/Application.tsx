@@ -14,7 +14,7 @@ import {
   InfoActive,
   InfoNoActive,
   SidebarNoActive,
-} from './StylesApp';
+} from 'StylesApp';
 
 const App = () => {
   const { main, info, sidebar } = useAppContext();

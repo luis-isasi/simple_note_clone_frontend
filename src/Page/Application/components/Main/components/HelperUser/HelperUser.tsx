@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Connection from './components/Connection';
 import Shortcuts from './components/Shortcuts';
@@ -21,6 +21,16 @@ const HelperUser = () => {
 };
 
 //-------------styled----------
+const StyledBtnA = css`
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+`;
 const Div = styled.div`
   flex-basis: 152px;
   min-height: 152px;
@@ -36,19 +46,16 @@ const Div = styled.div`
 
   * {
     color: #646970;
-    font-weight: lighter;
-    font-family: 200;
+    font-family: inherit;
+    font-weight: normal;
     font-size: 13px;
   }
   button {
-    background-color: transparent;
-    border: none;
-    display: flex;
-    flex-flow: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 4px 8px;
-    cursor: pointer;
+    ${StyledBtnA}
+  }
+  a {
+    ${StyledBtnA}
+    text-decoration: none;
   }
 `;
 

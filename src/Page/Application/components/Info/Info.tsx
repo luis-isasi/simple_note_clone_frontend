@@ -1,16 +1,53 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
+import { useMutation } from '@apollo/client';
 
+import PIN_NOTE from 'GraphqlApp/PinNote.graphql';
+import UN_PIN_NOTE from 'GraphqlApp/UnPinNote.graphql';
+import { useAppContext } from 'ContextApp/AppContext';
 import InfoNote from './components/InfoNote';
 import PinNote from './components/PinNote';
 import Markdown from './components/Markdown';
 
 const Info = ({ className, id }) => {
+  const { note, setNote } = useAppContext();
+
+  const [pinNote] = useMutation(PIN_NOTE, {
+    // update(cache, { data: { pinNote } }) {
+    //   cache.modify({
+    //     id: cache.identify(note),
+    //     fields: {
+    //       pinned() {
+    //         return pinNote.pinned;
+    //       },
+    //     },
+    //   });
+    // },
+  });
+
+  const [unpinNote] = useMutation(UN_PIN_NOTE, {
+    // update(cache, { data: { unpinNote } }) {
+    //   cache.modify({
+    //     id: cache.identify(note),
+    //     fields: {
+    //       pinned() {
+    //         return unpinNote.pinned;
+    //       },
+    //     },
+    //   });
+    // },
+  });
+
   return (
     <Div className={className} id={id}>
       <InfoNote />
-      <PinNote />
+      <PinNote
+        note={note}
+        pinNote={pinNote}
+        unpinNote={unpinNote}
+        setNote={setNote}
+      />
       <Markdown />
     </Div>
   );

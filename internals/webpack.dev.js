@@ -13,13 +13,14 @@ module.exports = {
   devtool: 'source-map',
   mode: 'development',
   resolve: {
-    extensions: ['.js', '.tsx', '.ts', '.jsx'],
+    extensions: ['.js', '.tsx', '.ts', '.jsx', '.graphql'],
     alias: {
       Components: path.resolve(__dirname, '../src/Components/'),
       Images: path.resolve(__dirname, '../src/Images/'),
       Context: path.resolve(__dirname, '../src/Context/'),
-      ContextApp: path.resolve(__dirname, '../src/Page/Application/context/'),
       Page: path.resolve(__dirname, '../src/Page/'),
+      ContextApp: path.resolve(__dirname, '../src/Page/Application/context/'),
+      TypesApp: path.resolve(__dirname, '../src/Page/Application/TypesApp.ts'),
       GraphqlApp: path.resolve(__dirname, '../src/Page/Application/graphql/'),
       StylesApp: path.resolve(
         __dirname,

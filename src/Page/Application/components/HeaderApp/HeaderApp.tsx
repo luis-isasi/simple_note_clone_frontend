@@ -7,7 +7,7 @@ import ToggleSidebar from './components/ToggleSidebar';
 import DeleteNote from './components/DeleteNote';
 import InformationNote from './components/InfoNoteIcon';
 import Share from './components/Share';
-import { colorIcon } from '../../StylesApp';
+import { colorIcon } from 'StylesApp';
 
 const HeaderApp = (props) => {
   const { note } = useAppContext();

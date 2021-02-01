@@ -12,8 +12,8 @@ fragment NewNote on Note {
     id
     name
     notes {
-    id
-    text
+      id
+      text
     }
   }
 }

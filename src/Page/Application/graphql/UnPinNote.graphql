@@ -1,0 +1,8 @@
+mutation UnPinNote (
+  $noteId: ID!
+){
+  unpinNote(noteId: $noteId) {
+    id
+    pinned
+  }
+}

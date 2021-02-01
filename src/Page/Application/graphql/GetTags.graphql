@@ -6,9 +6,5 @@ query GetTags{
       id
       text
     }
-    user {
-      id
-      email
-    }
   }
 }

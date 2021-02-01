@@ -20,18 +20,21 @@
       "Context/*": [
         "src/Context/*"
       ],
-      "ContextApp/*": [
-        "src/Page/Application/context/*"
-      ],
       "Page/*": [
         "src/Page/*"
+      ],
+      "ContextApp/*": [
+        "src/Page/Application/context/*"
       ],
       "GraphqlApp/*": [
         "src/Page/Application/graphql/*"
       ],
       "StylesApp": [
         "src/Page/Application/StylesApp.tsx"
-      ]
+      ],
+      "TypesApp": [
+        "src/Page/Application/TypesApp.ts"
+      ],
     }
   },
   "include": [

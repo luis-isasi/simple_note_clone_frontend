@@ -7,10 +7,10 @@ import ADD_TAG from 'GraphqlApp/AddTag.graphql';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const AddTag = () => {
-  const { note, addTagToCurrentNote, deleteTagInCurrentNote } = useAppContext();
+  const { note, addTagInCurrentNote, deleteTagInCurrentNote } = useAppContext();
   const [tag, setTag] = React.useState('');
 
-  const [createTag] = useMutation(ADD_TAG, {
+  const [createTag, { data }] = useMutation(ADD_TAG, {
     // update(cache, { data: { createTag } }) {
     //   cache.modify({
     //     fields: {
@@ -35,8 +35,26 @@ const AddTag = () => {
     // },
   });
 
+  if (data) console.log(data.createTag);
+
+  //delete Tag
   const deleteTag = (tag) => () => {
     deleteTagInCurrentNote(tag);
+  };
+
+  //Adding a new Tag by mutation and in the cache
+  const onSubmit = (e) => {
+    e.preventDefault();
+    //creating new Tag
+    createTag({
+      variables: {
+        name: tag,
+        noteId: note.id,
+      },
+    }).then(({ data: { createTag } }) => {
+      //update cache with new Tag
+      addTagInCurrentNote(createTag);
+    });
   };
 
   const renderTags = () => {
@@ -45,17 +63,6 @@ const AddTag = () => {
         {tag.name}
       </BtnTag>
     ));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    //creamos nuevo tag con el su name e id
-    createTag({
-      variables: {
-        name: tag,
-        noteId: note.id,
-      },
-    });
   };
 
   return (

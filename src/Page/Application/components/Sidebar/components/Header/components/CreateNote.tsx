@@ -6,8 +6,7 @@ import { useMutation } from '@apollo/client';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
-import { colorIcon } from '../../../../../StylesApp';
-import { HoverText } from 'StylesApp';
+import { HoverText, colorIcon } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const CreateNote = ({
