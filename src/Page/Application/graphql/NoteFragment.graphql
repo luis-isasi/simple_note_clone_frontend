@@ -11,10 +11,6 @@ fragment NewNote on Note {
   tags {
     id
     name
-    notes {
-      id
-      text
-    }
   }
 }
 

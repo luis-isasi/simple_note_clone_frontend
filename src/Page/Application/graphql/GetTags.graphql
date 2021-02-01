@@ -1,10 +1,11 @@
+#import "./NoteFragment.graphql"
+
 query GetTags{
   tags {
     id
     name
     notes {
-      id
-      text
+      ...NewNote
     }
   }
 }

@@ -33,7 +33,7 @@ const CreateNote = ({
         },
       });
       // outline: none;
-      dataApp.setNote(createNote);
+      dataApp.selectNote(createNote);
       if (onClickClear) onClickClear();
     },
     // refetchQueries: [

@@ -42,6 +42,23 @@ const Sidebar = ({ className }) => {
     []
   );
 
+  const filterListNotes = () => {
+    //filter Notes
+    let notesPinned = [];
+    let notesNoPinned = [];
+
+    data.notes.forEach((note) => {
+      //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
+      if (note.pinned) notesPinned.push(note);
+      else notesNoPinned.push(note);
+    });
+
+    return {
+      listNotes: [...notesPinned, ...notesNoPinned],
+      lengthPinned: notesPinned.length,
+    };
+  };
+
   // Condicionales para renderizar ListNotes, lo hacemos para asegurarnos
   // que listNotes no llegue como undefined
   function renderListNotes() {
@@ -55,11 +72,9 @@ const Sidebar = ({ className }) => {
     }
     return (
       <ListNotes
-        loading={loading}
-        error={error}
-        listNotes={data.notes}
+        filterNotes={filterListNotes()}
         note={appData.note}
-        selectNote={appData.setNote}
+        selectNote={appData.selectNote}
         searchGraphqlVariable={searchGraphqlVariable}
         onClickClear={onClickClear}
       />

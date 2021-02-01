@@ -7,9 +7,7 @@ import CreateNote from '../Header/components/CreateNote';
 import { colorIcon } from 'StylesApp';
 
 const ListNotes = ({
-  loading,
-  error,
-  listNotes,
+  filterNotes: { listNotes, lengthPinned },
   note,
   selectNote,
   searchGraphqlVariable,
@@ -20,14 +18,13 @@ const ListNotes = ({
   const listNoteLength = React.useRef(listNotes.length);
 
   React.useEffect(() => {
+    // Asigamos la primera nota
+    selectNote(listNotes[indexNote.current]);
+  }, []);
+
+  React.useEffect(() => {
     const newNotesLength = listNotes.length;
     const oldNotesLength = listNoteLength.current;
-
-    // Cuando son iguales es porque es la primera vez que se renderiza,
-    // entonces seleccionamos el primero
-    if (newNotesLength === oldNotesLength) {
-      selectNote(listNotes[indexNote.current]);
-    }
 
     //DELETE LAST NOTE
     if (oldNotesLength > newNotesLength) {
@@ -45,7 +42,7 @@ const ListNotes = ({
     //ADDING NEW NOTE
     if (oldNotesLength < newNotesLength) {
       listNoteLength.current = newNotesLength;
-      indexNote.current = 0;
+      indexNote.current = lengthPinned;
       selectNote(listNotes[indexNote.current]);
     }
   }, [listNotes]);
@@ -77,18 +74,18 @@ const ListNotes = ({
       );
     }
 
-    //filter Notes
-    let notesPinned = [];
-    let notesNoPinned = [];
+    // //filter Notes
+    // let notesPinned = [];
+    // let notesNoPinned = [];
 
-    listNotes.forEach((note) => {
-      //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
-      if (note.pinned) notesPinned.push(note);
-      else notesNoPinned.push(note);
-    });
+    // listNotes.forEach((note) => {
+    //   //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
+    //   if (note.pinned) notesPinned.push(note);
+    //   else notesNoPinned.push(note);
+    // });
 
     //renderizamos todas las notas
-    return [...notesPinned, ...notesNoPinned].map((_note, index) => (
+    return listNotes.map((_note, index) => (
       <BtnNote
         key={_note.id}
         onClick={() => {

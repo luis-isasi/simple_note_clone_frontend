@@ -11,7 +11,7 @@ import PinNote from './components/PinNote';
 import Markdown from './components/Markdown';
 
 const Info = ({ className, id }) => {
-  const { note, setNote } = useAppContext();
+  const { note, selectNote } = useAppContext();
 
   const [pinNote] = useMutation(PIN_NOTE, {
     // update(cache, { data: { pinNote } }) {
@@ -46,7 +46,7 @@ const Info = ({ className, id }) => {
         note={note}
         pinNote={pinNote}
         unpinNote={unpinNote}
-        setNote={setNote}
+        selectNote={selectNote}
       />
       <Markdown />
     </Div>

@@ -6,7 +6,7 @@ import { Note, Tag } from 'TypesApp';
 
 type AppState = {
   note: Note;
-  setNote(note: Note): void;
+  selectNote(note: Note): void;
   addTagInCurrentNote(tag: Tag): void;
   deleteTagInCurrentNote(tag: Tag): void;
   sidebar: boolean;
@@ -20,7 +20,7 @@ type AppState = {
 const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export const AppContextProvider = ({ children }) => {
-  const [note, setNote] = React.useState(undefined);
+  const [note, selectNote] = React.useState(undefined);
   const [sidebar, setSidebar] = React.useState(true);
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
@@ -75,7 +75,7 @@ export const AppContextProvider = ({ children }) => {
 
   const addTagInCurrentNote = (tag: Tag) => {
     // update the note from the context
-    setNote({
+    selectNote({
       ...note,
       tags: [...note.tags, tag],
     });
@@ -107,7 +107,7 @@ export const AppContextProvider = ({ children }) => {
 
   const deleteTagInCurrentNote = (tag: Tag) => {
     const tags = note.tags.filter((currentTag) => currentTag.id !== tag.id);
-    setNote({
+    selectNote({
       ...note,
       tags,
     });
@@ -127,7 +127,7 @@ export const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         note,
-        setNote,
+        selectNote,
         addTagInCurrentNote,
         deleteTagInCurrentNote,
         sidebar,

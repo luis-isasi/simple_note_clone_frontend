@@ -9,6 +9,8 @@ import { IconAnimation, Error } from 'StylesApp';
 const Tags = () => {
   const { loading, error, data } = useQuery(GET_TAG);
 
+  // console.log({ data });
+
   const renderTags = () => {
     if (loading) {
       return <IconAnimation style={{ fontSize: '60px' }} />;
