@@ -15,7 +15,7 @@ const CreateNote = ({
   searchGraphqlVariable,
   onClickClear,
 }) => {
-  const dataApp = useAppContext();
+  const { selectNote, trash } = useAppContext();
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote, { data: _dataMutation }] = useMutation(CREATE_NOTE, {
@@ -33,7 +33,7 @@ const CreateNote = ({
         },
       });
       // outline: none;
-      dataApp.selectNote(createNote);
+      selectNote(createNote);
       if (onClickClear) onClickClear();
     },
     // refetchQueries: [
@@ -80,7 +80,7 @@ const CreateNote = ({
     });
   };
   return (
-    <BtnNewNote onClick={onClick} hover={hover}>
+    <BtnNewNote onClick={onClick} hover={hover} disabled={trash}>
       {children || <NoteAddIcon />}
     </BtnNewNote>
   );
@@ -101,6 +101,9 @@ const BtnNewNote = styled.button`
   cursor: pointer;
   color: ${colorIcon};
 
+  &:disabled {
+    opacity: 0.4;
+  }
   ${(props) => (props.hover === undefined ? hover : null)};
 `;
 

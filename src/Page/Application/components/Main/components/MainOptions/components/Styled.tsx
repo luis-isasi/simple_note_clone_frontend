@@ -1,20 +1,32 @@
-import { css } from 'styled-components';
+import styled from 'styled-components';
 
-export const BtnsMain = css`
-  background-color: transparent;
-  margin-left: 16px;
-  width: 244px;
-  height: 44px;
+export const Button = styled.button`
+  background-color: ${(props) => (props.select ? '#cfddfd' : 'transparent')};
   border: none;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 300;
+  cursor: pointer;
+  width: 100%;
+  height: 44px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px;
+`;
+
+export const Div = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin-left: 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: lighter;
+  color: #646970;
 
+  /* border-bottom: 1px solid #d6d4d4; */
+
+  border-bottom: ${(props) => (props.select ? 'none' : '1px solid #d6d4d4')};
   > * {
-    margin: 0px 16px 0px 0px;
+    margin-right: 16px;
   }
 `;

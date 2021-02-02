@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import HeaderDesktop from 'Components/Header/HeaderDesktop';
-import { useAppContext } from 'Context/App';
+import { useSessionContext } from 'Context/AppSession';
 import CREATE_USER from '../../graphql/createUser.graphql';
 import UnDrawSignup from 'Images/UnDrawSignup.svg';
 
 const Signup = () => {
-  const appData = useAppContext();
+  const appSession = useSessionContext();
 
   const [createUser] = useMutation(CREATE_USER);
 
@@ -21,7 +21,7 @@ const Signup = () => {
     e.preventDefault();
     // console.log(email, password);
     createUser({ variables: { email, password } }).then((response) => {
-      appData.signinUser(response.data.createUser);
+      appSession.signinUser(response.data.createUser);
     });
   };
 

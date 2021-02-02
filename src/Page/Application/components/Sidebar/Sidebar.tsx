@@ -77,13 +77,19 @@ const Sidebar = ({ className }) => {
         selectNote={appData.selectNote}
         searchGraphqlVariable={searchGraphqlVariable}
         onClickClear={onClickClear}
+        trash={appData.trash}
       />
     );
   }
 
   return (
     <Div className={className}>
-      <Header search={search} onChange={onChange} onClickClear={onClickClear} />
+      <Header
+        search={search}
+        onChange={onChange}
+        onClickClear={onClickClear}
+        allNotes={appData.allNotes}
+      />
       {renderListNotes()}
     </Div>
   );

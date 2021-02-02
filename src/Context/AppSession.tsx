@@ -20,13 +20,13 @@ type AppState = {
   logoutUser(): void;
 };
 
-const AppContext = React.createContext<AppState | undefined>(undefined);
+const AppContextSession = React.createContext<AppState | undefined>(undefined);
 
-export const AppContextProvider = ({ children }) => {
+export const AppSessionProvider = ({ children }) => {
   const [user, setUser] = React.useState(undefined);
 
   React.useEffect(() => {
-    const u = localStorage.getItem(USER_SESSION_KEY);
+    const u = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
     if (u) {
       setUser(u);
     }
@@ -47,7 +47,7 @@ export const AppContextProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider
+    <AppContextSession.Provider
       value={{
         user: user,
         signinUser,
@@ -55,15 +55,15 @@ export const AppContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </AppContext.Provider>
+    </AppContextSession.Provider>
   );
 };
-export const useAppContext = () => {
-  const appData = React.useContext(AppContext);
+export const useSessionContext = () => {
+  const appSession = React.useContext(AppContextSession);
 
-  if (appData === undefined) {
+  if (appSession === undefined) {
     throw new Error('useAppContext must be within the ApContexProvider.');
   }
 
-  return appData;
+  return appSession;
 };

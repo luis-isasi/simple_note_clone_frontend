@@ -3,12 +3,12 @@ import * as React from 'react';
 import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
 
-const Search = ({ search, onChange, onClickClear }) => {
+const Search = ({ search, onChange, onClickClear, allNotes }) => {
   return (
     <DivSearch>
       <InputSearch
         type="text"
-        placeholder="All Notes"
+        placeholder={allNotes ? 'All Notes' : 'Trash'}
         value={search}
         onChange={onChange}
       />

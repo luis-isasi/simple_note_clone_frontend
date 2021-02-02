@@ -9,6 +9,10 @@ type AppState = {
   selectNote(note: Note): void;
   addTagInCurrentNote(tag: Tag): void;
   deleteTagInCurrentNote(tag: Tag): void;
+  allNotes: boolean;
+  setAllNotes(allNotes: boolean): void;
+  trash: boolean;
+  setTrash(trash: boolean): void;
   sidebar: boolean;
   setSidebar(sidebar: boolean): void;
   main: boolean;
@@ -21,6 +25,8 @@ const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export const AppContextProvider = ({ children }) => {
   const [note, selectNote] = React.useState(undefined);
+  const [allNotes, setAllNotes] = React.useState(true);
+  const [trash, setTrash] = React.useState(false);
   const [sidebar, setSidebar] = React.useState(true);
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
@@ -130,6 +136,10 @@ export const AppContextProvider = ({ children }) => {
         selectNote,
         addTagInCurrentNote,
         deleteTagInCurrentNote,
+        allNotes,
+        setAllNotes,
+        trash,
+        setTrash,
         sidebar,
         setSidebar,
         main,

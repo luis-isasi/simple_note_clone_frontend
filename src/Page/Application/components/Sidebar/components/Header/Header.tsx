@@ -6,11 +6,16 @@ import Main from './components/MainIcon';
 import Search from './components/Search';
 import CreateNote from './components/CreateNote';
 
-const Header = ({ search, onChange, onClickClear }) => {
+const Header = ({ search, onChange, onClickClear, allNotes }) => {
   return (
     <Div>
       <Main />
-      <Search search={search} onChange={onChange} onClickClear={onClickClear} />
+      <Search
+        search={search}
+        onChange={onChange}
+        onClickClear={onClickClear}
+        allNotes={allNotes}
+      />
       <CreateNote />
     </Div>
   );

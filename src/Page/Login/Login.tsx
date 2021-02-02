@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import HeaderDesktop from 'Components/Header/HeaderDesktop';
 import LOGIN_USER from '../../graphql/loginUser.graphql';
 import UnDrawLogin from 'Images/UnDrawLogin.svg';
-import { useAppContext } from 'Context/App';
+import { useSessionContext } from 'Context/AppSession';
 
 const initialFormState = {
   email: '',
@@ -27,7 +27,7 @@ const formReducer = (state, action) => {
 };
 
 const Login = () => {
-  const appData = useAppContext();
+  const appSession = useSessionContext();
 
   const [state, distpach] = React.useReducer(formReducer, initialFormState);
 
@@ -46,7 +46,7 @@ const Login = () => {
     e.preventDefault();
     console.log('enviando Log in');
     loginUser({ variables: state }).then((response) => {
-      appData.signinUser(response.data.login);
+      appSession.signinUser(response.data.login);
     });
   };
 

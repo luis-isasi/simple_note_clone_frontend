@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
+import { USER_SESSION_KEY } from 'Constants';
 import Main from './components/Main';
 import Info from './components/Info';
 import Sidebar from './components/Sidebar';
@@ -18,6 +20,14 @@ import {
 
 const App = () => {
   const { main, info, sidebar } = useAppContext();
+  const history = useHistory();
+
+  React.useEffect(() => {
+    const token = localStorage.getItem(USER_SESSION_KEY);
+    if (!token) {
+      history.push('/login');
+    }
+  }, []);
 
   return (
     <DivApp>

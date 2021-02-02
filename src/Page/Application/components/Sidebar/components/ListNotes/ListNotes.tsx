@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import CreateNote from '../Header/components/CreateNote';
-import { colorIcon } from 'StylesApp';
+import { colorIcon, colorBorder } from 'StylesApp';
 
 const ListNotes = ({
   filterNotes: { listNotes, lengthPinned },
@@ -12,6 +12,7 @@ const ListNotes = ({
   selectNote,
   searchGraphqlVariable,
   onClickClear,
+  trash,
 }) => {
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
@@ -74,16 +75,6 @@ const ListNotes = ({
       );
     }
 
-    // //filter Notes
-    // let notesPinned = [];
-    // let notesNoPinned = [];
-
-    // listNotes.forEach((note) => {
-    //   //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
-    //   if (note.pinned) notesPinned.push(note);
-    //   else notesNoPinned.push(note);
-    // });
-
     //renderizamos todas las notas
     return listNotes.map((_note, index) => (
       <BtnNote
@@ -102,12 +93,17 @@ const ListNotes = ({
     ));
   };
 
-  return <Ul>{renderNotes()}</Ul>;
+  return (
+    <>
+      <Ul>{renderNotes()}</Ul>
+      {trash && <BtnEmptyTrash>Empty Trash</BtnEmptyTrash>}
+    </>
+  );
 };
 
 //----------Styles----------
+
 const Ul = styled.ul`
-  height: 100%;
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -188,4 +184,17 @@ const NoNotes = styled.p`
   font-size: 22px;
   font-weight: 300;
 `;
+
+const BtnEmptyTrash = styled.button`
+  background-color: transparent;
+  height: 58px;
+  width: 100%;
+  color: #e65054;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  border-top: 1px solid ${colorBorder};
+`;
+
 export default React.memo(ListNotes);

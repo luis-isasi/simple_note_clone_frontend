@@ -10,25 +10,40 @@ import Share from './components/Share';
 import { colorIcon } from 'StylesApp';
 
 const HeaderApp = (props) => {
-  const { note } = useAppContext();
+  const { note, allNotes, trash } = useAppContext();
 
   return (
-    <Header className={props.className}>
-      <ToggleSidebar />
-      {note && (
-        <DivOptions>
-          <Share />
-          <DeleteNote />
-          <InformationNote />
-        </DivOptions>
+    <Header className={props.className} allNotes={allNotes}>
+      {allNotes && (
+        <>
+          <ToggleSidebar />
+          {note && (
+            <DivOptions>
+              <Share />
+              <DeleteNote />
+              <InformationNote />
+            </DivOptions>
+          )}
+        </>
+      )}
+      {trash && (
+        <DivTrash>
+          <button className="btnDelete">Delete Forever</button>
+          <button className="btnRestore">Restore Note</button>
+        </DivTrash>
       )}
     </Header>
   );
 };
 
-const flexRowCenter = css`
+const flexRowCenterEvenly = css`
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+`;
+const flexRowCenterBetween = css`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -40,12 +55,18 @@ const styleIcon = css`
   cursor: pointer;
 `;
 
+const flexRowEnd = css`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 const Header = styled.header.attrs((props) => ({
   className: props.className,
 }))`
-  ${flexRowCenter}
+  ${(props) => (props.allNotes ? `${flexRowCenterBetween}` : `${flexRowEnd}`)}
   background-color: #ffffff;
-  justify-content: space-between;
+
   flex-basis: 55px;
   border-bottom: 1px solid #d6d4d4;
   * {
@@ -54,12 +75,39 @@ const Header = styled.header.attrs((props) => ({
 `;
 
 const DivOptions = styled.div`
-  ${flexRowCenter}
+  ${flexRowCenterEvenly}
   width: 170px;
 
   * {
     ${styleIcon}
-    ${flexRowCenter}
+    ${flexRowCenterEvenly}
   }
 `;
+
+const DivTrash = styled.div`
+  height: 100%;
+  width: 260px;
+  ${flexRowCenterEvenly}
+
+  > * {
+    padding: 4px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+  }
+
+  .btnDelete {
+    color: #e65054;
+    border: 2px solid #e65054;
+    background-color: #ffffff;
+  }
+
+  .btnRestore {
+    color: #ffffff;
+    border: 2px solid #3361cc;
+    background-color: #3361cc;
+  }
+`;
+
 export default HeaderApp;

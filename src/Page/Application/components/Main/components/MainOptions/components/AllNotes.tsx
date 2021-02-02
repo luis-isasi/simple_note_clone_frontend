@@ -1,27 +1,23 @@
 import * as React from 'react';
 
 import NotesIcon from '@material-ui/icons/Notes';
-import styled from 'styled-components';
 
 import { colorIcon } from 'StylesApp';
-import { BtnsMain } from './Styled';
+import { Button, Div } from './Styled';
 
-const AllNotes = () => {
+const AllNotes = ({ allNotes, setAllNotes, setTrash }) => {
+  const onClick = () => {
+    setTrash(false);
+    setAllNotes(true);
+  };
   return (
-    <Button>
-      <NotesIcon />
-      All Notes
+    <Button select={allNotes} onClick={onClick}>
+      <Div select={allNotes}>
+        <NotesIcon style={{ color: `${colorIcon}` }} />
+        All Notes
+      </Div>
     </Button>
   );
 };
-
-const Button = styled.button`
-  ${BtnsMain}
-  border-bottom: 1px solid #d6d4d4;
-
-  > :nth-child(1) {
-    color: ${colorIcon};
-  }
-`;
 
 export default AllNotes;

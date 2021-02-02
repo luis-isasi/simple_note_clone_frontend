@@ -17,6 +17,9 @@
       "Images/": [
         "src/Images/*"
       ],
+      "Constants": [
+        "src/Constants.ts"
+      ],
       "Context/*": [
         "src/Context/*"
       ],

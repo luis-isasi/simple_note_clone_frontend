@@ -55,11 +55,11 @@ const Note = (props) => {
             autoFocus
             id="textNote"
           ></TextArea>
-          <AddTag />
+          {appData.allNotes && <AddTag />}
         </>
       ) : (
-          <P>Selecciona una nota para comenzar a editar 📝</P>
-        )}
+        <P>Selecciona una nota para comenzar a editar 📝</P>
+      )}
     </Div>
   );
 };

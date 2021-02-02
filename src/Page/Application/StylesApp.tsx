@@ -4,6 +4,8 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 export const colorIcon = '#3361cc';
 
+export const colorBorder = '#d6d4d4';
+
 const hoverAnimation = keyframes`
   from {
     opacity: 0.35; 

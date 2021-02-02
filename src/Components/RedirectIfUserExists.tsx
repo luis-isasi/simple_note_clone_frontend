@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { Redirect } from 'react-router-dom';
 
-import { useAppContext } from '../Context/App';
+import { useSessionContext } from '../Context/AppSession';
 
 const RedirectIfUserExists = ({ children, ...restProps }) => {
-  const userData = useAppContext();
+  const appSession = useSessionContext();
 
-  if (userData.user) {
+  if (appSession.user) {
     return <Redirect to="/app" />;
   }
 

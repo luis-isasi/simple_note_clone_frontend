@@ -1,26 +1,29 @@
 import * as React from 'react';
 
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import styled from 'styled-components';
 
-import { BtnsMain } from './Styled';
+import { Button, Div } from './Styled';
 import { colorIcon } from 'StylesApp';
+import SettingsModal from '../../../../../Modals/SettingsModal';
+
 const Settings = () => {
+  const [state, setState] = React.useState(false);
+
+  const onClick = () => {
+    setState(true);
+  };
+
   return (
-    <Button>
-      <SettingsOutlinedIcon />
-      Settings
-    </Button>
+    <>
+      <Button onClick={onClick}>
+        <Div>
+          <SettingsOutlinedIcon style={{ color: `${colorIcon}` }} />
+          Settings
+        </Div>
+      </Button>
+      {state && <SettingsModal setState={setState} />}
+    </>
   );
 };
-
-const Button = styled.button`
-  border-bottom: 1px solid #d6d4d4;
-  ${BtnsMain}
-
-  > :nth-child(1) {
-    color: ${colorIcon};
-  }
-`;
 
 export default Settings;

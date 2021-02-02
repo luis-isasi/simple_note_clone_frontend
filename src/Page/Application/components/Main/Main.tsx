@@ -20,7 +20,6 @@ const Main = ({ className, id }) => {
 };
 
 //-------------style------------
-
 const Div = styled.div.attrs((props) => ({
   className: props.className,
   id: props.id,
@@ -47,4 +46,5 @@ const ContentMain = styled.div`
     flex-grow: 1;
   }
 `;
+
 export default Main;
