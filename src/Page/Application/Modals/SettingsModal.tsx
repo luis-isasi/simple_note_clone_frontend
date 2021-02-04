@@ -7,15 +7,12 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useHistory } from 'react-router';
 
 import { colorIcon, colorBorder } from 'StylesApp';
-// import { useAppContext } from 'ContextApp/AppContext';
 import { useSessionContext } from 'Context/AppSession';
 
 const SettingsModal = ({ setState }) => {
   const history = useHistory();
   const {
-    user: {
-      user: { email },
-    },
+    user: { email },
     logoutUser,
   } = useSessionContext();
 

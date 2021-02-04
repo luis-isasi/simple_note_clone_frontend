@@ -18,7 +18,7 @@ const CreateNote = ({
   const { selectNote, trash } = useAppContext();
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
-  const [createNote, { data: _dataMutation }] = useMutation(CREATE_NOTE, {
+  const [createNote] = useMutation(CREATE_NOTE, {
     update(cache, { data: { createNote } }) {
       cache.modify({
         fields: {

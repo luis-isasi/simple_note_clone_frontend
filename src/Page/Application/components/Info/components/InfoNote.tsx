@@ -12,6 +12,14 @@ const InfoNote = () => {
     showInfo,
   } = useAppContext();
 
+  const finWords = (text) => {
+    text = text.trim();
+    if (text.charAt(0)) {
+      return text.split(' ').length;
+    }
+    return 0;
+  };
+
   const onClick = () => {
     showInfo(false);
   };
@@ -34,8 +42,7 @@ const InfoNote = () => {
       </UpdateAt>
       <div>
         <span>
-          {`${text.trim().split(' ').length} `}
-          <strong>words</strong>
+          {finWords(text)} <strong>words</strong>
         </span>
       </div>
       <div>

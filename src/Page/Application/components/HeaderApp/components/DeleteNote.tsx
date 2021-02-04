@@ -27,7 +27,6 @@ const DeleteNote = () => {
 
   const onClick = () => {
     deleteNote({ variables: { id: appData.note.id } });
-    appData.selectNote(undefined);
   };
   return (
     <Button onClick={onClick}>

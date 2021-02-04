@@ -27,8 +27,13 @@ export const AppSessionProvider = ({ children }) => {
 
   React.useEffect(() => {
     const u = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
+
     if (u) {
-      setUser(u);
+      setUser({
+        token: u.token,
+        email: u.user.email,
+        id: u.user.id,
+      });
     }
   }, []);
 
@@ -49,7 +54,7 @@ export const AppSessionProvider = ({ children }) => {
   return (
     <AppContextSession.Provider
       value={{
-        user: user,
+        user,
         signinUser,
         logoutUser,
       }}

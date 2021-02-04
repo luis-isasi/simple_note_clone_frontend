@@ -18,6 +18,8 @@ const ListNotes = ({
   const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
 
+  // console.log({ listNotes });
+
   React.useEffect(() => {
     // Asigamos la primera nota
     selectNote(listNotes[indexNote.current]);
@@ -53,14 +55,16 @@ const ListNotes = ({
     if (searchGraphqlVariable && !listNotes.length) {
       return (
         <DivNoNotes>
-          <NoNotes>No Results</NoNotes>
-          <CreateNote
-            hover={false}
-            searchGraphqlVariable={searchGraphqlVariable}
-            onClickClear={onClickClear}
-          >
-            {`Create a new note with "${searchGraphqlVariable}"`}
-          </CreateNote>
+          <div>
+            <NoNotes>No Results</NoNotes>
+            <CreateNote
+              hover={false}
+              searchGraphqlVariable={searchGraphqlVariable}
+              onClickClear={onClickClear}
+            >
+              {`Create a new note with "${searchGraphqlVariable}"`}
+            </CreateNote>
+          </div>
         </DivNoNotes>
       );
     }
@@ -69,8 +73,10 @@ const ListNotes = ({
     if (!listNotes.length) {
       return (
         <DivNoNotes>
-          <NoNotes>No Notes</NoNotes>
-          <CreateNote hover={false}>Create a new note</CreateNote>
+          <div>
+            <NoNotes>No Notes</NoNotes>
+            <CreateNote hover={false}>Create a new note</CreateNote>
+          </div>
         </DivNoNotes>
       );
     }
@@ -174,9 +180,17 @@ const DivNoNotes = styled.div`
   margin: auto;
   height: 50px;
   display: flex;
-  flex-flow: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100vh;
+
+  > div {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const NoNotes = styled.p`

@@ -32,13 +32,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(tsx|ts)$/,
         include: path.join(__dirname, '../src/'),
         exclude: /node_modules/,
-        test: /\.(tsx|ts)$/,
         use: 'babel-loader',
       },
       {
         test: /\.(graphql|gql)$/,
+        include: path.join(__dirname, '../src/'),
         exclude: /node_modules/,
         loader: 'graphql-tag/loader',
       },

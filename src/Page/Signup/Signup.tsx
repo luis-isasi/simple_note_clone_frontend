@@ -2,69 +2,54 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
 
 import HeaderDesktop from 'Components/Header/HeaderDesktop';
-import { useSessionContext } from 'Context/AppSession';
-import CREATE_USER from '../../graphql/createUser.graphql';
 import UnDrawSignup from 'Images/UnDrawSignup.svg';
+import FormUser from '../../Components/FormUser';
 
 const Signup = () => {
-  const appSession = useSessionContext();
-
-  const [createUser] = useMutation(CREATE_USER);
-
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // console.log(email, password);
-    createUser({ variables: { email, password } }).then((response) => {
-      appSession.signinUser(response.data.createUser);
-    });
-  };
-
   return (
-    <>
+    <Div>
       <HeaderDesktop />
-      <DivSignup>
-        <img src={UnDrawSignup} alt="UnDrawSignup" />
-        <strong>Create an account</strong>
-        <Form onSubmit={onSubmit}>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button id="btnSignup" type="submit">
-            Sign up
-          </button>
-        </Form>
-        <p>By creating an account you agree to our Terms of Service.</p>
-        <p>
-          Already have an account? <LinkStyle to="/login">Log in</LinkStyle>
-        </p>
-      </DivSignup>
-    </>
+      <div
+        style={{
+          flexGrow: '1',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <DivSignup>
+          <img src={UnDrawSignup} alt="UnDrawSignup" />
+          <strong>Create an account</strong>
+          <FormUser formUser="Signup" />
+          <p>By creating an account you agree to our Terms of Service.</p>
+          <p>
+            Already have an account? <LinkStyle to="/login">Log in</LinkStyle>
+          </p>
+        </DivSignup>
+      </div>
+    </Div>
   );
 };
+
+//---------------styled--------------
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+`;
 
 const DivSignup = styled.div`
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
   align-items: center;
-  margin: 140px auto;
   width: 300px;
   height: 500px;
+  margin: 18px 5%;
   text-align: center;
 
   img {
@@ -85,35 +70,6 @@ const LinkStyle = styled(Link)`
   font-size: 14px;
   text-decoration: none;
   color: #3361cc;
-`;
-
-const Form = styled.form`
-  input {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 320px;
-    height: 38px;
-    margin-top: 8px;
-    padding: 0px 12px;
-    border: solid 1px #e3e0e2;
-    border-radius: 5px;
-  }
-
-  > #btnSignup {
-    box-sizing: border-box;
-    font-size: 16px;
-    width: 100%;
-    height: 38px;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    margin: 16px 0px;
-    background-color: #3361cc;
-
-    &:hover {
-      background-color: #254ba3;
-    }
-  }
 `;
 
 export default Signup;

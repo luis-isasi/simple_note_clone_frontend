@@ -5,8 +5,9 @@ import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import UPDATE_NOTE from '../../graphql/UpdateNote.graphql';
+import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
+import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 
 const Note = (props) => {
   const appData = useAppContext();
@@ -58,7 +59,9 @@ const Note = (props) => {
           {appData.allNotes && <AddTag />}
         </>
       ) : (
-        <P>Selecciona una nota para comenzar a editar 📝</P>
+        <DivLogo>
+          <img src={SimpleNoteBlack} alt="SimpleNoteBlack" />
+        </DivLogo>
       )}
     </Div>
   );
@@ -102,13 +105,21 @@ const TextArea = styled.textarea.attrs((props) => ({
   }
 `;
 
-const P = styled.p`
+const DivLogo = styled.div`
   padding: 14px;
   font-family: inherit;
   font-size: 22px;
   font-weight: 300;
   text-align: center;
   margin: auto;
+  height: 100px;
+  width: 100px;
+
+  > * {
+    opacity: 0.25;
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export default Note;

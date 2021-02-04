@@ -2,10 +2,9 @@ import React from 'react';
 
 import styled, { css } from 'styled-components';
 import NotesIcon from '@material-ui/icons/Notes';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-import LinkLogin from './components/LinkLogin';
-import LinkSignup from './components/LinkSignup';
+import { colorIcon } from 'StylesApp';
 
 const HeaderDesktop = () => {
   return (
@@ -15,9 +14,25 @@ const HeaderDesktop = () => {
         <LinkStyle to="/">SimpleNote</LinkStyle>
       </div>
       <Nav>
-        <LinkLogin>Log in</LinkLogin>
+        <Navlink
+          to="/login"
+          activeStyle={{
+            fontWeight: 'bold',
+            color: `${colorIcon}`,
+          }}
+        >
+          Log in
+        </Navlink>
         <b>|</b>
-        <LinkSignup>Sign up</LinkSignup>
+        <Navlink
+          to="/register"
+          activeStyle={{
+            fontWeight: 'bold',
+            color: `${colorIcon}`,
+          }}
+        >
+          Sign up
+        </Navlink>
       </Nav>
     </Header>
   );
@@ -33,6 +48,7 @@ const FlexRow = css`
 const Header = styled.header`
   height: 56px;
   margin: auto;
+  width: 100%;
   max-width: 1200px;
   ${FlexRow}
 
@@ -58,6 +74,17 @@ const Nav = styled.nav`
     font-weight: 100;
     font-size: 34px;
     color: #a9adb1;
+  }
+`;
+
+const Navlink = styled(NavLink)`
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
+
+  &:hover {
+    color: #6e7072;
   }
 `;
 
