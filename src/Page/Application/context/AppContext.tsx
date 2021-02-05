@@ -26,17 +26,22 @@ type AppState = {
 const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export const AppContextProvider = ({ children }) => {
-  const [note, selectNote] = React.useState(undefined);
+  const [note, setNote] = React.useState(undefined);
   const [allNotes, setAllNotes] = React.useState(true);
   const [trash, setTrash] = React.useState(false);
   const [sidebar, setSidebar] = React.useState(true);
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
-  const [shortcutsModal, setShortcutsModal] = React.useState(true);
+  const [shortcutsModal, setShortcutsModal] = React.useState(false);
 
   const client = useApolloClient();
 
-  const app = document.querySelector('#Application');
+  // console.log('renderContext');
+
+  let app;
+  if (document.querySelector('#Application')) {
+    app = document.querySelector('#Application');
+  }
 
   const onClickMain = React.useCallback(() => {
     const Main = document.getElementById('main');
@@ -79,7 +84,6 @@ export const AppContextProvider = ({ children }) => {
 
   const showInfo = (show: boolean) => {
     // const app = document.querySelector('#Application');
-
     if (show) {
       setInfo(show);
       app.addEventListener('click', onClickInfo);
@@ -92,10 +96,11 @@ export const AppContextProvider = ({ children }) => {
 
   const addTagInCurrentNote = (tag: Tag) => {
     // update the note from the context
-    selectNote({
+    setNote({
       ...note,
       tags: [...note.tags, tag],
     });
+
     // update the cache
     client.cache.modify({
       //le pasamos la nota seleccionada para acceder dentro de ella
@@ -124,7 +129,7 @@ export const AppContextProvider = ({ children }) => {
 
   const deleteTagInCurrentNote = (tag: Tag) => {
     const tags = note.tags.filter((currentTag) => currentTag.id !== tag.id);
-    selectNote({
+    setNote({
       ...note,
       tags,
     });
@@ -140,6 +145,15 @@ export const AppContextProvider = ({ children }) => {
     });
   };
 
+  const selectNote = (note: Note) => {
+    //OBTENEMOS EL TEXTAREA Y LE DAMOS FOCUS(),
+    const textAreaNote = document.getElementById('textNote');
+    //ANTES NOS ASEGURAMOS DE QUE YA SE HALLA RENDERIZADO EN EL DOM
+    if (textAreaNote) textAreaNote.focus();
+
+    //SETEAMOS LA NOTA
+    setNote(note);
+  };
   return (
     <AppContext.Provider
       value={{

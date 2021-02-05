@@ -1,45 +1,24 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import ADD_TAG from 'GraphqlApp/AddTag.graphql';
+import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const AddTag = () => {
   const { note, addTagInCurrentNote, deleteTagInCurrentNote } = useAppContext();
   const [tag, setTag] = React.useState('');
 
-  const [createTag, { data }] = useMutation(ADD_TAG, {
-    // update(cache, { data: { createTag } }) {
-    //   cache.modify({
-    //     fields: {
-    //       tags(existingTags = []) {
-    //         const tag = cache.writeFragment({
-    //           data: createTag,
-    //           fragment: gql`
-    //             fragment NewTag on Tag {
-    //               id
-    //               name
-    //               user {
-    //                 id
-    //                 email
-    //               }
-    //             }
-    //           `,
-    //         });
-    //         return [...existingTags, tag];
-    //       },
-    //     },
-    //   });
-    // },
-  });
-
-  if (data) console.log(data.createTag);
+  const [createTag] = useMutation(ADD_TAG);
+  const [deleteTag] = useMutation(DELETE_TAG);
 
   //delete Tag
-  const deleteTag = (tag) => () => {
-    deleteTagInCurrentNote(tag);
+  const handlerTag = (tag, idTag) => () => {
+    deleteTag({ variables: { id: idTag } }).then(() => {
+      deleteTagInCurrentNote(tag);
+    });
   };
 
   //Adding a new Tag by mutation and in the cache
@@ -54,12 +33,15 @@ const AddTag = () => {
     }).then(({ data: { createTag } }) => {
       //update cache with new Tag
       addTagInCurrentNote(createTag);
+      const inputTag = document.getElementById('inputAddTag');
+      inputTag.focus();
     });
+    setTag('');
   };
 
   const renderTags = () => {
     return note.tags.map((tag) => (
-      <BtnTag key={tag.id} onClick={deleteTag(tag)}>
+      <BtnTag key={tag.id} onClick={handlerTag(tag, tag.id)}>
         {tag.name}
       </BtnTag>
     ));
@@ -70,6 +52,7 @@ const AddTag = () => {
       {renderTags()}
       <form onSubmit={onSubmit}>
         <InputTag
+          id="inputAddTag"
           placeholder="Add a tag"
           value={tag}
           onChange={(e) => {
@@ -115,7 +98,9 @@ const BtnTag = styled.button`
   cursor: pointer;
 `;
 
-const InputTag = styled.input`
+const InputTag = styled.input.attrs((props) => ({
+  id: props.id,
+}))`
   border: none;
   height: 18px;
   padding: 6px 10px;

@@ -54,14 +54,6 @@ const ListNotes = ({
         },
       },
     ]);
-    //   return () => {
-    //     console.log('DELETE SHORTCUTS');
-
-    //     shortcuts.remove([
-    //       { shortcut: 'Ctrl+Shift+K' },
-    //       { shortcut: 'Ctrl+Shift+J' },
-    //     ]);
-    //   };
   }, []);
 
   React.useEffect(() => {

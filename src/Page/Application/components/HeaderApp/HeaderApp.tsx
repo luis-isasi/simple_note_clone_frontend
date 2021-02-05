@@ -9,11 +9,11 @@ import InformationNote from './components/InfoNoteIcon';
 import Share from './components/Share';
 import { colorIcon } from 'StylesApp';
 
-const HeaderApp = (props) => {
+const HeaderApp = () => {
   const { note, allNotes, trash } = useAppContext();
 
   return (
-    <Header className={props.className} allNotes={allNotes}>
+    <Header allNotes={allNotes}>
       {allNotes && (
         <>
           <ToggleSidebar />
@@ -61,9 +61,7 @@ const flexRowEnd = css`
   align-items: center;
 `;
 
-const Header = styled.header.attrs((props) => ({
-  className: props.className,
-}))`
+const Header = styled.header`
   ${(props) => (props.allNotes ? `${flexRowCenterBetween}` : `${flexRowEnd}`)}
   background-color: #ffffff;
 

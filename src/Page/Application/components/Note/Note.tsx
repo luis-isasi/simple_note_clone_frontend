@@ -3,27 +3,22 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
-import { Shortcuts } from 'shortcuts';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 
-const Note = (props) => {
+const Note = () => {
   const appData = useAppContext();
   const [value, setValue] = React.useState(
     appData.note ? appData.note.text : ''
   );
   const [updateNote] = useMutation(UPDATE_NOTE);
 
-  //accedemos al textarea de Note
-
   React.useEffect(() => {
     if (appData.note) {
       setValue(appData.note.text);
-      const textAreaNote = document.querySelector('#textNote');
-      textAreaNote.focus();
     }
   }, [appData.note]);
 
@@ -48,14 +43,14 @@ const Note = (props) => {
   };
 
   return (
-    <Div className={props.className}>
+    <Div>
       {appData.note ? (
         <>
           <TextArea
+            id="textNote"
             onChange={onChange}
             value={value}
             autoFocus
-            id="textNote"
           ></TextArea>
           {appData.allNotes && <AddTag />}
         </>
@@ -70,9 +65,7 @@ const Note = (props) => {
 
 //--------------styled-----------------
 
-const Div = styled.div.attrs((props) => ({
-  className: props.className,
-}))`
+const Div = styled.div`
   width: 100%;
   flex-grow: 1;
   display: flex;
@@ -123,4 +116,4 @@ const DivLogo = styled.div`
   }
 `;
 
-export default Note;
+export default React.memo(Note);

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
-import { Shortcut, Shortcuts } from 'shortcuts';
+import { Shortcuts } from 'shortcuts';
 
 import { USER_SESSION_KEY } from 'Constants';
 import Main from './components/Main';
@@ -65,8 +65,8 @@ const App = () => {
         <Div className={(main || info) && 'hideApp'} id="Application">
           <Sidebar className={!sidebar && 'sidebarNoActive'} />
           <Content>
-            <HeaderApp className="headerApp" />
-            <Note className="note" />
+            <HeaderApp />
+            <Note />
           </Content>
         </Div>
         {info && <Info className="infoActive" id="info" />}
