@@ -2,11 +2,30 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
+import { Shortcuts } from 'shortcuts';
 
 const Search = ({ search, onChange, onClickClear, allNotes }) => {
+  const shortcuts = new Shortcuts();
+
+  React.useEffect(() => {
+    shortcuts.add({
+      shortcut: 'Ctrl+Shift+S',
+      handler: (e) => {
+        e.preventDefault();
+        const searchNote = document.querySelector('#InputSearchNote');
+        searchNote.focus();
+      },
+    });
+
+    return () => {
+      shortcuts.remove({ shortcut: 'Ctrl+Shift+S' });
+    };
+  }, []);
+
   return (
     <DivSearch>
       <InputSearch
+        id="InputSearchNote"
         type="text"
         placeholder={allNotes ? 'All Notes' : 'Trash'}
         value={search}
@@ -23,6 +42,7 @@ const Search = ({ search, onChange, onClickClear, allNotes }) => {
   );
 };
 
+//------------styled-------------
 const DivSearch = styled.div`
   height: 25px;
   width: 205px;
@@ -51,7 +71,9 @@ const DivSearch = styled.div`
   }
 `;
 
-const InputSearch = styled.input`
+const InputSearch = styled.input.attrs((props) => ({
+  id: props.id,
+}))`
   border: none;
   height: 22px;
 

@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
+import { Shortcuts } from 'shortcuts';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';

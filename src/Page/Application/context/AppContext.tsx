@@ -16,9 +16,11 @@ type AppState = {
   sidebar: boolean;
   setSidebar(sidebar: boolean): void;
   main: boolean;
-  showMain(): void;
+  showMain(show: boolean): void;
   info: boolean;
   showInfo(show: boolean): void;
+  shortcutsModal: boolean;
+  setShortcutsModal(shortcutsModal: boolean): void;
 };
 
 const AppContext = React.createContext<AppState | undefined>(undefined);
@@ -30,38 +32,45 @@ export const AppContextProvider = ({ children }) => {
   const [sidebar, setSidebar] = React.useState(true);
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
+  const [shortcutsModal, setShortcutsModal] = React.useState(true);
 
   const client = useApolloClient();
 
-  const showMain = () => {
-    const app = document.querySelector('#Application');
+  const app = document.querySelector('#Application');
+
+  const onClickMain = React.useCallback(() => {
+    const Main = document.getElementById('main');
+    //añadimos las clases para los keyframes
+    Main.classList.remove('mainActive');
+    Main.classList.add('mainNoActive');
+    app.removeEventListener('click', onClickMain);
+    setTimeout(() => {
+      setMain(false);
+    }, 200);
+  }, [app]);
+
+  const showMain = (show) => {
+    // const app = document.querySelector('#Application');
 
     //function a ejecutar para esconder Main
-    const onClick = () => {
-      const Main = document.getElementById('main');
-      //añadimos las clases para los keyframes
-      Main.classList.remove('mainActive');
-      Main.classList.add('mainNoActive');
-      app.removeEventListener('click', onClick);
-      setTimeout(() => {
-        setMain(false);
-      }, 200);
-    };
+    if (!show) {
+      onClickMain();
+      return;
+    }
 
     //show Main
-    setMain(true);
-    app.addEventListener('click', onClick);
+    setMain(show);
+    app.addEventListener('click', onClickMain);
   };
 
   //accedemos a App del DOM y hacemos que esta funcion se memorize
   // asi logramos limpirar el eventListener satisafactoriamente
-  const app = document.querySelector('#Application');
-  const onClick = React.useCallback(() => {
+  const onClickInfo = React.useCallback(() => {
     const info = document.querySelector('#info');
     //añadimos las clases para los keyframes
     info.classList.remove('infoActive');
     info.classList.add('infoNoActive');
-    app.removeEventListener('click', onClick);
+    app.removeEventListener('click', onClickInfo);
     //luego de la animacion desmontamos el componente del dom
     setTimeout(() => {
       setInfo(false);
@@ -69,13 +78,15 @@ export const AppContextProvider = ({ children }) => {
   }, [app]);
 
   const showInfo = (show: boolean) => {
+    // const app = document.querySelector('#Application');
+
     if (show) {
       setInfo(show);
-      app.addEventListener('click', onClick);
+      app.addEventListener('click', onClickInfo);
     }
 
     if (!show) {
-      onClick();
+      onClickInfo();
     }
   };
 
@@ -146,6 +157,8 @@ export const AppContextProvider = ({ children }) => {
         showMain,
         info,
         showInfo,
+        shortcutsModal,
+        setShortcutsModal,
       }}
     >
       {children}

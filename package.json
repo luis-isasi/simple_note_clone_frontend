@@ -22,10 +22,12 @@
     "file-loader": "6.2.0",
     "graphql": "15.4.0",
     "graphql-tag": "^2.11.0",
+    "hotkeys-js": "^3.8.2",
     "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "shortcuts": "^1.6.2",
     "styled-components": "5.2.1",
     "url-loader": "4.1.1"
   },

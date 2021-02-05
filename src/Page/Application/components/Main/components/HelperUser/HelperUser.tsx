@@ -7,11 +7,11 @@ import Shortcuts from './components/Shortcuts';
 import HelpSupport from './components/HelpSupport';
 import About from './components/About';
 
-const HelperUser = () => {
+const HelperUser = ({ setShortcutsModal }) => {
   return (
     <Div>
       <Connection />
-      <Shortcuts />
+      <Shortcuts setShortcutsModal={setShortcutsModal} />
       <Content>
         <HelpSupport />
         <About />

@@ -7,13 +7,13 @@ import MainOptions from './components/MainOptions';
 import Tags from './components/Tags';
 import HelperUser from './components/HelperUser';
 
-const Main = ({ className, id }) => {
+const Main = ({ className, id, setShortcutsModal }) => {
   return (
     <Div className={className} id={id}>
       <ContentMain>
         <MainOptions />
         <Tags />
-        <HelperUser />
+        <HelperUser setShortcutsModal={setShortcutsModal} />
       </ContentMain>
     </Div>
   );

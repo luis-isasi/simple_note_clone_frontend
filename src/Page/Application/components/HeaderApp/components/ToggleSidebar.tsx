@@ -2,23 +2,41 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
+import { Shortcuts } from 'shortcuts';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import { HoverText } from 'StylesApp';
 
 const ToggleSidebar = () => {
-  const dataApp = useAppContext();
+  const { sidebar, setSidebar } = useAppContext();
+  const shortcuts = new Shortcuts();
+
+  React.useEffect(() => {
+    shortcuts.add({
+      shortcut: 'Ctrl+Shift+F',
+      handler: (e) => {
+        e.preventDefault();
+        onClick();
+        return false;
+      },
+    });
+    return () => {
+      shortcuts.remove({ shortcut: 'Ctrl+Shift+F' });
+    };
+  }, [sidebar]);
 
   const onClick = () => {
-    dataApp.setSidebar(!dataApp.sidebar);
+    setSidebar(!sidebar);
   };
+
   return (
-    <Button onClick={onClick} hide={dataApp.sidebar} id="btnToggle">
+    <Button onClick={onClick} hide={sidebar} id="btnToggle">
       <VerticalAlignBottomIcon />
     </Button>
   );
 };
 
+// --------------styled--------------
 const Button = styled.button`
   background-color: transparent;
   width: 36px;

@@ -1,8 +1,15 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-const Shortcuts = () => {
-  return <Button>Keyboard Shortcuts</Button>;
+
+// import ShortcutsModal from '../../../../../Modals/ShortcutsModal';
+
+const Shortcuts = ({ setShortcutsModal }) => {
+  const onClick = () => {
+    setShortcutsModal(true);
+  };
+
+  return <Button onClick={onClick}>Keyboard Shortcuts</Button>;
 };
 
 //-------------styled----------

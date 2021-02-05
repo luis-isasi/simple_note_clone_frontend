@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import { Shortcuts } from 'shortcuts';
 
 import CreateNote from '../Header/components/CreateNote';
 import { colorIcon, colorBorder } from 'StylesApp';
@@ -15,10 +16,53 @@ const ListNotes = ({
   trash,
 }) => {
   const noteSelectedId = note ? note.id : '';
-  const indexNote = React.useRef(0);
+  const indexNote = React.useRef(3);
   const listNoteLength = React.useRef(listNotes.length);
 
-  // console.log({ listNotes });
+  // console.log({ listNoteLength });
+  const shortcuts = new Shortcuts();
+
+  React.useEffect(() => {
+    //ADDING SHORTCUTS
+    console.log('ADDING SHORTCUTS');
+    shortcuts.add([
+      {
+        shortcut: 'Ctrl+Shift+J',
+        handler: (e) => {
+          e.preventDefault();
+          //PREVIOUS NOTE
+          console.log('PREVIOUS NOTE');
+          let index = indexNote.current;
+          //SI NO ES LA PRIMERA NOTA SELECCIONAMOS LA ANTERIOR
+          if (!(index === 0)) {
+            indexNote.current = indexNote.current - 1;
+            selectNote(listNotes[indexNote.current]);
+          }
+        },
+      },
+      {
+        shortcut: 'Ctrl+Shift+K',
+        handler: (e) => {
+          e.preventDefault();
+          //NEXT NOTE
+          let index = indexNote.current + 1;
+          //SI NO ES LA ULTIMA NOTA SELECCIONAMOS LA SIGUIENTE
+          if (!(index === listNoteLength.current)) {
+            indexNote.current = indexNote.current + 1;
+            selectNote(listNotes[indexNote.current]);
+          }
+        },
+      },
+    ]);
+    //   return () => {
+    //     console.log('DELETE SHORTCUTS');
+
+    //     shortcuts.remove([
+    //       { shortcut: 'Ctrl+Shift+K' },
+    //       { shortcut: 'Ctrl+Shift+J' },
+    //     ]);
+    //   };
+  }, []);
 
   React.useEffect(() => {
     // Asigamos la primera nota

@@ -1,32 +1,27 @@
 import * as React from 'react';
 
-import { useQuery, gql } from '@apollo/client';
-
-const NOTES = gql`
-  query GetNotes {
-    notes {
-      id
-      text
-      user {
-        email
-      }
-    }
-  }
-`;
+import hotkeys from 'hotkeys-js';
 
 const NoteTest = () => {
-  const { loading, error, data } = useQuery(NOTES);
+  hotkeys('ctrl + m', function (event, handler) {
+    // Prevent the default refresh event under WINDOWS system
+    event.preventDefault();
+    console.log('AÑADIENDO SHORTCUTS');
 
-  // const token = JSON.parse(localStorage.getItem('user_session'));
-  // console.log(token);
+    alert('you pressed ctrl + m!');
+  });
 
-  console.log(loading);
-  console.log(error);
-  console.log(data);
+  const onClick = () => {
+    console.log('DELETE SHORTCUT');
+
+    hotkeys.unbind('ctrl + m');
+  };
+
   return (
     <div>
       {' '}
       <h1>DESDE NOTE TEST</h1>
+      <button onClick={onClick}>DELETE</button>
     </div>
   );
 };
