@@ -4,8 +4,16 @@ import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Shortcuts } from 'shortcuts';
 
-const Search = ({ search, onChange, onClickClear, allNotes }) => {
+import { useAppContext } from 'ContextApp/AppContext';
+
+const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
+  const {
+    searchTag: { name },
+  } = useAppContext();
+
   const shortcuts = new Shortcuts();
+
+  // console.log({ trash });
 
   React.useEffect(() => {
     shortcuts.add({
@@ -27,7 +35,7 @@ const Search = ({ search, onChange, onClickClear, allNotes }) => {
       <InputSearch
         id="InputSearchNote"
         type="text"
-        placeholder={allNotes ? 'All Notes' : 'Trash'}
+        placeholder={allNotes ? 'All Notes' : trash ? 'Trash' : name}
         value={search}
         onChange={onChange}
       />

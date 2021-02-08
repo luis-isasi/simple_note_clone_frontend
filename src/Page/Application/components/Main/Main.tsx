@@ -6,13 +6,25 @@ import styled from 'styled-components';
 import MainOptions from './components/MainOptions';
 import Tags from './components/Tags';
 import HelperUser from './components/HelperUser';
+import { useAppContext } from 'ContextApp/AppContext';
 
-const Main = ({ className, id, setShortcutsModal }) => {
+const Main = ({ className, id }) => {
+  const {
+    setSearchTag,
+    setShortcutsModal,
+    setAllNotes,
+    setTrash,
+  } = useAppContext();
+
   return (
     <Div className={className} id={id}>
       <ContentMain>
         <MainOptions />
-        <Tags />
+        <Tags
+          setSearchTag={setSearchTag}
+          setAllNotes={setAllNotes}
+          setTrash={setTrash}
+        />
         <HelperUser setShortcutsModal={setShortcutsModal} />
       </ContentMain>
     </Div>

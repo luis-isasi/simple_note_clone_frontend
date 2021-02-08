@@ -1,0 +1,7 @@
+mutation DeleteForeverNote(
+    $id: ID!
+){
+  deletedNoteForever(id: $id){
+    success
+  }
+}

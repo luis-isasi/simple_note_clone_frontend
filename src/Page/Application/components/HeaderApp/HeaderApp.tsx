@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styled, { css } from 'styled-components';
+import { useMutation } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import ToggleSidebar from './components/ToggleSidebar';
@@ -8,13 +9,50 @@ import DeleteNote from './components/DeleteNote';
 import InformationNote from './components/InfoNoteIcon';
 import Share from './components/Share';
 import { colorIcon } from 'StylesApp';
+import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
+import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
+
+import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
+// import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 
 const HeaderApp = () => {
-  const { note, allNotes, trash } = useAppContext();
+  const {
+    note,
+    allNotes,
+    trash,
+    searchTag: { id, name },
+  } = useAppContext();
+
+  const [restoreNote] = useMutation(RESTORE_NOTE, {
+    update(cache, { data: restoreNote }) {
+      cache.modify({
+        fields: {
+          notes(existingNotes = []) {
+            const newRefNote = cache.writeFragment({
+              data: restoreNote,
+              fragment: NOTE_FRAGMENT,
+            });
+
+            return [newRefNote, ...existingNotes];
+          },
+        },
+      });
+    },
+  });
+  // const [emptyTrash] = useMutation(EMPTY_TRASH);
+  const [deleteForevereNote] = useMutation(DELETED_NOTE_FOREVER);
+
+  const handlerBtnDeleteForever = () => {
+    deleteForevereNote({ variables: { id: note.id } });
+  };
+
+  const handlerBtnRestore = () => {
+    restoreNote({ variables: { id: note.id } });
+  };
 
   return (
-    <Header allNotes={allNotes}>
-      {allNotes && (
+    <Header allNotes={allNotes} name={name}>
+      {(allNotes || name) && (
         <>
           <ToggleSidebar />
           {note && (
@@ -28,8 +66,12 @@ const HeaderApp = () => {
       )}
       {trash && (
         <DivTrash>
-          <button className="btnDelete">Delete Forever</button>
-          <button className="btnRestore">Restore Note</button>
+          <button className="btnDelete" onClick={handlerBtnDeleteForever}>
+            Delete Forever
+          </button>
+          <button className="btnRestore" onClick={handlerBtnRestore}>
+            Restore Note
+          </button>
         </DivTrash>
       )}
     </Header>
@@ -62,7 +104,8 @@ const flexRowEnd = css`
 `;
 
 const Header = styled.header`
-  ${(props) => (props.allNotes ? `${flexRowCenterBetween}` : `${flexRowEnd}`)}
+  ${(props) =>
+    props.allNotes || props.name ? `${flexRowCenterBetween}` : `${flexRowEnd}`}
   background-color: #ffffff;
 
   flex-basis: 55px;

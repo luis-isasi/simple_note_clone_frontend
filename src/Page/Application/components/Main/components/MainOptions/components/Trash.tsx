@@ -5,9 +5,13 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { colorIcon } from 'StylesApp';
 import { Button, Div } from './Styled';
 
-const Trash = ({ trash, setTrash, setAllNotes }) => {
+const Trash = ({ trash, setTrash, setAllNotes, setSearchTag }) => {
   const onClick = () => {
     setAllNotes(false);
+    setSearchTag({
+      id: null,
+      name: undefined,
+    });
     setTrash(true);
   };
   return (

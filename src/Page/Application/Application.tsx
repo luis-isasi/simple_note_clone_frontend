@@ -28,6 +28,7 @@ const App = () => {
     shortcutsModal,
     setShortcutsModal,
   } = useAppContext();
+
   const history = useHistory();
 
   React.useEffect(() => {
@@ -55,13 +56,7 @@ const App = () => {
   return (
     <>
       <DivApp>
-        {main && (
-          <Main
-            className="mainActive"
-            id="main"
-            setShortcutsModal={setShortcutsModal}
-          />
-        )}
+        {main && <Main className="mainActive" id="main" />}
         <Div className={(main || info) && 'hideApp'} id="Application">
           <Sidebar className={!sidebar && 'sidebarNoActive'} />
           <Content>
@@ -84,7 +79,7 @@ const DivApp = styled.div`
   flex-flow: row;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 
   .hideApp {
     opacity: 0.35;

@@ -8,7 +8,13 @@ import Trash from './components/Trash';
 import Settings from './components/Settings';
 
 const MainOptions = () => {
-  const { allNotes, setAllNotes, trash, setTrash } = useAppContext();
+  const {
+    allNotes,
+    setAllNotes,
+    trash,
+    setTrash,
+    setSearchTag,
+  } = useAppContext();
 
   return (
     <Div>
@@ -16,8 +22,14 @@ const MainOptions = () => {
         allNotes={allNotes}
         setAllNotes={setAllNotes}
         setTrash={setTrash}
+        setSearchTag={setSearchTag}
       />
-      <Trash trash={trash} setTrash={setTrash} setAllNotes={setAllNotes} />
+      <Trash
+        trash={trash}
+        setTrash={setTrash}
+        setAllNotes={setAllNotes}
+        setSearchTag={setSearchTag}
+      />
       <Settings />
     </Div>
   );

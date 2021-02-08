@@ -1,11 +1,13 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
+import { useMutation } from '@apollo/client';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { Shortcuts } from 'shortcuts';
 
 import CreateNote from '../Header/components/CreateNote';
 import { colorIcon, colorBorder } from 'StylesApp';
+import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 
 const ListNotes = ({
   filterNotes: { listNotes, lengthPinned },
@@ -16,22 +18,23 @@ const ListNotes = ({
   trash,
 }) => {
   const noteSelectedId = note ? note.id : '';
-  const indexNote = React.useRef(3);
+  const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
 
-  // console.log({ listNoteLength });
   const shortcuts = new Shortcuts();
 
+  const [emptyTrash] = useMutation(EMPTY_TRASH);
+
   React.useEffect(() => {
+    // Asigamos la primera nota
+    selectNote(listNotes[indexNote.current]);
     //ADDING SHORTCUTS
-    console.log('ADDING SHORTCUTS');
     shortcuts.add([
       {
         shortcut: 'Ctrl+Shift+J',
         handler: (e) => {
           e.preventDefault();
           //PREVIOUS NOTE
-          console.log('PREVIOUS NOTE');
           let index = indexNote.current;
           //SI NO ES LA PRIMERA NOTA SELECCIONAMOS LA ANTERIOR
           if (!(index === 0)) {
@@ -46,8 +49,12 @@ const ListNotes = ({
           e.preventDefault();
           //NEXT NOTE
           let index = indexNote.current + 1;
+          console.log({ index });
+
           //SI NO ES LA ULTIMA NOTA SELECCIONAMOS LA SIGUIENTE
           if (!(index === listNoteLength.current)) {
+            console.log('SELECT NEX NOTE');
+
             indexNote.current = indexNote.current + 1;
             selectNote(listNotes[indexNote.current]);
           }
@@ -57,16 +64,13 @@ const ListNotes = ({
   }, []);
 
   React.useEffect(() => {
-    // Asigamos la primera nota
-    selectNote(listNotes[indexNote.current]);
-  }, []);
-
-  React.useEffect(() => {
     const newNotesLength = listNotes.length;
     const oldNotesLength = listNoteLength.current;
 
     //DELETE LAST NOTE
     if (oldNotesLength > newNotesLength) {
+      console.log('DELETE');
+
       listNoteLength.current = newNotesLength;
       let index = indexNote.current;
 
@@ -80,6 +84,8 @@ const ListNotes = ({
 
     //ADDING NEW NOTE
     if (oldNotesLength < newNotesLength) {
+      console.log('adding');
+
       listNoteLength.current = newNotesLength;
       indexNote.current = lengthPinned;
       selectNote(listNotes[indexNote.current]);
@@ -136,20 +142,29 @@ const ListNotes = ({
   };
 
   return (
-    <>
+    <ContentListNotes>
       <Ul>{renderNotes()}</Ul>
-      {trash && <BtnEmptyTrash>Empty Trash</BtnEmptyTrash>}
-    </>
+      {trash && <BtnEmptyTrash onClick={emptyTrash}>Empty Trash</BtnEmptyTrash>}
+    </ContentListNotes>
   );
 };
 
 //----------Styles----------
 
+const ContentListNotes = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
 const Ul = styled.ul`
+  flex-grow: 1;
   width: 100%;
   display: flex;
   flex-flow: column;
-  overflow: auto;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     /* -webkit-appearance: none; */
@@ -237,7 +252,9 @@ const NoNotes = styled.p`
 
 const BtnEmptyTrash = styled.button`
   background-color: transparent;
-  height: 58px;
+  position: relative;
+  bottom: 0px;
+  min-height: 58px;
   width: 100%;
   color: #e65054;
   border: none;

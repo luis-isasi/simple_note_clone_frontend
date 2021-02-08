@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import GET_TAG from 'GraphqlApp/GetTags.graphql';
 import { IconAnimation, Error } from 'StylesApp';
 
-const Tags = () => {
+const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
   const { loading, error, data } = useQuery(GET_TAG);
 
   // console.log({ data });
@@ -20,7 +20,21 @@ const Tags = () => {
         <Error>Hay un Error en nuestro servidor, intentalo mas tarde</Error>
       );
     }
-    return data.tags.map(({ id, name }) => <Button key={id}>{name}</Button>);
+
+    const onClick = (id, name) => () => {
+      setSearchTag({
+        id: id,
+        name: name,
+      });
+      setAllNotes(false);
+      setTrash(false);
+    };
+
+    return data.tags.map(({ id, name }) => (
+      <Button key={id} onClick={onClick(id, name)}>
+        {name}
+      </Button>
+    ));
   };
 
   return (

@@ -5,20 +5,53 @@ import debounce from 'lodash/debounce';
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import GET_NOTES from 'GraphqlApp/GetNote.graphql';
+import GET_NOTE from 'GraphqlApp/GetNote.graphql';
 import Header from './components/Header';
 import ListNotes from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
 
 const Sidebar = ({ className }) => {
-  const appData = useAppContext();
+  const {
+    note,
+    selectNote,
+    trash,
+    allNotes,
+    searchTag: { id: _tagId },
+  } = useAppContext();
 
   const [searchGraphqlVariable, setSearchGV] = React.useState('');
   const [search, setSearch] = React.useState('');
-
-  const { loading, error, data } = useQuery(GET_NOTES, {
-    variables: { text: searchGraphqlVariable },
+  const [filterNotes, setFilterNotes] = React.useState({
+    listNotes: undefined,
+    lengthPinned: undefined,
   });
+
+  console.log({ _tagId });
+
+  const { loading, error, data } = useQuery(GET_NOTE, {
+    variables: { text: searchGraphqlVariable, isInTrash: trash, tagId: _tagId },
+  });
+
+  console.log({ data });
+
+  React.useEffect(() => {
+    //filter Notes
+    let notesPinned = [];
+    let notesNoPinned = [];
+
+    //FILTRANDO LA DATA
+    if (data) {
+      data.notes.forEach((note) => {
+        //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
+        if (note.pinned) notesPinned.push(note);
+        else notesNoPinned.push(note);
+      });
+      setFilterNotes({
+        listNotes: [...notesPinned, ...notesNoPinned],
+        lengthPinned: notesPinned.length,
+      });
+    }
+  }, [data, searchGraphqlVariable]);
 
   const onChange = (event) => {
     //extraremos el value
@@ -42,22 +75,60 @@ const Sidebar = ({ className }) => {
     []
   );
 
+  /*
   const filterListNotes = () => {
     //filter Notes
     let notesPinned = [];
     let notesNoPinned = [];
 
-    data.notes.forEach((note) => {
-      //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
-      if (note.pinned) notesPinned.push(note);
-      else notesNoPinned.push(note);
-    });
+    //ALL NOTES
+    if (allNotes) {
+      console.log('ALL NOTES');
 
-    return {
+      getNote({
+        variables: { text: searchGraphqlVariable, isInTrash: false },
+      });
+    }
+
+    //TRASH
+    if (trash) {
+      console.log('TRASH');
+
+      getNote({
+        variables: { text: searchGraphqlVariable, isInTrash: true },
+      });
+    }
+
+    //TAG
+    if (searchTag) {
+    }
+
+    if (searchTag) {
+      if (tagNotes.length) {
+        console.log('hay algo en tagNotes');
+        tagNotes.forEach((note) => {
+          //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
+          if (note.pinned) notesPinned.push(note);
+          else notesNoPinned.push(note);
+        });
+      }
+    } else {
+      if (data) {
+        data.notes.forEach((note) => {
+          //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
+          if (note.pinned) notesPinned.push(note);
+          else notesNoPinned.push(note);
+        });
+      }
+    }
+    
+
+    setFilterNotes({
       listNotes: [...notesPinned, ...notesNoPinned],
       lengthPinned: notesPinned.length,
-    };
+    });
   };
+ */
 
   // Condicionales para renderizar ListNotes, lo hacemos para asegurarnos
   // que listNotes no llegue como undefined
@@ -70,16 +141,21 @@ const Sidebar = ({ className }) => {
         <Error> Hay un Error en nuestro servidor, intentalo mas tarde </Error>
       );
     }
-    return (
-      <ListNotes
-        filterNotes={filterListNotes()}
-        note={appData.note}
-        selectNote={appData.selectNote}
-        searchGraphqlVariable={searchGraphqlVariable}
-        onClickClear={onClickClear}
-        trash={appData.trash}
-      />
-    );
+
+    if (filterNotes.listNotes) {
+      return (
+        <ListNotes
+          filterNotes={filterNotes}
+          note={note}
+          selectNote={selectNote}
+          searchGraphqlVariable={searchGraphqlVariable}
+          onClickClear={onClickClear}
+          trash={trash}
+        />
+      );
+    }
+
+    return null;
   }
 
   return (
@@ -88,7 +164,8 @@ const Sidebar = ({ className }) => {
         search={search}
         onChange={onChange}
         onClickClear={onClickClear}
-        allNotes={appData.allNotes}
+        allNotes={allNotes}
+        trash={trash}
       />
       {renderListNotes()}
     </Div>
@@ -105,4 +182,4 @@ const Div = styled.div.attrs((props) => ({
   min-height: 100vh;
   border-right: 1px solid #d6d4d4;
 `;
-export default Sidebar;
+export default React.memo(Sidebar);

@@ -15,6 +15,8 @@ type AppState = {
   setTrash(trash: boolean): void;
   sidebar: boolean;
   setSidebar(sidebar: boolean): void;
+  searchTag: Tag;
+  setSearchTag(tag: Tag): void;
   main: boolean;
   showMain(show: boolean): void;
   info: boolean;
@@ -30,13 +32,21 @@ export const AppContextProvider = ({ children }) => {
   const [allNotes, setAllNotes] = React.useState(true);
   const [trash, setTrash] = React.useState(false);
   const [sidebar, setSidebar] = React.useState(true);
+  const [searchTag, setSearchTag] = React.useState({
+    id: null,
+    name: undefined,
+  });
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
   const [shortcutsModal, setShortcutsModal] = React.useState(false);
 
   const client = useApolloClient();
 
-  // console.log('renderContext');
+  // console.log('====================================');
+  // console.log({ allNotes });
+  // console.log({ trash });
+  // console.log({ searchTag });
+  // console.log('====================================');
 
   let app;
   if (document.querySelector('#Application')) {
@@ -167,6 +177,8 @@ export const AppContextProvider = ({ children }) => {
         setTrash,
         sidebar,
         setSidebar,
+        searchTag,
+        setSearchTag,
         main,
         showMain,
         info,

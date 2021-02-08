@@ -1,0 +1,8 @@
+#import "./NoteFragment.graphql"
+mutation RestoreNote(
+  $id: ID!
+){
+  restoreNote(id: $id){
+    ...NewNote
+  }
+}
