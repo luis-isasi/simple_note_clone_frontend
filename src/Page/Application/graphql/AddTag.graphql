@@ -5,9 +5,5 @@ mutation AddTag(
   createTag(name: $name, noteId: $noteId){
     id
     name
-    user {
-      id
-      email
-    }
   }
 }

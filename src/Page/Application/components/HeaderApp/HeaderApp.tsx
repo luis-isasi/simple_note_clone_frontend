@@ -10,37 +10,39 @@ import InformationNote from './components/InfoNoteIcon';
 import Share from './components/Share';
 import { colorIcon } from 'StylesApp';
 import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
-import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
-
 import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
-// import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 
 const HeaderApp = () => {
   const {
     note,
     allNotes,
     trash,
-    searchTag: { id, name },
+    searchTag: { name },
   } = useAppContext();
 
   const [restoreNote] = useMutation(RESTORE_NOTE, {
-    update(cache, { data: restoreNote }) {
+    update(cache) {
       cache.modify({
         fields: {
-          notes(existingNotes = []) {
-            const newRefNote = cache.writeFragment({
-              data: restoreNote,
-              fragment: NOTE_FRAGMENT,
-            });
-
-            return [newRefNote, ...existingNotes];
+          notes(existingNotes = [], { DELETE }) {
+            return DELETE;
           },
         },
       });
     },
   });
-  // const [emptyTrash] = useMutation(EMPTY_TRASH);
-  const [deleteForevereNote] = useMutation(DELETED_NOTE_FOREVER);
+
+  const [deleteForevereNote] = useMutation(DELETED_NOTE_FOREVER, {
+    update(cache) {
+      cache.modify({
+        fields: {
+          notes(existingNotes = [], { DELETE }) {
+            return DELETE;
+          },
+        },
+      });
+    },
+  });
 
   const handlerBtnDeleteForever = () => {
     deleteForevereNote({ variables: { id: note.id } });

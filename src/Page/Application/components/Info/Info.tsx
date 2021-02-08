@@ -13,31 +13,9 @@ import Markdown from './components/Markdown';
 const Info = ({ className, id }) => {
   const { note, selectNote } = useAppContext();
 
-  const [pinNote] = useMutation(PIN_NOTE, {
-    // update(cache, { data: { pinNote } }) {
-    //   cache.modify({
-    //     id: cache.identify(note),
-    //     fields: {
-    //       pinned() {
-    //         return pinNote.pinned;
-    //       },
-    //     },
-    //   });
-    // },
-  });
+  const [pinNote] = useMutation(PIN_NOTE);
 
-  const [unpinNote] = useMutation(UN_PIN_NOTE, {
-    // update(cache, { data: { unpinNote } }) {
-    //   cache.modify({
-    //     id: cache.identify(note),
-    //     fields: {
-    //       pinned() {
-    //         return unpinNote.pinned;
-    //       },
-    //     },
-    //   });
-    // },
-  });
+  const [unpinNote] = useMutation(UN_PIN_NOTE);
 
   return (
     <Div className={className} id={id}>

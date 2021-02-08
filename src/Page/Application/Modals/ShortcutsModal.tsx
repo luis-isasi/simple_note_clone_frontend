@@ -38,11 +38,16 @@ const ShortcutsModal = ({ setShortcutsModal }) => {
     },
     {
       id: '1',
+      letters: ['Ctrl', 'Shift', 'Y'],
+      description: 'Show note information',
+    },
+    {
+      id: '2',
       letters: ['Ctrl', 'Shift', 'J'],
       description: 'Open note above current none ',
     },
     {
-      id: '2',
+      id: '3',
       letters: ['Ctrl', 'Shift', 'K'],
       description: 'Open note below current none ',
     },

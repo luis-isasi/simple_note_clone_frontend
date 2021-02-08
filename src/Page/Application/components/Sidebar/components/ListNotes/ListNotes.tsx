@@ -23,7 +23,17 @@ const ListNotes = ({
 
   const shortcuts = new Shortcuts();
 
-  const [emptyTrash] = useMutation(EMPTY_TRASH);
+  const [emptyTrash] = useMutation(EMPTY_TRASH, {
+    update(cache) {
+      cache.modify({
+        fields: {
+          notes(existingNotes = []) {
+            return [];
+          },
+        },
+      });
+    },
+  });
 
   React.useEffect(() => {
     // Asigamos la primera nota

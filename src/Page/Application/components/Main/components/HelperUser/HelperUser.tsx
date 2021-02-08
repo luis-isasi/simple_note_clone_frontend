@@ -70,4 +70,4 @@ const Content = styled.div`
   }
 `;
 
-export default HelperUser;
+export default React.memo(HelperUser);

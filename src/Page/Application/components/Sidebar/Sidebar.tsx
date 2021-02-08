@@ -26,13 +26,9 @@ const Sidebar = ({ className }) => {
     lengthPinned: undefined,
   });
 
-  console.log({ _tagId });
-
   const { loading, error, data } = useQuery(GET_NOTE, {
     variables: { text: searchGraphqlVariable, isInTrash: trash, tagId: _tagId },
   });
-
-  console.log({ data });
 
   React.useEffect(() => {
     //filter Notes
@@ -74,61 +70,6 @@ const Sidebar = ({ className }) => {
     }, 300),
     []
   );
-
-  /*
-  const filterListNotes = () => {
-    //filter Notes
-    let notesPinned = [];
-    let notesNoPinned = [];
-
-    //ALL NOTES
-    if (allNotes) {
-      console.log('ALL NOTES');
-
-      getNote({
-        variables: { text: searchGraphqlVariable, isInTrash: false },
-      });
-    }
-
-    //TRASH
-    if (trash) {
-      console.log('TRASH');
-
-      getNote({
-        variables: { text: searchGraphqlVariable, isInTrash: true },
-      });
-    }
-
-    //TAG
-    if (searchTag) {
-    }
-
-    if (searchTag) {
-      if (tagNotes.length) {
-        console.log('hay algo en tagNotes');
-        tagNotes.forEach((note) => {
-          //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
-          if (note.pinned) notesPinned.push(note);
-          else notesNoPinned.push(note);
-        });
-      }
-    } else {
-      if (data) {
-        data.notes.forEach((note) => {
-          //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
-          if (note.pinned) notesPinned.push(note);
-          else notesNoPinned.push(note);
-        });
-      }
-    }
-    
-
-    setFilterNotes({
-      listNotes: [...notesPinned, ...notesNoPinned],
-      lengthPinned: notesPinned.length,
-    });
-  };
- */
 
   // Condicionales para renderizar ListNotes, lo hacemos para asegurarnos
   // que listNotes no llegue como undefined

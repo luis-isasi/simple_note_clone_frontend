@@ -42,63 +42,59 @@ export const AppContextProvider = ({ children }) => {
 
   const client = useApolloClient();
 
-  // console.log('====================================');
-  // console.log({ allNotes });
-  // console.log({ trash });
-  // console.log({ searchTag });
-  // console.log('====================================');
-
-  let app;
-  if (document.querySelector('#Application')) {
-    app = document.querySelector('#Application');
-  }
-
   const onClickMain = React.useCallback(() => {
+    const _app = document.querySelector('#Application');
+
     const Main = document.getElementById('main');
     //añadimos las clases para los keyframes
     Main.classList.remove('mainActive');
     Main.classList.add('mainNoActive');
-    app.removeEventListener('click', onClickMain);
+    _app.removeEventListener('click', onClickMain);
     setTimeout(() => {
       setMain(false);
     }, 200);
-  }, [app]);
+  }, []);
 
   const showMain = (show) => {
-    // const app = document.querySelector('#Application');
+    const app = document.querySelector('#Application');
+
+    //show Main
+    if (show) {
+      setMain(show);
+      app.addEventListener('click', onClickMain);
+    }
 
     //function a ejecutar para esconder Main
     if (!show) {
       onClickMain();
-      return;
     }
-
-    //show Main
-    setMain(show);
-    app.addEventListener('click', onClickMain);
   };
 
-  //accedemos a App del DOM y hacemos que esta funcion se memorize
+  //accedemos a App del DOM y hacemos que esta funcion no se vuelva a crear en cada render
   // asi logramos limpirar el eventListener satisafactoriamente
   const onClickInfo = React.useCallback(() => {
+    const _app = document.querySelector('#Application');
     const info = document.querySelector('#info');
     //añadimos las clases para los keyframes
     info.classList.remove('infoActive');
     info.classList.add('infoNoActive');
-    app.removeEventListener('click', onClickInfo);
+    _app.removeEventListener('click', onClickInfo);
     //luego de la animacion desmontamos el componente del dom
     setTimeout(() => {
       setInfo(false);
     }, 200);
-  }, [app]);
+  }, []);
 
   const showInfo = (show: boolean) => {
-    // const app = document.querySelector('#Application');
+    const app = document.querySelector('#Application');
+
+    //ShowInfo
     if (show) {
       setInfo(show);
       app.addEventListener('click', onClickInfo);
     }
 
+    //hideInfo
     if (!show) {
       onClickInfo();
     }

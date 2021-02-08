@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 
 import ADD_TAG from 'GraphqlApp/AddTag.graphql';
 import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
@@ -11,7 +11,26 @@ const AddTag = () => {
   const { note, addTagInCurrentNote, deleteTagInCurrentNote } = useAppContext();
   const [tag, setTag] = React.useState('');
 
-  const [createTag] = useMutation(ADD_TAG);
+  const [createTag] = useMutation(ADD_TAG, {
+    // update(cache, { data: { createTag } }) {
+    //   cache.modify({
+    //     fields: {
+    //       notes(existingTags = []) {
+    //         const newtagRef = cache.writeFragment({
+    //           data: createTag,
+    //           fragment: gql`
+    //             fragment Newtag on Tag {
+    //               id
+    //               name
+    //             }
+    //           `,
+    //         });
+    //         return [...existingTags, newtagRef];
+    //       },
+    //     },
+    //   });
+    // },
+  });
   const [deleteTag] = useMutation(DELETE_TAG);
 
   //delete Tag
