@@ -4,19 +4,17 @@ import styled, { css } from 'styled-components';
 import { useMutation } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
+import { colorIcon } from 'StylesApp';
+import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
+import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
+import ShowMarkdown from './components/ShowMarkdown';
 import ToggleSidebar from './components/ToggleSidebar';
 import DeleteNote from './components/DeleteNote';
 import InformationNote from './components/InfoNoteIcon';
 import Share from './components/Share';
-import { colorIcon } from 'StylesApp';
-import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
-import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
 
-const HeaderApp = () => {
+const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
   const {
-    note,
-    allNotes,
-    trash,
     searchTag: { name },
   } = useAppContext();
 
@@ -59,6 +57,13 @@ const HeaderApp = () => {
           <ToggleSidebar />
           {note && (
             <DivOptions>
+              {note.isMarkdown && (
+                <ShowMarkdown
+                  note={note}
+                  showMarkdown={showMarkdown}
+                  setShowMakdown={setShowMakdown}
+                />
+              )}
               <Share />
               <DeleteNote />
               <InformationNote />
@@ -111,6 +116,7 @@ const Header = styled.header`
   background-color: #ffffff;
 
   flex-basis: 55px;
+  min-height: 55px;
   border-bottom: 1px solid #d6d4d4;
   * {
     color: ${colorIcon};
@@ -118,12 +124,18 @@ const Header = styled.header`
 `;
 
 const DivOptions = styled.div`
-  ${flexRowCenterEvenly}
-  width: 170px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  width: auto;
 
-  * {
+  > * {
     ${styleIcon}
-    ${flexRowCenterEvenly}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
   }
 `;
 

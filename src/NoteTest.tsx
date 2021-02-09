@@ -21,9 +21,13 @@ const NoteTest = () => {
   return (
     <div>
       <h1>DESDE NOTE TEST</h1>
-      <textarea>
+      <Markdown>{textMarkdown}</Markdown>
+      <textarea
+        defaultValue={`${(<Markdown>{textMarkdown}</Markdown>)}`}
+      ></textarea>
+      <code>
         <Markdown>{textMarkdown}</Markdown>
-      </textarea>
+      </code>
       {/* <Test listNotesTag={listNotesTag} setListNotesTag={setListNotesTag} /> */}
     </div>
   );

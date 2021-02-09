@@ -5,28 +5,29 @@ import { useMutation } from '@apollo/client';
 
 import PIN_NOTE from 'GraphqlApp/PinNote.graphql';
 import UN_PIN_NOTE from 'GraphqlApp/UnPinNote.graphql';
+import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import { useAppContext } from 'ContextApp/AppContext';
 import InfoNote from './components/InfoNote';
 import PinNote from './components/PinNote';
 import Markdown from './components/Markdown';
 
 const Info = ({ className, id }) => {
-  const { note, selectNote } = useAppContext();
+  const { note, showInfo, selectNote } = useAppContext();
 
   const [pinNote] = useMutation(PIN_NOTE);
-
   const [unpinNote] = useMutation(UN_PIN_NOTE);
+  const [updateNote] = useMutation(UPDATE_NOTE);
 
   return (
     <Div className={className} id={id}>
-      <InfoNote />
+      <InfoNote note={note} showInfo={showInfo} />
       <PinNote
         note={note}
         pinNote={pinNote}
         unpinNote={unpinNote}
         selectNote={selectNote}
       />
-      <Markdown />
+      <Markdown updateNote={updateNote} note={note} selectNote={selectNote} />
     </Div>
   );
 };

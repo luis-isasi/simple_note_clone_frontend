@@ -4,6 +4,7 @@ fragment NewNote on Note {
   createdAt
   updatedAt
   pinned
+  isMarkdown
   tags {
     id
     name

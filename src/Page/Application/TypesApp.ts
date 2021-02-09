@@ -3,6 +3,7 @@ export type Note = {
   text: string;
   user: User;
   pinned: boolean;
+  isMarkdown: boolean;
   createdAt: string;
   updatedAt: string;
   tags: Tag[];

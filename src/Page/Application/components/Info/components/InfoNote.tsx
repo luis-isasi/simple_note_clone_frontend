@@ -3,14 +3,10 @@ import * as React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import styled, { css } from 'styled-components';
 
-import { useAppContext } from 'ContextApp/AppContext';
 import { colorIcon } from 'StylesApp';
 
-const InfoNote = () => {
-  const {
-    note: { createdAt, updatedAt, text },
-    showInfo,
-  } = useAppContext();
+const InfoNote = ({ note, showInfo }) => {
+  const { createdAt, updatedAt, text } = note;
 
   const finWords = (text) => {
     text = text.trim();

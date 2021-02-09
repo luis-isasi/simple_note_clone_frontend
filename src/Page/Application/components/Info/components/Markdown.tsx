@@ -4,7 +4,28 @@ import styled from 'styled-components';
 
 import { Switch, Input, Label } from './SwitchStyled';
 
-const Markdown = () => {
+const Markdown = ({
+  note,
+  updateNote,
+  selectNote,
+  note: { id, text, isMarkdown },
+}) => {
+  const handledInputCheck = (e) => {
+    const checked = e.target.checked;
+
+    if (checked) {
+      selectNote({ ...note, isMarkdown: true });
+      updateNote({
+        variables: { id, text, isMarkdown: true },
+      });
+    } else {
+      selectNote({ ...note, isMarkdown: false });
+      updateNote({
+        variables: { id, text, isMarkdown: false },
+      });
+    }
+  };
+
   return (
     <Div>
       <Text>
@@ -22,7 +43,11 @@ const Markdown = () => {
         </p>
       </Text>
       <Switch>
-        <Input id="checkMarkdown" />
+        <Input
+          id="checkMarkdown"
+          onChange={handledInputCheck}
+          checked={isMarkdown}
+        />
         <Label htmlFor="checkMarkdown" />
       </Switch>
     </Div>

@@ -27,9 +27,13 @@ const App = () => {
     sidebar,
     shortcutsModal,
     setShortcutsModal,
+    allNotes,
+    note,
+    trash,
   } = useAppContext();
 
   const history = useHistory();
+  const [showMarkdown, setShowMakdown] = React.useState(false);
 
   React.useEffect(() => {
     const token = localStorage.getItem(USER_SESSION_KEY);
@@ -60,8 +64,14 @@ const App = () => {
         <Div className={(main || info) && 'hideApp'} id="Application">
           <Sidebar className={!sidebar && 'sidebarNoActive'} />
           <Content>
-            <HeaderApp />
-            <Note />
+            <HeaderApp
+              showMarkdown={showMarkdown}
+              setShowMakdown={setShowMakdown}
+              note={note}
+              trash={trash}
+              allNotes={allNotes}
+            />
+            <Note showMarkdown={showMarkdown} note={note} trash={trash} />
           </Content>
         </Div>
         {info && <Info className="infoActive" id="info" />}

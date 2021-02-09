@@ -3,8 +3,9 @@
 mutation UpdateNote (
   $id: ID!,
   $text: String!
+  $isMarkdown: Boolean
 ){
-  updateNote ( id: $id, text: $text ) {
+  updateNote ( id: $id, text: $text, isMarkdown: $isMarkdown ) {
     ...NewNote
   }
 }

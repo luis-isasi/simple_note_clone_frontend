@@ -1,26 +1,24 @@
 import * as React from 'react';
 
+import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
-import { useAppContext } from 'ContextApp/AppContext';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 
-const Note = () => {
-  const appData = useAppContext();
-  const [value, setValue] = React.useState(
-    appData.note ? appData.note.text : ''
-  );
+const Note = ({ showMarkdown, note, trash }) => {
+  const [value, setValue] = React.useState(note ? note.text : '');
+
   const [updateNote] = useMutation(UPDATE_NOTE);
 
   React.useEffect(() => {
-    if (appData.note) {
-      setValue(appData.note.text);
+    if (note) {
+      setValue(note.text);
     }
-  }, [appData.note]);
+  }, [note]);
 
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
@@ -39,20 +37,26 @@ const Note = () => {
       target: { value: _value },
     } = e;
     setValue(_value);
-    onUpdateNodeDebounce(appData.note.id, _value);
+    onUpdateNodeDebounce(note.id, _value);
   };
 
   return (
     <Div>
-      {appData.note ? (
+      {note ? (
         <>
-          <TextArea
-            id="textNote"
-            onChange={onChange}
-            value={value}
-            autoFocus
-          ></TextArea>
-          {appData.allNotes && <AddTag />}
+          {showMarkdown ? (
+            <CodeMarkdown>
+              <Markdown>{value}</Markdown>
+            </CodeMarkdown>
+          ) : (
+            <TextArea
+              id="textNote"
+              onChange={onChange}
+              value={value}
+              autoFocus
+            ></TextArea>
+          )}
+          {!trash && <AddTag />}
         </>
       ) : (
         <DivLogo>
@@ -68,10 +72,30 @@ const Note = () => {
 const Div = styled.div`
   width: 100%;
   flex-grow: 1;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
+`;
+
+const CodeMarkdown = styled.code`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  padding: 60px 12%;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c2c1c1;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
 `;
 
 const TextArea = styled.textarea.attrs((props) => ({
@@ -86,7 +110,7 @@ const TextArea = styled.textarea.attrs((props) => ({
   font-size: 18px;
   font-weight: 300;
   font-family: inherit;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     /* -webkit-appearance: none; */
