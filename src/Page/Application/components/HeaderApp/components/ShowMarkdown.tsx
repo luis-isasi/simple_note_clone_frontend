@@ -11,7 +11,6 @@ import { HoverText } from 'StylesApp';
 
 const ShowMarkdown = ({ note, showMarkdown, setShowMakdown }) => {
   const { text } = note;
-  console.log({ text });
 
   const onClick = () => {
     setShowMakdown(!showMarkdown);
