@@ -5,11 +5,11 @@ import { useQuery } from '@apollo/client';
 
 import GET_TAG from 'GraphqlApp/GetTags.graphql';
 import { IconAnimation, Error } from 'StylesApp';
+import ListTagForEdit from './components/ListTagForEdit';
 
 const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
+  const [state, setState] = React.useState(true);
   const { loading, error, data } = useQuery(GET_TAG);
-
-  // console.log({ data });
 
   const renderTags = () => {
     if (loading) {
@@ -21,7 +21,7 @@ const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
       );
     }
 
-    const onClick = (id, name) => () => {
+    const searchByTag = (id, name) => () => {
       setSearchTag({
         id: id,
         name: name,
@@ -31,19 +31,36 @@ const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
     };
 
     return data.tags.map(({ id, name }) => (
-      <Button key={id} onClick={onClick(id, name)}>
+      <ButtonTag key={id} onClick={searchByTag(id, name)}>
         {name}
-      </Button>
+      </ButtonTag>
     ));
+  };
+
+  const handlerBtnEdit = () => {
+    setState(!state);
+  };
+
+  const handlerBtnDone = () => {
+    setState(!state);
   };
 
   return (
     <Div>
       <Title>
         <p>Tags</p>
-        <button>Edit</button>
+        {data &&
+          !loading &&
+          !error &&
+          (data.tags.length ? (
+            state ? (
+              <button onClick={handlerBtnEdit}>Edit</button>
+            ) : (
+              <button onClick={handlerBtnDone}>Done</button>
+            )
+          ) : null)}
       </Title>
-      <Ul>{renderTags()}</Ul>
+      <Ul>{state ? renderTags() : <ListTagForEdit tags={data.tags} />}</Ul>
     </Div>
   );
 };
@@ -92,7 +109,7 @@ const Ul = styled.ul`
   flex-grow: 1;
   display: flex;
   flex-flow: column;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     /* -webkit-appearance: none; */
@@ -105,17 +122,22 @@ const Ul = styled.ul`
   }
 `;
 
-const Button = styled.button`
+const ButtonTag = styled.button`
   background-color: transparent;
   border: none;
-  min-height: 33px;
-  margin: 4px 0px 4px 16px;
-  text-align: left;
+  height: 40px;
+  padding: 2px 6px;
+  margin: 0px 0px 0px 16px;
   border-bottom: 1px solid #d6d4d4;
+  text-align: left;
   cursor: pointer;
   font-family: inherit;
   font-size: 14px;
   font-weight: normal;
+
+  &:hover {
+    background-color: #f6f7f7;
+  }
 `;
 
 export default Tags;

@@ -1,13 +1,14 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { Shortcuts } from 'shortcuts';
 
 import CreateNote from '../Header/components/CreateNote';
 import { colorIcon, colorBorder } from 'StylesApp';
 import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
+import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 
 const ListNotes = ({
   filterNotes: { listNotes, lengthPinned },
@@ -16,28 +17,48 @@ const ListNotes = ({
   searchGraphqlVariable,
   onClickClear,
   trash,
+  allNotes,
 }) => {
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
 
   const shortcuts = new Shortcuts();
+  const client = useApolloClient();
 
   const [emptyTrash] = useMutation(EMPTY_TRASH, {
     update(cache) {
-      cache.modify({
-        fields: {
-          notes(existingNotes = []) {
-            return [];
-          },
+      // cache.modify({
+      //   fields: {
+      //     'notes({"find":{"where":{"tagId":null,"text":{"contains":""}}},"isInTrash":true})': (
+      //       existingNotes = []
+      //     ) => {
+      //       return [];
+      //     },
+      //   },
+      // });
+      client.writeQuery({
+        query: GET_NOTES,
+        variables: {
+          tagId: null,
+          text: '',
+          isInTrash: true,
+        },
+        data: {
+          notes: [],
         },
       });
     },
   });
 
   React.useEffect(() => {
+    indexNote.current = 0;
+  }, [trash, allNotes]);
+
+  React.useEffect(() => {
     // Asigamos la primera nota
     selectNote(listNotes[indexNote.current]);
+
     //ADDING SHORTCUTS
     shortcuts.add([
       {
@@ -59,28 +80,28 @@ const ListNotes = ({
           e.preventDefault();
           //NEXT NOTE
           let index = indexNote.current + 1;
-          console.log({ index });
-
           //SI NO ES LA ULTIMA NOTA SELECCIONAMOS LA SIGUIENTE
           if (!(index === listNoteLength.current)) {
-            console.log('SELECT NEX NOTE');
-
             indexNote.current = indexNote.current + 1;
             selectNote(listNotes[indexNote.current]);
           }
         },
       },
     ]);
-  }, []);
+    return () => {
+      shortcuts.remove([
+        { shortcut: 'Ctrl+Shift+J' },
+        { shortcut: 'Ctrl+Shift+K' },
+      ]);
+    };
+  }, [listNotes, trash, allNotes]);
 
   React.useEffect(() => {
+    const currentNotesLength = listNoteLength.current;
     const newNotesLength = listNotes.length;
-    const oldNotesLength = listNoteLength.current;
 
-    //DELETE LAST NOTE
-    if (oldNotesLength > newNotesLength) {
-      console.log('DELETE');
-
+    //DELETE  NOTE
+    if (newNotesLength === currentNotesLength - 1) {
       listNoteLength.current = newNotesLength;
       let index = indexNote.current;
 
@@ -93,13 +114,14 @@ const ListNotes = ({
     }
 
     //ADDING NEW NOTE
-    if (oldNotesLength < newNotesLength) {
-      console.log('adding');
-
+    if (newNotesLength === currentNotesLength + 1) {
       listNoteLength.current = newNotesLength;
       indexNote.current = lengthPinned;
       selectNote(listNotes[indexNote.current]);
     }
+
+    //guardamos el length del nuevo listNotes
+    listNoteLength.current = listNotes.length;
   }, [listNotes]);
 
   const renderNotes = () => {
@@ -154,7 +176,9 @@ const ListNotes = ({
   return (
     <ContentListNotes>
       <Ul>{renderNotes()}</Ul>
-      {trash && <BtnEmptyTrash onClick={emptyTrash}>Empty Trash</BtnEmptyTrash>}
+      {trash && listNotes.length && (
+        <BtnEmptyTrash onClick={emptyTrash}>Empty Trash</BtnEmptyTrash>
+      )}
     </ContentListNotes>
   );
 };
@@ -198,6 +222,10 @@ const BtnNote = styled.button`
   flex-flow: row;
   justify-content: space-between;
   align-items: flex-start;
+
+  &:hover {
+    background-color: ${(props) => (props.selected ? null : '#f6f7f7')};
+  }
 
   .pinned {
     background-color: transparent;

@@ -4,10 +4,6 @@ fragment NewNote on Note {
   createdAt
   updatedAt
   pinned
-  user {
-    id
-    email
-  }
   tags {
     id
     name

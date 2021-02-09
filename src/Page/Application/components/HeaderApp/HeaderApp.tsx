@@ -66,7 +66,7 @@ const HeaderApp = () => {
           )}
         </>
       )}
-      {trash && (
+      {trash && note && (
         <DivTrash>
           <button className="btnDelete" onClick={handlerBtnDeleteForever}>
             Delete Forever

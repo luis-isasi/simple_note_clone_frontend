@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import { useQuery } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import GET_NOTE from 'GraphqlApp/GetNote.graphql';
+import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 import Header from './components/Header';
 import ListNotes from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
@@ -26,7 +26,7 @@ const Sidebar = ({ className }) => {
     lengthPinned: undefined,
   });
 
-  const { loading, error, data } = useQuery(GET_NOTE, {
+  const { loading, error, data } = useQuery(GET_NOTES, {
     variables: { text: searchGraphqlVariable, isInTrash: trash, tagId: _tagId },
   });
 
@@ -92,6 +92,7 @@ const Sidebar = ({ className }) => {
           searchGraphqlVariable={searchGraphqlVariable}
           onClickClear={onClickClear}
           trash={trash}
+          allNotes={allNotes}
         />
       );
     }
