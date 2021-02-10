@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import styled, { css } from 'styled-components';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import { useMutation } from '@apollo/client';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
@@ -57,7 +57,7 @@ const CreateNote = ({
 
   return (
     <BtnNewNote onClick={onClick} hover={hover} disabled={trash}>
-      {children || <NoteAddIcon />}
+      {children || <PostAddIcon />}
     </BtnNewNote>
   );
 };

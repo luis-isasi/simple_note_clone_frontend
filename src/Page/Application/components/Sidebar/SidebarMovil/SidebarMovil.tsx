@@ -7,16 +7,17 @@ import { useQuery } from '@apollo/client';
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 import HeaderMovil from './components/HeaderMovil';
+import Search from './components/HeaderMovil/components/Search';
 import ListNotesMovil from './components/ListNotesMovil';
 import { IconAnimation, Error } from 'StylesApp';
 
-const SidebarMovil = ({ className }) => {
+const SidebarMovil = () => {
   const {
     note,
     selectNote,
     trash,
     allNotes,
-    searchTag: { id: _tagId },
+    searchTag: { id: _tagId, name: _tagName },
   } = useAppContext();
 
   const [searchGraphqlVariable, setSearchGV] = React.useState('');
@@ -101,8 +102,9 @@ const SidebarMovil = ({ className }) => {
   }
 
   return (
-    <Div className={className}>
-      <HeaderMovil
+    <Div>
+      <HeaderMovil allNotes={allNotes} trash={trash} tagName={_tagName} />
+      <Search
         search={search}
         onChange={onChange}
         onClickClear={onClickClear}
