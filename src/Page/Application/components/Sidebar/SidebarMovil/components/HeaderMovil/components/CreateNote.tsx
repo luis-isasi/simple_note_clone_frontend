@@ -3,8 +3,6 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import { useMutation } from '@apollo/client';
-// import hotkeys from 'hotkeys-js';
-import { Shortcuts } from 'shortcuts';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
@@ -18,21 +16,6 @@ const CreateNote = ({
   onClickClear,
 }) => {
   const { selectNote, trash } = useAppContext();
-
-  React.useEffect(() => {
-    const shortcuts = new Shortcuts();
-    shortcuts.add([
-      // Adding some shortcuts
-      {
-        shortcut: 'Ctrl+Shift+L',
-        handler: (e) => {
-          e.preventDefault();
-          onClick();
-          return true;
-        },
-      },
-    ]);
-  }, []);
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote] = useMutation(CREATE_NOTE, {

@@ -77,6 +77,11 @@ const DivSearch = styled.div`
       }
     }
   }
+
+  @media only screen and (max-width: 989px) {
+    flex-grow: 1;
+    min-width: 180px;
+  }
 `;
 
 const InputSearch = styled.input.attrs((props) => ({

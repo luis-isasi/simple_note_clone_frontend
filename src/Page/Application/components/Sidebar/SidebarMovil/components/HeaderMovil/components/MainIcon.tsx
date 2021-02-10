@@ -2,32 +2,17 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Shortcuts } from 'shortcuts';
 
 import { HoverText, colorIcon } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const Main = () => {
   const { showMain, main, showInfo, info } = useAppContext();
-  const shortcuts = new Shortcuts();
-
-  React.useEffect(() => {
-    shortcuts.add({
-      shortcut: 'Ctrl+Shift+U',
-      handler: () => {
-        onClick();
-      },
-    });
-    return () => {
-      shortcuts.remove({ shortcut: 'Ctrl+Shift+U' });
-    };
-  }, [main, info]);
 
   const onClick = () => {
     if (info) {
       showInfo(false);
     }
-
     //Mostrando Main
     showMain(!main);
   };

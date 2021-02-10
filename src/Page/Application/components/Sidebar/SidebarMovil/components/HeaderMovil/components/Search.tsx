@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 import ClearIcon from '@material-ui/icons/Clear';
-import { Shortcuts } from 'shortcuts';
 
 import { useAppContext } from 'ContextApp/AppContext';
 
@@ -10,25 +9,6 @@ const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
   const {
     searchTag: { name },
   } = useAppContext();
-
-  const shortcuts = new Shortcuts();
-
-  // console.log({ trash });
-
-  React.useEffect(() => {
-    shortcuts.add({
-      shortcut: 'Ctrl+Shift+S',
-      handler: (e) => {
-        e.preventDefault();
-        const searchNote = document.querySelector('#InputSearchNote');
-        searchNote.focus();
-      },
-    });
-
-    return () => {
-      shortcuts.remove({ shortcut: 'Ctrl+Shift+S' });
-    };
-  }, []);
 
   return (
     <DivSearch>
@@ -52,15 +32,30 @@ const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
 
 //------------styled-------------
 const DivSearch = styled.div`
-  height: 25px;
-  width: 205px;
+  /* background-color: skyblue; */
+
+  height: 28px;
+  flex-grow: 1;
+  max-width: 280px;
+  min-width: 180px;
   border-radius: 14px;
   border: 1px solid #c3c4c7;
   padding: 0px 10px;
+  margin: 0px 4px;
   display: flex;
   flex-flow: row;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 450px) {
+    margin: 0px 12px;
+  }
+
+  * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   div {
     height: 100%;
@@ -82,8 +77,10 @@ const DivSearch = styled.div`
 const InputSearch = styled.input.attrs((props) => ({
   id: props.id,
 }))`
+  flex-grow: 1;
+  box-sizing: border-box;
   border: none;
-  height: 22px;
+  height: 100%;
 
   &:focus {
     border: none;

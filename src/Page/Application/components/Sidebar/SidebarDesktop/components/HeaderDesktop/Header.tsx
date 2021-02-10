@@ -23,7 +23,8 @@ const Header = ({ search, onChange, onClickClear, allNotes, trash }) => {
 };
 
 const Div = styled.div`
-  min-height: 55px;
+  box-sizing: border-box;
+  min-height: 56px;
   width: 100%;
   display: flex;
   flex-flow: row;
@@ -35,6 +36,9 @@ const Div = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  @media only screen and (max-width: 989px) {
+    padding: 0px 12px;
   }
 `;
 

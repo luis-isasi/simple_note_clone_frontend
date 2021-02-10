@@ -6,8 +6,8 @@ import { useQuery } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
-import Header from './components/Header';
-import ListNotes from './components/ListNotes';
+import HeaderDesktop from './components/HeaderDesktop';
+import ListNotesDesktop from './components/ListNotesDesktop';
 import { IconAnimation, Error } from 'StylesApp';
 
 const Sidebar = ({ className }) => {
@@ -85,7 +85,7 @@ const Sidebar = ({ className }) => {
 
     if (filterNotes.listNotes) {
       return (
-        <ListNotes
+        <ListNotesDesktop
           filterNotes={filterNotes}
           note={note}
           selectNote={selectNote}
@@ -102,7 +102,7 @@ const Sidebar = ({ className }) => {
 
   return (
     <Div className={className}>
-      <Header
+      <HeaderDesktop
         search={search}
         onChange={onChange}
         onClickClear={onClickClear}
@@ -114,15 +114,18 @@ const Sidebar = ({ className }) => {
   );
 };
 
-const Div = styled.div.attrs((props) => ({
-  className: props.className,
-}))`
+const Div = styled.div`
   flex-basis: 328px;
   max-width: 328px;
   display: flex;
   flex-flow: column;
   min-height: 100vh;
   border-right: 1px solid #d6d4d4;
+
+  @media only screen and (max-width: 989px) {
+    flex-basis: 280px;
+    max-width: 280px;
+  }
 `;
 
 export default React.memo(Sidebar);

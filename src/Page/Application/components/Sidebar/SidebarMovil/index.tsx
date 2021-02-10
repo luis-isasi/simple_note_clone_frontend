@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import SidebarMovil from './SidebarMovil';
 
-const index = ({ className }) => {
-  return <SidebarMovil className={className} />;
+const index = () => {
+  return <SidebarMovil />;
 };
 
 export default index;

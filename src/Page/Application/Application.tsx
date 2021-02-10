@@ -36,7 +36,7 @@ const App = () => {
   } = useAppContext();
 
   const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 750px)',
+    query: '(min-width: 767px)',
   });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 750px)' });
 
@@ -73,11 +73,9 @@ const App = () => {
           className={main ? 'showMain' : info && 'showInfo'}
           id="Application"
         >
-          {isDesktopOrLaptop ? (
-            <SidebarDesktop className={!sidebar && 'sidebarNoActive'} />
-          ) : (
-            <SidebarMovil className={!sidebar && 'sidebarNoActive'} />
-          )}
+          {isDesktopOrLaptop
+            ? sidebar && <SidebarDesktop />
+            : sidebar && <SidebarMovil />}
 
           {isDesktopOrLaptop && (
             <Content>
@@ -169,7 +167,7 @@ const Div = styled.div`
   max-width: 100%;
 
   .sidebarNoActive {
-    animation: ${SidebarNoActive} 0.2s linear;
+    /* animation: ${SidebarNoActive} 0.2s linear; */
     margin-left: -328px;
   }
 `;
