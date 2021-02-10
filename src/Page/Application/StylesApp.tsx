@@ -43,13 +43,13 @@ export const MainNoActive = keyframes`
 `;
 
 export const InfoActive = keyframes`
-  0% { margin-right: -328px; }
-  100% { margin-right:  0px; }
+  0% {  right: 0px; }
+  100% { right: 320px; } 
 `;
 
 export const InfoNoActive = keyframes`
-  0% { margin-right: 0px; }
-  100% { margin-right: -328px; }
+  0% {  right: 320px; }
+  100% { right: 0px; }
 `;
 
 const rotate = keyframes`

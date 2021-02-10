@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
+import { MarkdownCSS } from './components/MarkdownCSS';
 
 const Note = ({ showMarkdown, note, trash }) => {
   const [value, setValue] = React.useState(note ? note.text : '');
@@ -46,7 +47,9 @@ const Note = ({ showMarkdown, note, trash }) => {
         <>
           {showMarkdown ? (
             <CodeMarkdown>
-              <Markdown>{value}</Markdown>
+              <MarkdownCSS>
+                <Markdown>{value}</Markdown>
+              </MarkdownCSS>
             </CodeMarkdown>
           ) : (
             <TextArea

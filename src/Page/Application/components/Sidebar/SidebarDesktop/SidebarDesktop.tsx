@@ -124,4 +124,5 @@ const Div = styled.div.attrs((props) => ({
   min-height: 100vh;
   border-right: 1px solid #d6d4d4;
 `;
+
 export default React.memo(Sidebar);

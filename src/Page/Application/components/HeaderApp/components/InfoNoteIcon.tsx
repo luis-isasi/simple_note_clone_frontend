@@ -6,9 +6,10 @@ import { Shortcuts } from 'shortcuts';
 
 import { HoverText } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
+import Main from '../../Main';
 
 const InformationNote = () => {
-  const { showInfo, info } = useAppContext();
+  const { showInfo, info, showMain, main } = useAppContext();
 
   React.useEffect(() => {
     const shortcuts = new Shortcuts();
@@ -21,9 +22,13 @@ const InformationNote = () => {
     return () => {
       shortcuts.remove({ shortcut: 'Ctrl+Shift+Y' });
     };
-  }, [info]);
+  }, [info, main]);
 
   const onClick = () => {
+    if (main) {
+      showMain(false);
+    }
+
     //mostrando info de la Note seleccionada
     showInfo(!info);
   };

@@ -8,7 +8,7 @@ import { HoverText, colorIcon } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const Main = () => {
-  const { showMain, main } = useAppContext();
+  const { showMain, main, showInfo, info } = useAppContext();
   const shortcuts = new Shortcuts();
 
   React.useEffect(() => {
@@ -21,9 +21,13 @@ const Main = () => {
     return () => {
       shortcuts.remove({ shortcut: 'Ctrl+Shift+U' });
     };
-  }, [main]);
+  }, [main, info]);
 
   const onClick = () => {
+    if (info) {
+      showInfo(false);
+    }
+
     //Mostrando Main
     showMain(!main);
   };

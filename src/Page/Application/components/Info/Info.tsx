@@ -37,10 +37,12 @@ const Div = styled.div.attrs((props) => ({
   className: props.className,
   id: props.id,
 }))`
+  background-color: #ffffff;
   border-left: 1px solid #d6d4d4;
   height: 100%;
   min-width: 320px;
   max-width: 320px;
+  position: relative;
 
   display: flex;
   flex-direction: column;

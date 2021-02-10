@@ -48,14 +48,14 @@ export const AppContextProvider = ({ children }) => {
     const Main = document.getElementById('main');
     //añadimos las clases para los keyframes
     Main.classList.remove('mainActive');
-    Main.classList.add('mainNoActive');
+    Main.classList.add('hidingMain');
     _app.removeEventListener('click', onClickMain);
     setTimeout(() => {
       setMain(false);
     }, 200);
   }, []);
 
-  const showMain = (show) => {
+  const showMain = (show: boolean) => {
     const app = document.querySelector('#Application');
 
     //show Main
@@ -75,13 +75,16 @@ export const AppContextProvider = ({ children }) => {
   const onClickInfo = React.useCallback(() => {
     const _app = document.querySelector('#Application');
     const info = document.querySelector('#info');
+
+    _app.classList.add('hideInfo');
     //añadimos las clases para los keyframes
     info.classList.remove('infoActive');
-    info.classList.add('infoNoActive');
+    info.classList.add('hidingInfo');
     _app.removeEventListener('click', onClickInfo);
     //luego de la animacion desmontamos el componente del dom
     setTimeout(() => {
       setInfo(false);
+      _app.classList.remove('hideInfo');
     }, 200);
   }, []);
 

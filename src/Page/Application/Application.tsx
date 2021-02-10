@@ -1,13 +1,16 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useHistory } from 'react-router';
 import { Shortcuts } from 'shortcuts';
+import { useMediaQuery } from 'react-responsive';
 
 import { USER_SESSION_KEY } from 'Constants';
 import Main from './components/Main';
 import Info from './components/Info';
-import Sidebar from './components/Sidebar';
+import SidebarDesktop from './components/Sidebar/SidebarDesktop';
+import SidebarMovil from './components/Sidebar/SidebarMovil';
+
 import HeaderApp from './components/HeaderApp';
 import Note from './components/Note';
 import { useAppContext } from 'ContextApp/AppContext';
@@ -31,6 +34,11 @@ const App = () => {
     note,
     trash,
   } = useAppContext();
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 750px)',
+  });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 750px)' });
 
   const history = useHistory();
   const [showMarkdown, setShowMakdown] = React.useState(false);
@@ -61,18 +69,28 @@ const App = () => {
     <>
       <DivApp>
         {main && <Main className="mainActive" id="main" />}
-        <Div className={(main || info) && 'hideApp'} id="Application">
-          <Sidebar className={!sidebar && 'sidebarNoActive'} />
-          <Content>
-            <HeaderApp
-              showMarkdown={showMarkdown}
-              setShowMakdown={setShowMakdown}
-              note={note}
-              trash={trash}
-              allNotes={allNotes}
-            />
-            <Note showMarkdown={showMarkdown} note={note} trash={trash} />
-          </Content>
+        <Div
+          className={main ? 'showMain' : info && 'showInfo'}
+          id="Application"
+        >
+          {isDesktopOrLaptop ? (
+            <SidebarDesktop className={!sidebar && 'sidebarNoActive'} />
+          ) : (
+            <SidebarMovil className={!sidebar && 'sidebarNoActive'} />
+          )}
+
+          {isDesktopOrLaptop && (
+            <Content>
+              <HeaderApp
+                showMarkdown={showMarkdown}
+                setShowMakdown={setShowMakdown}
+                note={note}
+                trash={trash}
+                allNotes={allNotes}
+              />
+              <Note showMarkdown={showMarkdown} note={note} trash={trash} />
+            </Content>
+          )}
         </Div>
         {info && <Info className="infoActive" id="info" />}
       </DivApp>
@@ -84,6 +102,7 @@ const App = () => {
 };
 
 //---------------STYLE------------
+
 const DivApp = styled.div`
   display: flex;
   flex-flow: row;
@@ -91,8 +110,30 @@ const DivApp = styled.div`
   width: 100%;
   overflow: hidden;
 
-  .hideApp {
+  .showMain {
     opacity: 0.35;
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  .showInfo {
+    opacity: 0.35;
+    position: relative;
+    animation: ${InfoActive} 0.2s linear;
+    right: 320px;
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  .hideInfo {
+    opacity: 0.35;
+    animation: ${InfoNoActive} 0.2s linear;
+    right: 0px;
+
     * {
       pointer-events: none;
     }
@@ -103,19 +144,19 @@ const DivApp = styled.div`
     margin-left: 0px;
   }
 
-  .mainNoActive {
+  .hidingMain {
     animation: ${MainNoActive} 0.2s linear;
     margin-left: -260px;
   }
 
   .infoActive {
     animation: ${InfoActive} 0.2s linear;
-    margin-right: 0px;
+    right: 320px;
   }
 
-  .infoNoActive {
+  .hidingInfo {
     animation: ${InfoNoActive} 0.2s linear;
-    margin-right: -328px;
+    right: 0px;
   }
 `;
 
@@ -124,10 +165,12 @@ const Div = styled.div`
   flex-flow: row;
   height: 100%;
   width: 100%;
+  min-width: 100%;
+  max-width: 100%;
 
   .sidebarNoActive {
+    animation: ${SidebarNoActive} 0.2s linear;
     margin-left: -328px;
-    animation: ${SidebarNoActive} 0.25s;
   }
 `;
 
