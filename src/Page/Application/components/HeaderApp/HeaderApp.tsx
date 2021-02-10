@@ -59,7 +59,6 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
             <DivOptions>
               {note.isMarkdown && (
                 <ShowMarkdown
-                  note={note}
                   showMarkdown={showMarkdown}
                   setShowMakdown={setShowMakdown}
                 />

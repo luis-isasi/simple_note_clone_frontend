@@ -5,13 +5,9 @@ import styled from 'styled-components';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
-// import { useAppContext } from 'ContextApp/AppContext';
-
 import { HoverText } from 'StylesApp';
 
-const ShowMarkdown = ({ note, showMarkdown, setShowMakdown }) => {
-  const { text } = note;
-
+const ShowMarkdown = ({ showMarkdown, setShowMakdown }) => {
   const onClick = () => {
     setShowMakdown(!showMarkdown);
   };

@@ -102,10 +102,18 @@ export const AppContextProvider = ({ children }) => {
 
   const addTagInCurrentNote = (tag: Tag) => {
     // update the note from the context
-    setNote({
-      ...note,
-      tags: [...note.tags, tag],
-    });
+
+    const existingTags = note.tags;
+    const existing = existingTags.find((_tag) => _tag.name === tag.name);
+
+    //if no existing tag, add the new Tag
+    if (!existing) {
+      setNote({
+        ...note,
+        tags: [...note.tags, tag],
+      });
+    } else {
+    }
 
     // update the cache
     client.cache.modify({
@@ -127,7 +135,13 @@ export const AppContextProvider = ({ children }) => {
               }
             `,
           });
-          return [...existingsTags, newTagRef];
+          const existing = existingTags.find((_tag) => _tag.id === tag.id);
+
+          if (existing) {
+            return existingTags;
+          } else {
+            return [...existingsTags, newTagRef];
+          }
         },
       },
     });

@@ -19,7 +19,7 @@ const AddTag = () => {
         fields: {
           tags: (existingTags = []) => {
             const tagId = apolloClient.cache.identify(createTag);
-            const existing = existingTags.find((tag) => tag.__ref === tagId);
+            const existing = existingTags.find((tag) => tag.id === tagId);
 
             if (existing) {
               return existingTags;
