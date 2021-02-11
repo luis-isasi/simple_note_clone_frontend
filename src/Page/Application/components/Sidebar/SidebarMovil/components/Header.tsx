@@ -2,17 +2,18 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import MainIcon from './components/MainIcon';
-import CreateNote from './components/CreateNote';
+import MainIcon from '../../components/MainIcon';
+import CreateNote from '../../components/CreateNote';
 
 const Header = ({ allNotes, trash, tagName }) => {
   return (
     <Div>
       <MainIcon />
       <h1>
-        {allNotes && 'All Notes'}
-        {trash && 'Trash'}
-        {tagName && `Notes with tag '${tagName}'`}
+        {allNotes && !tagName && 'All Notes'}
+        {trash && !tagName && 'Trash'}
+        {tagName && allNotes && `Notes with tag '${tagName}'`}
+        {tagName && trash && `Notes with tag '${tagName}'`}
       </h1>
       <CreateNote />
     </Div>
@@ -20,8 +21,8 @@ const Header = ({ allNotes, trash, tagName }) => {
 };
 
 const Div = styled.div`
-  min-height: 55px;
   box-sizing: border-box;
+  min-height: 56px;
   padding: 0px 12px;
   width: 100%;
   display: flex;
@@ -40,10 +41,6 @@ const Div = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  @media only screen and (max-width: 450px) {
-    padding: 0px;
   }
 `;
 

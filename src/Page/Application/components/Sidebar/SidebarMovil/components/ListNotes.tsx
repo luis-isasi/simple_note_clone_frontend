@@ -3,14 +3,13 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useMutation, useApolloClient } from '@apollo/client';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import { Shortcuts } from 'shortcuts';
 
-import CreateNote from '../HeaderDesktop/components/CreateNote';
+import CreateNote from '../../components/CreateNote';
 import { colorIcon, colorBorder } from 'StylesApp';
 import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 
-const ListNotes = ({
+const ListNotesMovil = ({
   filterNotes: { listNotes, lengthPinned },
   note,
   selectNote,
@@ -18,25 +17,16 @@ const ListNotes = ({
   onClickClear,
   trash,
   allNotes,
+  setEditNote,
 }) => {
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
 
-  const shortcuts = new Shortcuts();
   const client = useApolloClient();
 
   const [emptyTrash] = useMutation(EMPTY_TRASH, {
     update(cache) {
-      // cache.modify({
-      //   fields: {
-      //     'notes({"find":{"where":{"tagId":null,"text":{"contains":""}}},"isInTrash":true})': (
-      //       existingNotes = []
-      //     ) => {
-      //       return [];
-      //     },
-      //   },
-      // });
       client.writeQuery({
         query: GET_NOTES,
         variables: {
@@ -54,47 +44,6 @@ const ListNotes = ({
   React.useEffect(() => {
     indexNote.current = 0;
   }, [trash, allNotes]);
-
-  React.useEffect(() => {
-    // Asigamos la primera nota
-    selectNote(listNotes[indexNote.current]);
-
-    //ADDING SHORTCUTS
-    shortcuts.add([
-      {
-        shortcut: 'Ctrl+Shift+J',
-        handler: (e) => {
-          e.preventDefault();
-          //PREVIOUS NOTE
-          let index = indexNote.current;
-          //SI NO ES LA PRIMERA NOTA SELECCIONAMOS LA ANTERIOR
-          if (!(index === 0)) {
-            indexNote.current = indexNote.current - 1;
-            selectNote(listNotes[indexNote.current]);
-          }
-        },
-      },
-      {
-        shortcut: 'Ctrl+Shift+K',
-        handler: (e) => {
-          e.preventDefault();
-          //NEXT NOTE
-          let index = indexNote.current + 1;
-          //SI NO ES LA ULTIMA NOTA SELECCIONAMOS LA SIGUIENTE
-          if (!(index === listNoteLength.current)) {
-            indexNote.current = indexNote.current + 1;
-            selectNote(listNotes[indexNote.current]);
-          }
-        },
-      },
-    ]);
-    return () => {
-      shortcuts.remove([
-        { shortcut: 'Ctrl+Shift+J' },
-        { shortcut: 'Ctrl+Shift+K' },
-      ]);
-    };
-  }, [listNotes, trash, allNotes]);
 
   React.useEffect(() => {
     const currentNotesLength = listNoteLength.current;
@@ -123,6 +72,12 @@ const ListNotes = ({
     //guardamos el length del nuevo listNotes
     listNoteLength.current = listNotes.length;
   }, [listNotes]);
+
+  const onClickNote = (_note, index) => () => {
+    setEditNote(true);
+    indexNote.current = index;
+    selectNote(_note);
+  };
 
   const renderNotes = () => {
     //SE REALIZO UNA BUSQUEDAD PERO NO HAY RESULTADOS, DAMOS LA OPCION DE CREAR UNO CON EL VALUE SEARCH
@@ -159,10 +114,7 @@ const ListNotes = ({
     return listNotes.map((_note, index) => (
       <BtnNote
         key={_note.id}
-        onClick={() => {
-          indexNote.current = index;
-          selectNote(_note);
-        }}
+        onClick={onClickNote(_note, index)}
         selected={_note.id === noteSelectedId}
       >
         <div className="pinned">{_note.pinned && <AttachFileIcon />}</div>
@@ -212,12 +164,12 @@ const Ul = styled.ul`
 `;
 
 const BtnNote = styled.button`
+  background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
   cursor: pointer;
   border: none;
   height: 64px;
   width: 100%;
   padding: 0px;
-  background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -229,6 +181,8 @@ const BtnNote = styled.button`
 
   .pinned {
     background-color: transparent;
+    min-width: 24px;
+    height: 100%;
     color: ${colorIcon};
     margin-top: 4px;
     margin-left: 4px;
@@ -239,16 +193,19 @@ const BtnNote = styled.button`
   }
 
   .noteText {
+    background-color: transparent;
     box-sizing: border-box;
     background-color: transparent !important;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 90%;
+    flex-grow: 1;
+    overflow: hidden;
     border-bottom: 1px solid #c3c4c7;
 
     p {
+      background-color: transparent;
       width: 100%;
       font-family: inherit;
       font-size: 16px;
@@ -302,4 +259,4 @@ const BtnEmptyTrash = styled.button`
   border-top: 1px solid ${colorBorder};
 `;
 
-export default React.memo(ListNotes);
+export default React.memo(ListNotesMovil);

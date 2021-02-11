@@ -2,15 +2,15 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import Main from './components/MainIcon';
-import Search from './components/Search';
-import CreateNote from './components/CreateNote';
+import MainIcon from '../../components/MainIcon';
+import SearchDesktop from '../../components/SearchDesktop';
+import CreateNote from '../../components/CreateNote';
 
 const Header = ({ search, onChange, onClickClear, allNotes, trash }) => {
   return (
     <Div>
-      <Main />
-      <Search
+      <MainIcon />
+      <SearchDesktop
         search={search}
         onChange={onChange}
         onClickClear={onClickClear}

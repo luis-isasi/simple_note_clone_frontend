@@ -13,7 +13,7 @@ const ShowMarkdown = ({ showMarkdown, setShowMakdown }) => {
   };
   return (
     <Button onClick={onClick}>
-      {showMarkdown ? <VisibilityIcon /> : <VisibilityOffIcon />}
+      {showMarkdown ? <VisibilityOffIcon /> : <VisibilityIcon />}
     </Button>
   );
 };

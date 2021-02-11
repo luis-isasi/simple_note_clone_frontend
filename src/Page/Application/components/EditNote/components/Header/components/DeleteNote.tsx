@@ -1,15 +1,19 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import { useMutation } from '@apollo/client';
+import { useMediaQuery } from 'react-responsive';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import DELETE_NOTE from '../../../graphql/DeleteNote.graphql';
+import DELETE_NOTE from 'GraphqlApp/DeleteNote.graphql';
+
 import { HoverText } from 'StylesApp';
 
-const DeleteNote = () => {
+const DeleteNote = ({ setEditNote }) => {
   const appData = useAppContext();
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 766px)' });
 
   const [deleteNote] = useMutation(DELETE_NOTE, {
     update(cache, { data: { deleteNote } }) {
@@ -27,10 +31,14 @@ const DeleteNote = () => {
 
   const onClick = () => {
     deleteNote({ variables: { id: appData.note.id } });
+    if (isTabletOrMobile) {
+      setEditNote(false);
+    }
   };
+
   return (
     <Button onClick={onClick}>
-      <DeleteForeverIcon />
+      <DeleteForeverOutlinedIcon style={{ fontSize: 28 }} />
     </Button>
   );
 };
@@ -45,4 +53,5 @@ const Button = styled.button`
     }
   }
 `;
+
 export default DeleteNote;

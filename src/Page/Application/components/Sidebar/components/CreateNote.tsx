@@ -3,6 +3,8 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import { useMutation } from '@apollo/client';
+import { Shortcuts } from 'shortcuts';
+import { useMediaQuery } from 'react-responsive';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
@@ -16,6 +18,27 @@ const CreateNote = ({
   onClickClear,
 }) => {
   const { selectNote, trash } = useAppContext();
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 767px)',
+  });
+
+  React.useEffect(() => {
+    if (isDesktopOrLaptop) {
+      const shortcuts = new Shortcuts();
+      shortcuts.add([
+        // Adding some shortcuts
+        {
+          shortcut: 'Ctrl+Shift+L',
+          handler: (e) => {
+            e.preventDefault();
+            onClick();
+            return true;
+          },
+        },
+      ]);
+    }
+  }, []);
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote] = useMutation(CREATE_NOTE, {

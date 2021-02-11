@@ -6,20 +6,29 @@ import { Shortcuts } from 'shortcuts';
 
 import { HoverText, colorIcon } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
+import { useMediaQuery } from 'react-responsive';
 
 const Main = () => {
   const { showMain, main, showInfo, info } = useAppContext();
   const shortcuts = new Shortcuts();
 
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 767px)',
+  });
+
   React.useEffect(() => {
-    shortcuts.add({
-      shortcut: 'Ctrl+Shift+U',
-      handler: () => {
-        onClick();
-      },
-    });
+    if (isDesktopOrLaptop) {
+      shortcuts.add({
+        shortcut: 'Ctrl+Shift+U',
+        handler: () => {
+          onClick();
+        },
+      });
+    }
     return () => {
-      shortcuts.remove({ shortcut: 'Ctrl+Shift+U' });
+      if (isDesktopOrLaptop) {
+        shortcuts.remove({ shortcut: 'Ctrl+Shift+U' });
+      }
     };
   }, [main, info]);
 

@@ -5,12 +5,12 @@ import { useMutation, useApolloClient } from '@apollo/client';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { Shortcuts } from 'shortcuts';
 
-import CreateNote from '../HeaderMovil/components/CreateNote';
+import CreateNote from '../../components/CreateNote';
 import { colorIcon, colorBorder } from 'StylesApp';
 import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 
-const ListNotesMovil = ({
+const ListNotes = ({
   filterNotes: { listNotes, lengthPinned },
   note,
   selectNote,
@@ -28,6 +28,15 @@ const ListNotesMovil = ({
 
   const [emptyTrash] = useMutation(EMPTY_TRASH, {
     update(cache) {
+      // cache.modify({
+      //   fields: {
+      //     'notes({"find":{"where":{"tagId":null,"text":{"contains":""}}},"isInTrash":true})': (
+      //       existingNotes = []
+      //     ) => {
+      //       return [];
+      //     },
+      //   },
+      // });
       client.writeQuery({
         query: GET_NOTES,
         variables: {
@@ -203,12 +212,12 @@ const Ul = styled.ul`
 `;
 
 const BtnNote = styled.button`
-  background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
   cursor: pointer;
   border: none;
   height: 64px;
   width: 100%;
   padding: 0px;
+  background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -220,8 +229,6 @@ const BtnNote = styled.button`
 
   .pinned {
     background-color: transparent;
-    min-width: 24px;
-    height: 100%;
     color: ${colorIcon};
     margin-top: 4px;
     margin-left: 4px;
@@ -232,19 +239,16 @@ const BtnNote = styled.button`
   }
 
   .noteText {
-    background-color: transparent;
     box-sizing: border-box;
     background-color: transparent !important;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    flex-grow: 1;
-    overflow: hidden;
+    width: 90%;
     border-bottom: 1px solid #c3c4c7;
 
     p {
-      background-color: transparent;
       width: 100%;
       font-family: inherit;
       font-size: 16px;
@@ -298,4 +302,4 @@ const BtnEmptyTrash = styled.button`
   border-top: 1px solid ${colorBorder};
 `;
 
-export default React.memo(ListNotesMovil);
+export default React.memo(ListNotes);

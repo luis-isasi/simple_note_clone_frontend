@@ -8,11 +8,8 @@ import { useMediaQuery } from 'react-responsive';
 import { USER_SESSION_KEY } from 'Constants';
 import Main from './components/Main';
 import Info from './components/Info';
-import SidebarDesktop from './components/Sidebar/SidebarDesktop';
-import SidebarMovil from './components/Sidebar/SidebarMovil';
-
-import HeaderApp from './components/HeaderApp';
-import Note from './components/Note';
+import Sidebar from './components/Sidebar';
+import EditNote from './components/EditNote';
 import { useAppContext } from 'ContextApp/AppContext';
 import {
   MainActive,
@@ -23,7 +20,7 @@ import {
 } from 'StylesApp';
 import ShortcutsModal from './Modals/ShortcutsModal';
 
-const App = () => {
+const Application = () => {
   const {
     main,
     info,
@@ -35,13 +32,14 @@ const App = () => {
     trash,
   } = useAppContext();
 
+  const [editNote, setEditNote] = React.useState(false);
+  const [showMarkdown, setShowMakdown] = React.useState(false);
+
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
   });
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 750px)' });
 
   const history = useHistory();
-  const [showMarkdown, setShowMakdown] = React.useState(false);
 
   React.useEffect(() => {
     const token = localStorage.getItem(USER_SESSION_KEY);
@@ -53,45 +51,47 @@ const App = () => {
 
   React.useEffect(() => {
     const shortcuts = new Shortcuts();
-    shortcuts.add({
-      shortcut: 'Ctrl+Shift+O',
-      handler: (e) => {
-        e.preventDefault();
-        setShortcutsModal(!shortcutsModal);
-      },
-    });
+    if (isDesktopOrLaptop) {
+      shortcuts.add({
+        shortcut: 'Ctrl+Shift+O',
+        handler: (e) => {
+          e.preventDefault();
+          setShortcutsModal(!shortcutsModal);
+        },
+      });
+    }
     return () => {
-      shortcuts.remove({ shortcut: 'Ctrl+Shift+O' });
+      if (isDesktopOrLaptop) {
+        shortcuts.remove({ shortcut: 'Ctrl+Shift+O' });
+      }
     };
   }, [shortcutsModal]);
 
   return (
     <>
-      <DivApp>
+      <App>
         {main && <Main className="mainActive" id="main" />}
         <Div
           className={main ? 'showMain' : info && 'showInfo'}
           id="Application"
         >
-          {isDesktopOrLaptop
-            ? sidebar && <SidebarDesktop />
-            : sidebar && <SidebarMovil />}
-
-          {isDesktopOrLaptop && (
-            <Content>
-              <HeaderApp
-                showMarkdown={showMarkdown}
-                setShowMakdown={setShowMakdown}
-                note={note}
-                trash={trash}
-                allNotes={allNotes}
-              />
-              <Note showMarkdown={showMarkdown} note={note} trash={trash} />
-            </Content>
-          )}
+          <Sidebar
+            sidebar={sidebar}
+            editNote={editNote}
+            setEditNote={setEditNote}
+          />
+          <EditNote
+            showMarkdown={showMarkdown}
+            setShowMakdown={setShowMakdown}
+            note={note}
+            trash={trash}
+            allNotes={allNotes}
+            setEditNote={setEditNote}
+            editNote={editNote}
+          />
         </Div>
         {info && <Info className="infoActive" id="info" />}
-      </DivApp>
+      </App>
       {shortcutsModal && (
         <ShortcutsModal setShortcutsModal={setShortcutsModal} />
       )}
@@ -99,9 +99,8 @@ const App = () => {
   );
 };
 
-//---------------STYLE------------
-
-const DivApp = styled.div`
+//---------------STYLED------------
+const App = styled.div`
   display: flex;
   flex-flow: row;
   height: 100vh;
@@ -158,6 +157,12 @@ const DivApp = styled.div`
   }
 `;
 
+const ShowNote = keyframes`
+  0% {  right: 0px; }
+  100% { right: 100%; }
+
+`;
+
 const Div = styled.div`
   display: flex;
   flex-flow: row;
@@ -166,17 +171,16 @@ const Div = styled.div`
   min-width: 100%;
   max-width: 100%;
 
+  .showNote {
+    position: relative;
+    animation: ${ShowNote} 0.2 linear;
+    right: 100%;
+  }
+
   .sidebarNoActive {
     /* animation: ${SidebarNoActive} 0.2s linear; */
     margin-left: -328px;
   }
 `;
 
-const Content = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-`;
-
-export default App;
+export default Application;

@@ -6,12 +6,12 @@ import { useQuery } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
-import HeaderMovil from './components/HeaderMovil';
-import Search from './components/HeaderMovil/components/Search';
-import ListNotesMovil from './components/ListNotesMovil';
+import SearchMovil from '../components/SearchMovil';
+import HeaderMovil from './components/Header';
+import ListNotesMovil from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
 
-const SidebarMovil = () => {
+const SidebarMovil = ({ id, setEditNote }) => {
   const {
     note,
     selectNote,
@@ -94,6 +94,7 @@ const SidebarMovil = () => {
           onClickClear={onClickClear}
           trash={trash}
           allNotes={allNotes}
+          setEditNote={setEditNote}
         />
       );
     }
@@ -102,9 +103,9 @@ const SidebarMovil = () => {
   }
 
   return (
-    <Div>
+    <Div id={id}>
       <HeaderMovil allNotes={allNotes} trash={trash} tagName={_tagName} />
-      <Search
+      <SearchMovil
         search={search}
         onChange={onChange}
         onClickClear={onClickClear}
@@ -116,7 +117,9 @@ const SidebarMovil = () => {
   );
 };
 
-const Div = styled.div`
+const Div = styled.div.attrs((props) => ({
+  id: props.id,
+}))`
   width: 100%;
   max-width: 100%;
   display: flex;

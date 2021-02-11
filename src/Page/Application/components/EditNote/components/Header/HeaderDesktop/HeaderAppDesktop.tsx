@@ -7,11 +7,11 @@ import { useAppContext } from 'ContextApp/AppContext';
 import { colorIcon } from 'StylesApp';
 import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
 import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
-import ShowMarkdown from './components/ShowMarkdown';
-import ToggleSidebar from './components/ToggleSidebar';
-import DeleteNote from './components/DeleteNote';
-import InformationNote from './components/InfoNoteIcon';
-import Share from './components/Share';
+import ShowMarkdown from '../components/ShowMarkdown';
+import ToggleSidebar from '../components/ToggleSidebar';
+import DeleteNote from '../components/DeleteNote';
+import InformationNote from '../components/InfoNoteIcon';
+import Share from '../components/Share';
 
 const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
   const {
@@ -117,6 +117,7 @@ const Header = styled.header`
   flex-basis: 55px;
   min-height: 55px;
   border-bottom: 1px solid #d6d4d4;
+
   * {
     color: ${colorIcon};
   }

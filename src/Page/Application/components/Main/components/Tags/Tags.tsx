@@ -7,9 +7,17 @@ import GET_TAG from 'GraphqlApp/GetTags.graphql';
 import { IconAnimation, Error } from 'StylesApp';
 import ListTagForEdit from './components/ListTagForEdit';
 
-const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
+const Tags = ({ setSearchTag, showMain }) => {
   const [state, setState] = React.useState(true);
   const { loading, error, data } = useQuery(GET_TAG);
+
+  const handlerBtnEdit = () => {
+    setState(!state);
+  };
+
+  const handlerBtnDone = () => {
+    setState(!state);
+  };
 
   const renderTags = () => {
     if (loading) {
@@ -23,11 +31,11 @@ const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
 
     const searchByTag = (id, name) => () => {
       setSearchTag({
-        id: id,
-        name: name,
+        id,
+        name,
       });
-      setAllNotes(false);
-      setTrash(false);
+      //CLOSE THE MAIN
+      showMain(false);
     };
 
     return data.tags.map(({ id, name }) => (
@@ -35,14 +43,6 @@ const Tags = ({ setSearchTag, setAllNotes, setTrash }) => {
         {name}
       </ButtonTag>
     ));
-  };
-
-  const handlerBtnEdit = () => {
-    setState(!state);
-  };
-
-  const handlerBtnDone = () => {
-    setState(!state);
   };
 
   return (

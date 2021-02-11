@@ -45,7 +45,7 @@ const Note = ({ showMarkdown, note, trash }) => {
     <Div>
       {note ? (
         <>
-          {showMarkdown ? (
+          {note.isMarkdown && showMarkdown ? (
             <CodeMarkdown>
               <MarkdownCSS>
                 <Markdown>{value}</Markdown>

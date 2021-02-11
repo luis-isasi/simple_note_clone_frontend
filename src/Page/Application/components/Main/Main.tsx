@@ -9,22 +9,13 @@ import HelperUser from './components/HelperUser';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const Main = ({ className, id }) => {
-  const {
-    setSearchTag,
-    setShortcutsModal,
-    setAllNotes,
-    setTrash,
-  } = useAppContext();
+  const { setSearchTag, setShortcutsModal, showMain } = useAppContext();
 
   return (
     <Div className={className} id={id}>
       <ContentMain>
         <MainOptions />
-        <Tags
-          setSearchTag={setSearchTag}
-          setAllNotes={setAllNotes}
-          setTrash={setTrash}
-        />
+        <Tags setSearchTag={setSearchTag} showMain={showMain} />
         <HelperUser setShortcutsModal={setShortcutsModal} />
       </ContentMain>
     </Div>

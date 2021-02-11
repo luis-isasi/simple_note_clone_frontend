@@ -6,8 +6,8 @@ import { useQuery } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
-import HeaderDesktop from './components/HeaderDesktop';
-import ListNotesDesktop from './components/ListNotesDesktop';
+import HeaderDesktop from './components/Header';
+import ListNotesDesktop from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
 
 const Sidebar = ({ className }) => {

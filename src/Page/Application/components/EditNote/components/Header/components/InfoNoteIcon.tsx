@@ -1,26 +1,32 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import InfoIcon from '@material-ui/icons/Info';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Shortcuts } from 'shortcuts';
+import { useMediaQuery } from 'react-responsive';
 
 import { HoverText } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
-import Main from '../../Main';
 
 const InformationNote = () => {
   const { showInfo, info, showMain, main } = useAppContext();
 
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 766px)' });
+
   React.useEffect(() => {
     const shortcuts = new Shortcuts();
-    shortcuts.add({
-      shortcut: 'Ctrl+Shift+Y',
-      handler: () => {
-        onClick();
-      },
-    });
+    if (!isTabletOrMobile) {
+      shortcuts.add({
+        shortcut: 'Ctrl+Shift+Y',
+        handler: () => {
+          onClick();
+        },
+      });
+    }
     return () => {
-      shortcuts.remove({ shortcut: 'Ctrl+Shift+Y' });
+      if (!isTabletOrMobile) {
+        shortcuts.remove({ shortcut: 'Ctrl+Shift+Y' });
+      }
     };
   }, [info, main]);
 
@@ -35,7 +41,7 @@ const InformationNote = () => {
 
   return (
     <Button onClick={onClick}>
-      <InfoIcon />
+      <InfoOutlinedIcon />
     </Button>
   );
 };
@@ -47,4 +53,5 @@ const Button = styled.button`
     }
   }
 `;
+
 export default InformationNote;
