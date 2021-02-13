@@ -4,7 +4,7 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 
 import { Button, Div } from './Styled';
 import { colorIcon } from 'StylesApp';
-import SettingsModal from '../../../../../Modals/SettingsModal';
+import SettingsModal from '../../../../../Modals/SettingsModal/SettingsModal';
 
 const Settings = () => {
   const [state, setState] = React.useState(false);
@@ -17,8 +17,10 @@ const Settings = () => {
     <>
       <Button onClick={onClick}>
         <Div>
-          <SettingsOutlinedIcon style={{ color: `${colorIcon}` }} />
-          Settings
+          <span>
+            <SettingsOutlinedIcon style={{ color: `${colorIcon}` }} />
+          </span>
+          <p>Settings</p>
         </Div>
       </Button>
       {state && <SettingsModal setState={setState} />}

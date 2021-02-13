@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import { colorBorder, colorText } from 'StylesApp';
 import { Switch, Input, Label } from './SwitchStyled';
 
 const PinNote = ({
@@ -42,7 +43,8 @@ const Div = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #d6d4d4;
-  color: #646970;
+  border-bottom: 1px solid ${colorBorder};
+  color: ${colorText};
+  /* color: #646970; */
 `;
 export default React.memo(PinNote);

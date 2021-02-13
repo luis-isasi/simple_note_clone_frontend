@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import { colorBorder, colorText } from 'StylesApp';
 import MainIcon from '../../components/MainIcon';
 import CreateNote from '../../components/CreateNote';
 
@@ -29,12 +30,12 @@ const Div = styled.div`
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #c3c4c7;
+  border-bottom: 1px solid ${colorBorder};
 
   > h1 {
     font-weight: 500;
     font-size: 18px;
-    color: #2c3338;
+    color: ${colorText};
   }
 
   * {

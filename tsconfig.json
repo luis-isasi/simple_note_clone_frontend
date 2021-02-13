@@ -35,6 +35,9 @@
       "StylesApp": [
         "src/Page/Application/StylesApp.tsx"
       ],
+      "ModalsApp/*": [
+        "src/Page/Application/Modals/*"
+      ],
       "TypesApp": [
         "src/Page/Application/TypesApp.ts"
       ],

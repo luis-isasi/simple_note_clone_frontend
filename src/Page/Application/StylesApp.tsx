@@ -1,10 +1,86 @@
 import styled, { css, keyframes } from 'styled-components';
 
+import { USER_SESSION_KEY } from 'Constants';
+
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
-export const colorIcon = '#3361cc';
+const user = localStorage.getItem(USER_SESSION_KEY);
 
-export const colorBorder = '#d6d4d4';
+const { Theme } = JSON.parse(user);
+
+const theme = Theme;
+
+export const colorIcon = '#646970';
+
+export const colorPinned = '#3361cc';
+
+export const colorIconSelect = theme === 'ligth' ? '#3361cc' : '#ffffff';
+
+export const colorText = theme === 'ligth' ? '#37393b' : '#ffffff';
+
+export const colorTextNote = theme === 'ligth' ? '#5f6368' : '#ffffff';
+
+//DARK
+export const backgroundColor = theme === 'ligth' ? '#FFFFFF' : '#1d2327';
+//LIGTH
+// export const backgroundColor = '#FFFFFF';
+
+//DARK
+export const colorBorder = theme === 'ligth' ? '#d6d4d4' : '#2c3338';
+//LIGTH
+// export const colorBorder = '#d6d4d4';
+
+//DARK
+export const backgroundTag = theme === 'ligth' ? '#dcdcde' : '#3c434a';
+//LIGTH
+// export const backgroundTag = '#dcdcde';
+
+//DARK
+export const colorTag = theme === 'ligth' ? '#dcdcde' : '#a7aaad';
+//LIGTH
+// export const colorTag = '#dcdcde';
+
+//DARK
+export const backgroundHoverTag =
+  theme === 'ligth' ? '#f6f7f7' : 'rgba(51, 97, 204, 0.4)';
+//LIGTH
+// export const backgroundHoverTag = '#f6f7f7';
+
+//DARK
+export const backgroundSelectNote =
+  theme === 'ligth' ? '#cfddfd' : 'rgba(51, 97, 204, 0.4)';
+//LIGTH
+// export const backgroundSelectNote = '#cfddfd';
+
+//DARK
+export const backgroundSelectMainOptions =
+  theme === 'ligth' ? '#cfddfd' : 'rgba(51, 97, 204, 0.4)';
+//LIGTH
+// export const backgroundSelectNote = '#cfddfd';
+
+//DARK
+export const backgroundHoverNote = theme === 'ligth' ? '#f6f7f7' : '#2c3338';
+//LIGTH
+// export const backgroundHoverNote = '#f6f7f7';
+
+export const backgroundContentModal =
+  theme === 'ligth' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.4)';
+
+export const backgroundColorScroll = theme === 'ligth' ? '#c3c4c7' : '#2c3338';
+
+export const borderColorScroll = theme === 'ligth' ? '#ffffff' : '#5e5e68';
+
+export const scrollbarStyle = css`
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${backgroundColorScroll};
+    border-radius: 12px;
+    border: 3px solid ${borderColorScroll};
+  }
+`;
 
 const hoverAnimation = keyframes`
   from {
@@ -67,6 +143,7 @@ export const IconAnimation = styled(AutorenewIcon)`
 `;
 
 export const Error = styled.p`
+  color: ${colorText};
   font-family: inherit;
   font-size: 22px;
   font-weight: 300;

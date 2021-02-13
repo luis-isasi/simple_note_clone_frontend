@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useMutation, useApolloClient } from '@apollo/client';
 
+import { scrollbarStyle, backgroundTag, colorText, colorTag } from 'StylesApp';
 import ADD_TAG from 'GraphqlApp/AddTag.graphql';
 import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
 import { useAppContext } from 'ContextApp/AppContext';
@@ -96,20 +97,13 @@ const DivTag = styled.div`
   align-items: center;
   overflow-y: scroll;
 
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c2c1c1;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+  ${scrollbarStyle}
 `;
 
 const BtnTag = styled.button`
   border-radius: 16px;
-  background-color: #dcdcde;
-  color: #3f4042;
+  background-color: ${backgroundTag} !important;
+  color: ${colorTag};
   border: none;
   padding: 3px 14px;
   margin: 4px;
@@ -120,6 +114,7 @@ const BtnTag = styled.button`
 const InputTag = styled.input.attrs((props) => ({
   id: props.id,
 }))`
+  color: ${colorText};
   border: none;
   height: 18px;
   padding: 6px 10px;

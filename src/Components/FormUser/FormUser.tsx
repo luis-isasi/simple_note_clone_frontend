@@ -82,6 +82,7 @@ const FormUser = ({ formUser }) => {
       name: name,
       value: value,
     });
+
     //APLICACMOS DEBOUNCE PARA VALIDAR LOS FIELDS
     onValidateFields(name, value);
   };
@@ -131,6 +132,7 @@ const FormUser = ({ formUser }) => {
         field: 'errorMessage',
         error: 'The fields cannot be empty',
       });
+
       return;
     }
 
@@ -138,6 +140,7 @@ const FormUser = ({ formUser }) => {
     const btnLogin = document.querySelector(
       formUser === 'Login' ? '#btnLogin' : '#btnSignup'
     );
+
     btnLogin.classList.add('btnLoading');
     if (formUser === 'Login') {
       //MUTATION lOGIN_USER

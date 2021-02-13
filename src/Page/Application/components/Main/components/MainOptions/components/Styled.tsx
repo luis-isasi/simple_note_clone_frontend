@@ -1,7 +1,16 @@
 import styled from 'styled-components';
 
+import {
+  colorIcon,
+  colorText,
+  backgroundSelectMainOptions,
+  colorBorder,
+  colorIconSelect,
+} from 'StylesApp';
+
 export const Button = styled.button`
-  background-color: ${(props) => (props.select ? '#cfddfd' : 'transparent')};
+  background-color: ${(props) =>
+    props.select ? `${backgroundSelectMainOptions} !important` : 'transparent'};
   border: none;
   cursor: pointer;
   width: 100%;
@@ -12,6 +21,7 @@ export const Button = styled.button`
 `;
 
 export const Div = styled.div`
+  background-color: transparent !important;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,12 +31,28 @@ export const Div = styled.div`
   font-family: inherit;
   font-size: 16px;
   font-weight: lighter;
-  color: #646970;
 
-  /* border-bottom: 1px solid #d6d4d4; */
-
-  border-bottom: ${(props) => (props.select ? 'none' : '1px solid #d6d4d4')};
   > * {
     margin-right: 16px;
+    background-color: transparent !important;
   }
+
+  > span {
+    /* color: ${colorIcon}; */
+
+    //DARK
+    color: ${(props) =>
+    props.select ? `${colorIconSelect} !important` : `${colorIcon}`};
+
+    * {
+      background-color: transparent !important;
+    }
+  }
+
+  > p {
+    color: ${colorText};
+  }
+
+  border-bottom: ${(props) =>
+    props.select ? 'none' : `1px solid ${colorBorder}`};
 `;

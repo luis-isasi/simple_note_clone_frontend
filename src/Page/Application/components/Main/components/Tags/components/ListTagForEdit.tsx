@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import { useAppContext } from 'ContextApp/AppContext';
 
 import InputTag from './InputTag';
+import { colorBorder } from 'StylesApp';
 import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
 
 const ListTagForEdit = ({ tags }) => {
@@ -52,7 +53,7 @@ const EditTag = styled.div`
   min-height: 40px;
   padding: 2px 6px;
   margin: 0px 0px 0px 16px;
-  border-bottom: 1px solid #d6d4d4;
+  border-bottom: 1px solid ${colorBorder};
   font-family: inherit;
   font-size: 14px;
   font-weight: normal;

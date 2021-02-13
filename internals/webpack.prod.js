@@ -11,7 +11,26 @@ module.exports = {
     filename: '[name].[hash].min.js',
     chunkFilename: '[name].[hash].min.js',
   },
-  resolve: { extensions: ['.js', '.tsx', '.ts', '.jsx'] },
+  mode: 'production',
+  resolve: {
+    extensions: ['.js', '.tsx', '.ts', '.jsx', '.graphql'],
+    alias: {
+      Components: path.resolve(__dirname, '../src/Components/'),
+      Images: path.resolve(__dirname, '../src/Images/'),
+      Constants: path.resolve(__dirname, '../src/Constants.ts'),
+      Context: path.resolve(__dirname, '../src/Context/'),
+      Page: path.resolve(__dirname, '../src/Page/'),
+      ContextApp: path.resolve(__dirname, '../src/Page/Application/context/'),
+      TypesApp: path.resolve(__dirname, '../src/Page/Application/TypesApp.ts'),
+      GraphqlApp: path.resolve(__dirname, '../src/Page/Application/graphql/'),
+      ModalsApp: path.resolve(__dirname, '../src/Page/Application/Modals/'),
+      StylesApp: path.resolve(
+        __dirname,
+        '../src/Page/Application/StylesApp.tsx'
+      ),
+    },
+  },
+
   module: {
     rules: [
       {

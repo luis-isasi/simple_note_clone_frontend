@@ -6,10 +6,22 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useHistory } from 'react-router';
 
-import { colorIcon, colorBorder } from 'StylesApp';
+import {
+  colorIcon,
+  colorBorder,
+  colorPinned,
+  colorText,
+  backgroundColor,
+  backgroundContentModal,
+} from 'StylesApp';
 import { useSessionContext } from 'Context/AppSession';
 
 const SettingsModal = ({ setState }) => {
+  const [nav, setNav] = React.useState({
+    account: true,
+    display: false,
+  });
+
   const history = useHistory();
   const {
     user: { email },
@@ -27,6 +39,22 @@ const SettingsModal = ({ setState }) => {
     history.push('/');
   };
 
+  const handlerNav = (value) => () => {
+    if (value === 'account') {
+      setNav({
+        account: true,
+        display: false,
+      });
+    }
+
+    if (value === 'display') {
+      setNav({
+        account: false,
+        display: true,
+      });
+    }
+  };
+
   return ReactDOM.createPortal(
     <ContentModal onClick={onClick}>
       <Modal
@@ -38,6 +66,20 @@ const SettingsModal = ({ setState }) => {
           <span>Settings</span>
           <button onClick={onClick}>
             <CloseIcon />
+          </button>
+        </div>
+        <div className="nav-settings">
+          <button
+            className={nav.account ? 'selected' : null}
+            onClick={handlerNav('account')}
+          >
+            Account
+          </button>
+          <button
+            className={nav.display ? 'selected' : null}
+            onClick={handlerNav('display')}
+          >
+            Display
           </button>
         </div>
         <div className="content">
@@ -74,7 +116,7 @@ const FlexColCenter = css`
   align-items: center;
 `;
 const ContentModal = styled.div`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: ${backgroundContentModal};
 
   position: absolute;
   width: 100%;
@@ -82,14 +124,18 @@ const ContentModal = styled.div`
   top: 0px;
   left: 0px;
   ${FlexColCenter}
+
+  * {
+    color: ${colorText};
+  }
 `;
 
 const Modal = styled.div`
-  background-color: #ffffff;
+  background-color: ${backgroundColor};
   width: 84%;
   max-width: 520px;
   margin: 0px 8%;
-  height: 340px;
+  height: 384px;
   color: black;
   box-shadow: 0px 0px 8px ${colorBorder}, 0px 0px 8px ${colorBorder};
   font-size: 45px;
@@ -121,6 +167,39 @@ const Modal = styled.div`
       width: 52px;
       padding: 0px;
       cursor: pointer;
+    }
+  }
+
+  .nav-settings {
+    box-sizing: border-box;
+    background-color: transparent;
+    height: 44px;
+    width: 100%;
+    border-bottom: 1px solid ${colorBorder};
+
+    ${FlexRowCenter};
+
+    > .selected {
+      border-bottom: 2px solid ${colorPinned};
+    }
+
+    > button {
+      box-sizing: border-box;
+      background-color: transparent;
+
+      height: 100%;
+      width: 100px;
+      border: none;
+      cursor: pointer;
+      color: ${colorPinned};
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+
+      :active {
+        background-color: ${colorPinned};
+        color: #ffffff;
+      }
     }
   }
 
@@ -163,12 +242,15 @@ const Modal = styled.div`
       .content-editAccount {
         margin-top: 24px;
         font-size: 14px;
-        color: ${colorIcon};
         ${FlexRowCenter};
+
+        * {
+          color: ${colorPinned};
+        }
       }
     }
     .content-btn {
-      background-color: ${colorIcon};
+      background-color: ${colorPinned};
       border: none;
       border-radius: 4px;
       color: #ffffff;

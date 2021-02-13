@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 
 import { colorIcon } from 'StylesApp';
 import { Button, Div } from './Styled';
 
-const Trash = ({ trash, setTrash, setAllNotes, setSearchTag }) => {
+const Trash = ({ trash, setTrash, setAllNotes, setSearchTag, showMain }) => {
   const onClick = () => {
     setAllNotes(false);
     setSearchTag({
@@ -13,12 +13,16 @@ const Trash = ({ trash, setTrash, setAllNotes, setSearchTag }) => {
       name: undefined,
     });
     setTrash(true);
+    //close Main
+    showMain(false);
   };
   return (
     <Button select={trash} onClick={onClick}>
       <Div select={trash}>
-        <DeleteForeverIcon style={{ color: `${colorIcon}` }} />
-        Trash
+        <span>
+          <DeleteForeverOutlinedIcon />
+        </span>
+        <p>Trash</p>
       </Div>
     </Button>
   );

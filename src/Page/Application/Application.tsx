@@ -17,6 +17,7 @@ import {
   InfoActive,
   InfoNoActive,
   SidebarNoActive,
+  backgroundColor,
 } from 'StylesApp';
 import ShortcutsModal from './Modals/ShortcutsModal';
 
@@ -108,30 +109,33 @@ const App = styled.div`
   overflow: hidden;
 
   .showMain {
-    opacity: 0.35;
+    /* opacity: 0.35; */
 
-    * {
+    > * {
+      opacity: 0.5;
       pointer-events: none;
     }
   }
 
   .showInfo {
-    opacity: 0.35;
+    /* opacity: 0.35; */
     position: relative;
     animation: ${InfoActive} 0.2s linear;
     right: 320px;
 
     * {
+      opacity: 0.8;
       pointer-events: none;
     }
   }
 
   .hideInfo {
-    opacity: 0.35;
+    /* opacity: 0.35; */
     animation: ${InfoNoActive} 0.2s linear;
     right: 0px;
 
     * {
+      opacity: 0.8;
       pointer-events: none;
     }
   }
@@ -154,6 +158,11 @@ const App = styled.div`
   .hidingInfo {
     animation: ${InfoNoActive} 0.2s linear;
     right: 0px;
+  }
+
+  * {
+    //THEME
+    background-color: ${backgroundColor};
   }
 `;
 

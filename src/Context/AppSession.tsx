@@ -15,6 +15,7 @@ type AppState = {
     token: string;
     email: string;
     id: string;
+    Theme: string;
   };
   signinUser(data: RawUser): void;
   logoutUser(): void;
@@ -31,19 +32,22 @@ export const AppSessionProvider = ({ children }) => {
     if (u) {
       setUser({
         token: u.token,
-        email: u.user.email,
-        id: u.user.id,
+        email: u.email,
+        id: u.id,
+        Theme: u.Theme,
       });
     }
   }, []);
 
-  const signinUser = (data: RawUser) => {
+  const signinUser = (_data: RawUser) => {
+    const data = {
+      token: _data.token,
+      email: _data.user.email,
+      id: _data.user.id,
+      Theme: 'ligth',
+    };
     localStorage.setItem(USER_SESSION_KEY, JSON.stringify(data));
-    setUser({
-      token: data.token,
-      email: data.user.email,
-      id: data.user.id,
-    });
+    setUser(data);
   };
 
   const logoutUser = () => {

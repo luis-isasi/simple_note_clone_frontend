@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { useMutation } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import { colorIcon } from 'StylesApp';
+import { colorIcon, colorBorder } from 'StylesApp';
 import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
 import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
 import ShowMarkdown from '../components/ShowMarkdown';
@@ -116,7 +116,7 @@ const Header = styled.header`
 
   flex-basis: 55px;
   min-height: 55px;
-  border-bottom: 1px solid #d6d4d4;
+  border-bottom: 1px solid ${colorBorder};
 
   * {
     color: ${colorIcon};

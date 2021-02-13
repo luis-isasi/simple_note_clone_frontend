@@ -24,6 +24,7 @@ module.exports = {
       ContextApp: path.resolve(__dirname, '../src/Page/Application/context/'),
       TypesApp: path.resolve(__dirname, '../src/Page/Application/TypesApp.ts'),
       GraphqlApp: path.resolve(__dirname, '../src/Page/Application/graphql/'),
+      ModalsApp: path.resolve(__dirname, '../src/Page/Application/Modals/'),
       StylesApp: path.resolve(
         __dirname,
         '../src/Page/Application/StylesApp.tsx'
@@ -61,6 +62,12 @@ module.exports = {
     port: 9000,
     open: true,
     historyApiFallback: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'X-Requested-With, content-type, Authorization',
+    },
   },
   plugins: [
     new HtmlWebpackPLugin({

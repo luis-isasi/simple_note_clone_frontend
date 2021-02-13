@@ -4,7 +4,14 @@ import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { colorIcon, colorBorder } from 'StylesApp';
+import {
+  colorIcon,
+  colorBorder,
+  scrollbarStyle,
+  backgroundColor,
+  colorText,
+  backgroundContentModal,
+} from 'StylesApp';
 
 const ShortcutsModal = ({ setShortcutsModal }) => {
   const onClick = () => {
@@ -135,7 +142,7 @@ const FlexColCenter = css`
 `;
 
 const ContentModal = styled.div`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: ${backgroundContentModal};
 
   position: absolute;
   width: 100%;
@@ -143,10 +150,14 @@ const ContentModal = styled.div`
   top: 0px;
   left: 0px;
   ${FlexColCenter}
+
+  * {
+    color: ${colorText};
+  }
 `;
 
 const Modal = styled.div`
-  background-color: #ffffff;
+  background-color: ${backgroundColor};
   width: 84%;
   max-width: 500px;
   margin: 0px 8%;
@@ -188,15 +199,7 @@ const ContentShortcuts = styled.div`
   overflow-y: scroll;
   height: 465px;
 
-  &::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
-    width: 12px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c2c1c1;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+  ${scrollbarStyle}
 `;
 const Div = styled.div`
   padding-bottom: 8px;
@@ -254,7 +257,7 @@ const Div = styled.div`
 const Letter = styled.p`
   box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid black;
+  border: 1px solid ${colorText};
   padding: 2px 5px;
   font-family: monospace, monospace;
   font-size: 13px;

@@ -5,7 +5,15 @@ import { useMutation, useApolloClient } from '@apollo/client';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import CreateNote from '../../components/CreateNote';
-import { colorIcon, colorBorder } from 'StylesApp';
+import {
+  colorBorder,
+  colorPinned,
+  colorText,
+  colorTextNote,
+  scrollbarStyle,
+  backgroundHoverNote,
+  backgroundSelectNote,
+} from 'StylesApp';
 import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 
@@ -91,7 +99,7 @@ const ListNotesMovil = ({
               searchGraphqlVariable={searchGraphqlVariable}
               onClickClear={onClickClear}
             >
-              {`Create a new note with "${searchGraphqlVariable}"`}
+              <p>{`Create a new note with "${searchGraphqlVariable}"`}</p>
             </CreateNote>
           </div>
         </DivNoNotes>
@@ -104,7 +112,9 @@ const ListNotesMovil = ({
         <DivNoNotes>
           <div>
             <NoNotes>No Notes</NoNotes>
-            <CreateNote hover={false}>Create a new note</CreateNote>
+            <CreateNote hover={false}>
+              <p>Create a new note</p>
+            </CreateNote>
           </div>
         </DivNoNotes>
       );
@@ -152,19 +162,12 @@ const Ul = styled.ul`
   flex-flow: column;
   overflow-y: auto;
 
-  &::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
-    width: 12px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c2c1c1;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+  ${scrollbarStyle}
 `;
 
 const BtnNote = styled.button`
-  background-color: ${(props) => (props.selected ? '#cfddfd' : 'transparent')};
+  background-color: ${(props) =>
+    props.selected ? `${backgroundSelectNote} !important` : 'transparent'};
   cursor: pointer;
   border: none;
   height: 64px;
@@ -176,19 +179,22 @@ const BtnNote = styled.button`
   align-items: flex-start;
 
   &:hover {
-    background-color: ${(props) => (props.selected ? null : '#f6f7f7')};
+    background-color: ${(props) =>
+    props.selected ? null : `${backgroundHoverNote}`};
   }
 
   .pinned {
     background-color: transparent;
     min-width: 24px;
     height: 100%;
-    color: ${colorIcon};
+    color: ${colorPinned};
     margin-top: 4px;
     margin-left: 4px;
+
     > * {
       transform: rotate(45deg);
       font-size: 18px;
+      background-color: transparent;
     }
   }
 
@@ -202,14 +208,15 @@ const BtnNote = styled.button`
     height: 100%;
     flex-grow: 1;
     overflow: hidden;
-    border-bottom: 1px solid #c3c4c7;
+    border-bottom: 1px solid ${colorBorder};
 
-    p {
+    > p {
       background-color: transparent;
       width: 100%;
       font-family: inherit;
-      font-size: 16px;
-      font-weight: 300;
+      font-size: 14px;
+      font-weight: bold;
+      color: ${colorTextNote};
       text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -218,7 +225,8 @@ const BtnNote = styled.button`
   }
 `;
 
-const NewNote = styled.strong`
+const NewNote = styled.p`
+  background-color: transparent !important;
   color: #918f90;
 `;
 
@@ -230,6 +238,10 @@ const DivNoNotes = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
+
+  & {
+    color: ${colorText};
+  }
 
   > div {
     display: flex;
@@ -243,6 +255,7 @@ const NoNotes = styled.p`
   font-family: inherit;
   font-size: 22px;
   font-weight: 300;
+  margin: 8px 0px;
 `;
 
 const BtnEmptyTrash = styled.button`

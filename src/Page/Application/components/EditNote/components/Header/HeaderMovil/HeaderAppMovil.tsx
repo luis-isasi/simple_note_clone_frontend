@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { useMutation } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import { colorIcon } from 'StylesApp';
+import { colorIcon, colorBorder, backgroundColor } from 'StylesApp';
 import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
 import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
@@ -128,7 +128,7 @@ const Header = styled.header`
   padding: 0px 16px;
   flex-basis: 56px;
   min-height: 56px;
-  border-bottom: 1px solid #d6d4d4;
+  border-bottom: 1px solid ${colorBorder};
 
   > .btnBack {
     background-color: transparent;
@@ -163,7 +163,7 @@ const DivTrash = styled.div`
   .btnDelete {
     color: #e65054;
     border: 2px solid #e65054;
-    background-color: #ffffff;
+    background-color: ${backgroundColor};
   }
 
   .btnRestore {

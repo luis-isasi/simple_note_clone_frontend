@@ -14,6 +14,7 @@ const MainOptions = () => {
     trash,
     setTrash,
     setSearchTag,
+    showMain,
   } = useAppContext();
 
   return (
@@ -23,12 +24,14 @@ const MainOptions = () => {
         setAllNotes={setAllNotes}
         setTrash={setTrash}
         setSearchTag={setSearchTag}
+        showMain={showMain}
       />
       <Trash
         trash={trash}
         setTrash={setTrash}
         setAllNotes={setAllNotes}
         setSearchTag={setSearchTag}
+        showMain={showMain}
       />
       <Settings />
     </Div>

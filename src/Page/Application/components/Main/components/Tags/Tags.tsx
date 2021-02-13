@@ -4,7 +4,14 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 
 import GET_TAG from 'GraphqlApp/GetTags.graphql';
-import { IconAnimation, Error } from 'StylesApp';
+import {
+  IconAnimation,
+  Error,
+  colorBorder,
+  scrollbarStyle,
+  colorText,
+  backgroundHoverTag,
+} from 'StylesApp';
 import ListTagForEdit from './components/ListTagForEdit';
 
 const Tags = ({ setSearchTag, showMain }) => {
@@ -67,8 +74,8 @@ const Tags = ({ setSearchTag, showMain }) => {
 
 //-------------style------------
 const Div = styled.div`
-  border-top: 1px solid #d6d4d4;
-  border-bottom: 1px solid #d6d4d4;
+  border-top: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${colorBorder};
   overflow: hidden;
 
   display: flex;
@@ -76,7 +83,7 @@ const Div = styled.div`
   justify-content: flex-start;
 
   * {
-    color: #646970;
+    color: ${colorText};
   }
 `;
 
@@ -111,15 +118,7 @@ const Ul = styled.ul`
   flex-flow: column;
   overflow-y: auto;
 
-  &::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
-    width: 12px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c2c1c1;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+  ${scrollbarStyle}
 `;
 
 const ButtonTag = styled.button`
@@ -128,7 +127,7 @@ const ButtonTag = styled.button`
   height: 40px;
   padding: 2px 6px;
   margin: 0px 0px 0px 16px;
-  border-bottom: 1px solid #d6d4d4;
+  border-bottom: 1px solid ${colorBorder};
   text-align: left;
   cursor: pointer;
   font-family: inherit;
@@ -136,7 +135,8 @@ const ButtonTag = styled.button`
   font-weight: normal;
 
   &:hover {
-    background-color: #f6f7f7;
+    /* background-color: #f6f7f7; */
+    background-color: ${backgroundHoverTag};
   }
 `;
 

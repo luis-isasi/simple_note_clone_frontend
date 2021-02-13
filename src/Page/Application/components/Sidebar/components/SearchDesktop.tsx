@@ -6,6 +6,7 @@ import { Shortcuts } from 'shortcuts';
 import { useMediaQuery } from 'react-responsive';
 
 import { useAppContext } from 'ContextApp/AppContext';
+import { colorText } from 'StylesApp';
 
 const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
   const {
@@ -95,6 +96,8 @@ const InputSearch = styled.input.attrs((props) => ({
 }))`
   border: none;
   height: 22px;
+  width: 100%;
+  color: ${colorText};
 
   &:focus {
     border: none;

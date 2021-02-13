@@ -8,7 +8,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
 import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
-import { HoverText, colorIcon } from 'StylesApp';
+import { HoverText, colorIcon, colorPinned } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const CreateNote = ({
@@ -103,6 +103,11 @@ const BtnNewNote = styled.button`
   &:disabled {
     opacity: 0.4;
   }
+
+  > p {
+    color: ${colorPinned};
+  }
+
   ${(props) => (props.hover === undefined ? hover : null)};
 `;
 

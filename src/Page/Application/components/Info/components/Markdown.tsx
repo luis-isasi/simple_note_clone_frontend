@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import { colorBorder, colorText } from 'StylesApp';
 import { Switch, Input, Label } from './SwitchStyled';
 
 const Markdown = ({
@@ -60,7 +61,7 @@ const Div = styled.div`
   padding: 20px;
   width: 100%;
   height: 104px;
-  border-bottom: 1px solid #d6d4d4;
+  border-bottom: 1px solid ${colorBorder};
   display: flex;
   align-items: center;
 
@@ -76,6 +77,7 @@ const Div = styled.div`
 const Text = styled.div`
   > span {
     font-weight: 400 !important;
+    color: ${colorText};
   }
 `;
 export default Markdown;

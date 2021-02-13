@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import PIN_NOTE from 'GraphqlApp/PinNote.graphql';
 import UN_PIN_NOTE from 'GraphqlApp/UnPinNote.graphql';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
+import { colorBorder } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 import InfoNote from './components/InfoNote';
 import PinNote from './components/PinNote';
@@ -38,7 +39,7 @@ const Div = styled.div.attrs((props) => ({
   id: props.id,
 }))`
   background-color: #ffffff;
-  border-left: 1px solid #d6d4d4;
+  border-left: 1px solid ${colorBorder};
   height: 100%;
   min-width: 320px;
   max-width: 320px;

@@ -8,7 +8,7 @@ import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 import HeaderDesktop from './components/Header';
 import ListNotesDesktop from './components/ListNotes';
-import { IconAnimation, Error } from 'StylesApp';
+import { IconAnimation, Error, colorBorder } from 'StylesApp';
 
 const Sidebar = ({ className }) => {
   const {
@@ -120,7 +120,7 @@ const Div = styled.div`
   display: flex;
   flex-flow: column;
   min-height: 100vh;
-  border-right: 1px solid #d6d4d4;
+  border-right: 1px solid ${colorBorder};
 
   @media only screen and (max-width: 989px) {
     flex-basis: 280px;

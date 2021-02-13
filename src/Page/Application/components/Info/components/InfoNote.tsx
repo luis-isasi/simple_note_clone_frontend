@@ -3,7 +3,7 @@ import * as React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import styled, { css } from 'styled-components';
 
-import { colorIcon } from 'StylesApp';
+import { colorIcon, colorBorder, colorText } from 'StylesApp';
 
 const InfoNote = ({ note, showInfo }) => {
   const { createdAt, updatedAt, text } = note;
@@ -37,15 +37,15 @@ const InfoNote = ({ note, showInfo }) => {
         <span>{updatedAt}</span>
       </UpdateAt>
       <div>
-        <span>
+        <p>
           {finWords(text)} <strong>words</strong>
-        </span>
+        </p>
       </div>
       <div>
-        <span>
+        <p>
           {`${text.length} `}
           <strong>characters</strong>
-        </span>
+        </p>
       </div>
     </Div>
   );
@@ -65,7 +65,7 @@ const Div = styled.div`
   font-family: inherit;
   font-size: 14px;
   font-weight: normal;
-  border-bottom: 1px solid #d6d4d4;
+  border-bottom: 1px solid ${colorBorder};
 
   display: flex;
   flex-direction: column;
@@ -77,11 +77,18 @@ const Div = styled.div`
     strong {
       height: 19px;
     }
+
     span {
       color: #646970;
     }
+
+    p {
+      color: ${colorText};
+    }
+
     strong {
-      color: #37393b;
+      color: ${colorText};
+      /* color: #37393b; */
     }
   }
 `;

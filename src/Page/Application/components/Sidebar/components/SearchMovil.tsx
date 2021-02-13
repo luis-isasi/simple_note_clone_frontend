@@ -5,7 +5,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import { colorBorder } from 'StylesApp';
+import { colorBorder, colorText } from 'StylesApp';
 
 const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
   const {
@@ -87,6 +87,7 @@ const InputSearch = styled.input.attrs((props) => ({
   box-sizing: border-box;
   border: none;
   height: 100%;
+  color: ${colorText};
 
   &:focus {
     border: none;

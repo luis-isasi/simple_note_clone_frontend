@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
+import { colorBorder } from 'StylesApp';
 import MainIcon from '../../components/MainIcon';
 import SearchDesktop from '../../components/SearchDesktop';
 import CreateNote from '../../components/CreateNote';
@@ -30,7 +31,7 @@ const Div = styled.div`
   flex-flow: row;
   justify-content: space-evenly;
   align-items: center;
-  border-bottom: 1px solid #c3c4c7;
+  border-bottom: 1px solid ${colorBorder};
 
   * {
     display: flex;

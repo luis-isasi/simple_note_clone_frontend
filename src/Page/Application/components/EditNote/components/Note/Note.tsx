@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
+import { scrollbarStyle, colorText } from 'StylesApp';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
@@ -47,7 +48,7 @@ const Note = ({ showMarkdown, note, trash }) => {
         <>
           {note.isMarkdown && showMarkdown ? (
             <CodeMarkdown>
-              <MarkdownCSS>
+              <MarkdownCSS style={{ color: `${colorText} !important` }}>
                 <Markdown>{value}</Markdown>
               </MarkdownCSS>
             </CodeMarkdown>
@@ -91,14 +92,7 @@ const CodeMarkdown = styled.code`
   padding: 60px 12%;
   overflow-y: auto;
 
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c2c1c1;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+  ${scrollbarStyle}
 `;
 
 const TextArea = styled.textarea.attrs((props) => ({
@@ -114,16 +108,9 @@ const TextArea = styled.textarea.attrs((props) => ({
   font-weight: 300;
   font-family: inherit;
   overflow-y: auto;
+  color: ${colorText};
 
-  &::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
-    width: 12px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #c2c1c1;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
+  ${scrollbarStyle};
 `;
 
 const DivLogo = styled.div`
