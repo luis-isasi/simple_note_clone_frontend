@@ -6,9 +6,12 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 
 const user = localStorage.getItem(USER_SESSION_KEY);
 
-const { Theme } = JSON.parse(user);
+let theme = 'ligth';
 
-const theme = Theme;
+if (user) {
+  const { Theme } = JSON.parse(user);
+  theme = Theme;
+}
 
 export const colorIcon = '#646970';
 
