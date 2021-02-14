@@ -12,9 +12,10 @@ module.exports = {
     filename: '[name].[fullhash].min.js',
     chunkFilename: '[name].[fullhash].min.js',
   },
+  devtool: 'source-map',
   mode: 'production',
   resolve: {
-    extensions: ['.js', '.tsx', '.ts', '.jsx', '.graphql'],
+    extensions: ['.js', '.tsx', '.ts', '.jsx', '.graphql', '.svg', '.png'],
     alias: {
       Components: path.resolve(__dirname, '../src/Components/'),
       Images: path.resolve(__dirname, '../src/Images/'),
@@ -45,14 +46,19 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'graphql-tag/loader',
       },
+      // {
+      //   test: /\.png|jpe?g|gif|mp4|svg|webm$/i,
+      //   use: {
+      //     loader: 'url-loader',
+      //     // options: {
+      //     //   limit: 90000,
+      //     // },
+      //   },
+      // },
       {
-        test: /\.png|jpe?g|gif|mp4|svg|webm$/i,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 90000,
-          },
-        },
+        test: /\.(png|jpe?g|gif|mp4|svg|webm)$/i,
+        type: 'asset/resource',
+        exclude: /node_modules/,
       },
     ],
   },

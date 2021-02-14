@@ -47,13 +47,9 @@ module.exports = {
         loader: 'graphql-tag/loader',
       },
       {
-        test: /\.(png|jpe?g|jpg|gif|svg)$/i,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 90000,
-          },
-        },
+        test: /\.(png|jpe?g|gif|mp4|svg|webm)$/i,
+        type: 'asset/resource',
+        exclude: /node_modules/,
       },
     ],
   },
