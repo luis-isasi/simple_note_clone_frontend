@@ -3,19 +3,19 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { colorBorder, colorText } from 'StylesApp';
-import MainIcon from '../../components/MainIcon';
-import CreateNote from '../../components/CreateNote';
+import MainIcon from './MainIcon';
+import CreateNote from './CreateNote';
 
 const Header = ({ allNotes, trash, tagName }) => {
   return (
     <Div>
       <MainIcon />
-      <h1>
+      <h3>
         {allNotes && !tagName && 'All Notes'}
         {trash && !tagName && 'Trash'}
-        {tagName && allNotes && `Notes with tag '${tagName}'`}
+        {tagName && allNotes && 'Notes with  Selected Tag'}
         {tagName && trash && `Notes with tag '${tagName}'`}
-      </h1>
+      </h3>
       <CreateNote />
     </Div>
   );
@@ -32,16 +32,17 @@ const Div = styled.div`
   align-items: center;
   border-bottom: 1px solid ${colorBorder};
 
-  > h1 {
-    font-weight: 500;
-    font-size: 18px;
-    color: ${colorText};
-  }
-
   * {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  > h3 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: ${colorText};
   }
 `;
 
