@@ -290,7 +290,7 @@ const BtnNote = styled.button`
   }
 `;
 
-const NewNote = styled.p`
+const NewNote = styled.span`
   background-color: transparent !important;
   color: #918f90;
 `;

@@ -39,7 +39,7 @@ export const backgroundTag = theme === 'ligth' ? '#dcdcde' : '#3c434a';
 // export const backgroundTag = '#dcdcde';
 
 //DARK
-export const colorTag = theme === 'ligth' ? '#dcdcde' : '#a7aaad';
+export const colorTag = theme === 'ligth' ? '#2c3338' : '#a7aaad';
 //LIGTH
 // export const colorTag = '#dcdcde';
 
