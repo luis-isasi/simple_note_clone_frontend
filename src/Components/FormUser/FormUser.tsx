@@ -7,8 +7,9 @@ import { useMutation } from '@apollo/client';
 import { useSessionContext } from 'Context/AppSession';
 import CREATE_USER from '../../graphql/createUser.graphql';
 import LOGIN_USER from '../../graphql/loginUser.graphql';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
+
 import { InitialFormState, FormAction } from './types';
 
 const initialFormState: InitialFormState = {
@@ -217,7 +218,11 @@ const FormUser = ({ formUser }) => {
           onChange={onChange}
         />
         <button type="button" onClick={handledInputPassword}>
-          {state.showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+          {state.showPassword ? (
+            <VisibilityOutlinedIcon />
+          ) : (
+            <VisibilityOffOutlinedIcon />
+          )}
         </button>
       </ContentPswrd>
       <p className="errorMessage-input">{state.errors.password}</p>

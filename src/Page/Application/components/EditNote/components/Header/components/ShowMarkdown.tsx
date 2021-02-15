@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
 
 import { HoverText } from 'StylesApp';
 
@@ -13,7 +13,11 @@ const ShowMarkdown = ({ showMarkdown, setShowMakdown }) => {
   };
   return (
     <Button onClick={onClick}>
-      {showMarkdown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+      {showMarkdown ? (
+        <VisibilityOffOutlinedIcon />
+      ) : (
+        <VisibilityOutlinedIcon />
+      )}
     </Button>
   );
 };
