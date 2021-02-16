@@ -53,6 +53,7 @@ const Div = styled.div`
   button {
     ${StyledBtnA}
   }
+
   a {
     ${StyledBtnA}
     text-decoration: none;

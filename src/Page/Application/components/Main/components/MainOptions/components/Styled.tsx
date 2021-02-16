@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 
-import {
-  colorIcon,
-  colorText,
-  backgroundSelectMainOptions,
-  colorBorder,
-  colorIconSelect,
-} from 'StylesApp';
+import { colorIcon } from 'StylesApp';
 
 export const Button = styled.button`
   background-color: ${(props) =>
-    props.select ? `${backgroundSelectMainOptions} !important` : 'transparent'};
+    props.select
+      ? `${props.theme.backgroundSelectMainOptions} !important`
+      : 'transparent'};
   border: none;
   cursor: pointer;
   width: 100%;
@@ -18,6 +14,10 @@ export const Button = styled.button`
   display: flex;
   justify-content: flex-end;
   padding: 0px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.backgroundHoverNote};
+  }
 `;
 
 export const Div = styled.div`
@@ -38,11 +38,10 @@ export const Div = styled.div`
   }
 
   > span {
-    /* color: ${colorIcon}; */
-
-    //DARK
     color: ${(props) =>
-    props.select ? `${colorIconSelect} !important` : `${colorIcon}`};
+    props.select
+      ? `${props.theme.colorIconSelect} !important`
+      : `${colorIcon}`};
 
     * {
       background-color: transparent !important;
@@ -50,9 +49,9 @@ export const Div = styled.div`
   }
 
   > p {
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 
   border-bottom: ${(props) =>
-    props.select ? 'none' : `1px solid ${colorBorder}`};
+    props.select ? 'none' : `1px solid ${props.theme.colorBorder}`};
 `;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { useApolloClient, gql } from '@apollo/client';
+import { USER_SETTINGS } from 'Constants';
 
 import { Note, Tag } from 'TypesApp';
 
@@ -38,6 +39,7 @@ export const AppContextProvider = ({ children }) => {
   });
   const [main, setMain] = React.useState(false);
   const [info, setInfo] = React.useState(false);
+
   const [shortcutsModal, setShortcutsModal] = React.useState(false);
 
   const client = useApolloClient();

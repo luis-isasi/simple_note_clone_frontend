@@ -7,15 +7,7 @@ import { Shortcuts } from 'shortcuts';
 import { useMediaQuery } from 'react-responsive';
 
 import CreateNote from './CreateNote';
-import {
-  colorBorder,
-  colorPinned,
-  scrollbarStyle,
-  colorText,
-  colorTextNote,
-  backgroundHoverNote,
-  backgroundSelectNote,
-} from 'StylesApp';
+import { colorPinned, scrollbarStyle } from 'StylesApp';
 import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 
@@ -185,10 +177,6 @@ const ListNotes = ({
     return listNotes.map((_note, index) => (
       <BtnNote
         key={_note.id}
-        // onClick={() => {
-        //   indexNote.current = index;
-        //   selectNote(_note);
-        // }}
         onClick={onClickNote(_note, index)}
         selected={_note.id === noteSelectedId}
       >
@@ -232,7 +220,10 @@ const Ul = styled.ul`
 
 const BtnNote = styled.button`
   background-color: ${(props) =>
-    props.selected ? `${backgroundSelectNote} !important` : 'transparent'};
+    props.selected
+      ? `${props.theme.backgroundSelectNote} !important`
+      : 'transparent'};
+
   cursor: pointer;
   border: none;
   height: 64px;
@@ -246,7 +237,7 @@ const BtnNote = styled.button`
 
   &:hover {
     background-color: ${(props) =>
-    props.selected ? null : `${backgroundHoverNote}`};
+    props.selected ? null : `${props.theme.backgroundHoverNote}`};
   }
 
   .pinned {
@@ -273,7 +264,7 @@ const BtnNote = styled.button`
     height: 100%;
     flex-grow: 1;
     overflow: hidden;
-    border-bottom: 1px solid ${colorBorder};
+    border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
     > p {
       background-color: transparent;
@@ -281,7 +272,7 @@ const BtnNote = styled.button`
       font-family: inherit;
       font-size: 14px;
       font-weight: bold;
-      color: ${colorTextNote};
+      color: ${(props) => props.theme.colorTextNote};
       text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -305,7 +296,7 @@ const DivNoNotes = styled.div`
   height: 100vh;
 
   & {
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 
   > div {
@@ -334,128 +325,7 @@ const BtnEmptyTrash = styled.button`
   font-family: inherit;
   font-weight: 500;
   cursor: pointer;
-  border-top: 1px solid ${colorBorder};
+  border-top: 1px solid ${(props) => props.theme.colorBorder};
 `;
-
-// const ContentListNotes = styled.div`
-//   height: 100%;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   overflow: hidden;
-// `;
-
-// const Ul = styled.ul`
-//   flex-grow: 1;
-//   width: 100%;
-//   display: flex;
-//   flex-flow: column;
-//   overflow-y: auto;
-
-//   ${scrollbarStyle}
-// `;
-
-// const BtnNote = styled.button`
-//   background-color: ${(props) =>
-//     props.selected ? `${backgroundSelectNote} !important` : 'transparent'};
-//   cursor: pointer;
-//   border: none;
-//   height: 64px;
-//   width: 100%;
-//   padding: 0px;
-//   display: flex;
-//   flex-flow: row;
-//   justify-content: space-between;
-//   align-items: flex-start;
-
-//   &:hover {
-//     background-color: ${(props) =>
-//     props.selected ? null : `${backgroundHoverNote}`};
-//   }
-
-//   .pinned {
-//     background-color: transparent;
-//     color: ${colorPinned};
-//     margin-top: 4px;
-//     margin-left: 4px;
-
-//     > * {
-//       transform: rotate(45deg);
-//       font-size: 18px;
-//       background-color: transparent;
-//     }
-//   }
-
-//   .noteText {
-//     box-sizing: border-box;
-//     background-color: transparent;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 100%;
-//     width: 90%;
-//     border-bottom: 1px solid ${colorBorder};
-
-//     > p {
-//       background-color: transparent;
-//       width: 100%;
-//       font-family: inherit;
-//       font-size: 14px;
-//       font-weight: bold;
-//       color: ${colorTextNote};
-//       text-align: left;
-//       text-overflow: ellipsis;
-//       white-space: nowrap;
-//       overflow: hidden;
-//     }
-//   }
-// `;
-
-// const NewNote = styled.p`
-//   background-color: transparent !important;
-//   color: #918f90;
-// `;
-
-// const DivNoNotes = styled.div`
-//   margin: auto;
-//   height: 50px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 100%;
-//   height: 100vh;
-
-//   * {
-//     color: ${colorText};
-//   }
-
-//   > div {
-//     display: flex;
-//     flex-flow: column;
-//     justify-content: center;
-//     align-items: center;
-//   }
-// `;
-
-// const NoNotes = styled.p`
-//   font-family: inherit;
-//   font-size: 22px;
-//   font-weight: 300;
-//   margin: 8px 0px;
-// `;
-
-// const BtnEmptyTrash = styled.button`
-//   background-color: transparent;
-//   position: relative;
-//   bottom: 0px;
-//   min-height: 58px;
-//   width: 100%;
-//   color: #e65054;
-//   border: none;
-//   font-family: inherit;
-//   font-weight: 500;
-//   cursor: pointer;
-//   border-top: 1px solid ${colorBorder};
-// `;
 
 export default React.memo(ListNotes);

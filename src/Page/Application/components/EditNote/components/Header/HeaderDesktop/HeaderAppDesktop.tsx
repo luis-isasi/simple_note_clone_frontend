@@ -4,7 +4,8 @@ import styled, { css } from 'styled-components';
 import { useMutation } from '@apollo/client';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import { colorIcon, colorBorder } from 'StylesApp';
+
+import { colorIcon } from 'StylesApp';
 import RESTORE_NOTE from 'GraphqlApp/RestoreNote.graphql';
 import DELETED_NOTE_FOREVER from 'GraphqlApp/DeletedNoteForever.graphql';
 import ShowMarkdown from '../components/ShowMarkdown';
@@ -84,6 +85,7 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
   );
 };
 
+//----------------STYLED--------------
 const flexRowCenterEvenly = css`
   display: flex;
   justify-content: space-evenly;
@@ -116,7 +118,7 @@ const Header = styled.header`
 
   flex-basis: 55px;
   min-height: 55px;
-  border-bottom: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
   * {
     color: ${colorIcon};

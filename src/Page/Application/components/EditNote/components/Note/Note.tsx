@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
-import { scrollbarStyle, colorText } from 'StylesApp';
+import { scrollbarStyle } from 'StylesApp';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
@@ -48,7 +48,11 @@ const Note = ({ showMarkdown, note, trash }) => {
         <>
           {note.isMarkdown && showMarkdown ? (
             <CodeMarkdown>
-              <MarkdownCSS style={{ color: `${colorText} !important` }}>
+              <MarkdownCSS
+                style={{
+                  color: `${(props) => props.theme.colorText} !important`,
+                }}
+              >
                 <Markdown>{value}</Markdown>
               </MarkdownCSS>
             </CodeMarkdown>
@@ -108,7 +112,7 @@ const TextArea = styled.textarea.attrs((props) => ({
   font-weight: 300;
   font-family: inherit;
   overflow-y: auto;
-  color: ${colorText};
+  color: ${(props) => props.theme.colorText};
 
   ${scrollbarStyle};
 `;

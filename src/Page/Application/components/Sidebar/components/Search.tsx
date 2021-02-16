@@ -72,7 +72,7 @@ const DivSearch = styled.div`
   flex-flow: row;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
   * {
     display: flex;
@@ -115,7 +115,7 @@ const InputSearch = styled.input.attrs((props) => ({
   box-sizing: border-box;
   border: none;
   height: 100%;
-  color: ${colorText};
+  color: ${(props) => props.theme.colorText};
 
   &:focus {
     border: none;

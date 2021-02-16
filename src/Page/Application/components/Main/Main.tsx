@@ -3,7 +3,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import MainOptions from './components/MainOptions';
-import { colorBorder } from 'StylesApp';
 import Tags from './components/Tags';
 import HelperUser from './components/HelperUser';
 import { useAppContext } from 'ContextApp/AppContext';
@@ -32,7 +31,7 @@ const Div = styled.div.attrs((props) => ({
   min-width: 260px;
   max-width: 260px;
 
-  border-right: 1px solid ${colorBorder};
+  border-right: 1px solid ${(props) => props.theme.colorBorder};
   display: flex;
   flex-direction: column;
 `;

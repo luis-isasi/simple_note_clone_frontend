@@ -11,15 +11,9 @@ import Info from './components/Info';
 import Sidebar from './components/Sidebar';
 import EditNote from './components/EditNote';
 import { useAppContext } from 'ContextApp/AppContext';
-import {
-  MainActive,
-  MainNoActive,
-  InfoActive,
-  InfoNoActive,
-  SidebarNoActive,
-  backgroundColor,
-} from 'StylesApp';
+import { MainActive, MainNoActive, InfoActive, InfoNoActive } from 'StylesApp';
 import ShortcutsModal from './Modals/ShortcutsModal';
+import { useTheme } from 'Context/ThemeContext';
 
 const Application = () => {
   const {
@@ -35,6 +29,10 @@ const Application = () => {
 
   const [editNote, setEditNote] = React.useState(false);
   const [showMarkdown, setShowMakdown] = React.useState(false);
+
+  //Style Theme
+  const { themeStyle } = useTheme();
+  console.log({ themeStyle });
 
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -67,6 +65,10 @@ const Application = () => {
       }
     };
   }, [shortcutsModal]);
+
+  if (themeStyle === undefined) {
+    return null;
+  }
 
   return (
     <>
@@ -162,7 +164,7 @@ const App = styled.div`
 
   * {
     //THEME
-    background-color: ${backgroundColor};
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 `;
 
@@ -187,7 +189,6 @@ const Div = styled.div`
   }
 
   .sidebarNoActive {
-    /* animation: ${SidebarNoActive} 0.2s linear; */
     margin-left: -328px;
   }
 `;

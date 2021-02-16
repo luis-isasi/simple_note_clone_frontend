@@ -3,18 +3,14 @@ import ReactDOM from 'react-dom';
 
 import styled, { css } from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+
 import { useHistory } from 'react-router';
 
-import {
-  colorIcon,
-  colorBorder,
-  colorPinned,
-  colorText,
-  backgroundColor,
-  backgroundContentModal,
-} from 'StylesApp';
+import { colorIcon, colorPinned } from 'StylesApp';
 import { useSessionContext } from 'Context/AppSession';
+import { useTheme } from 'Context/ThemeContext';
+import Account from './components/Account';
+import Display from './components/Display';
 
 const SettingsModal = ({ setState }) => {
   const [nav, setNav] = React.useState({
@@ -22,7 +18,10 @@ const SettingsModal = ({ setState }) => {
     display: false,
   });
 
+  const { theme, changeTheme } = useTheme();
+
   const history = useHistory();
+
   const {
     user: { email },
     logoutUser,
@@ -33,7 +32,7 @@ const SettingsModal = ({ setState }) => {
     setState(false);
   };
 
-  const handledLogOut = () => {
+  const handlerLogOut = () => {
     console.log('cerrando sesion ');
     logoutUser();
     history.push('/');
@@ -82,19 +81,8 @@ const SettingsModal = ({ setState }) => {
             Display
           </button>
         </div>
-        <div className="content">
-          <div className="content-div">
-            <p className="content-text">ACCOUNT</p>
-            <div className="content-gmail">{`${email}`}</div>
-            <div className="content-editAccount">
-              <p>Edit Account</p>
-              <ArrowUpwardIcon style={{ transform: 'rotate(45deg)' }} />
-            </div>
-          </div>
-          <button className="content-btn" onClick={handledLogOut}>
-            Log Out
-          </button>
-        </div>
+        {nav.account && <Account email={email} handlerLogOut={handlerLogOut} />}
+        {nav.display && <Display theme={theme} changeTheme={changeTheme} />}
       </Modal>
     </ContentModal>,
     document.querySelector('#modal')
@@ -116,7 +104,7 @@ const FlexColCenter = css`
   align-items: center;
 `;
 const ContentModal = styled.div`
-  background-color: ${backgroundContentModal};
+  background-color: ${(props) => props.theme.backgroundContentModal};
 
   position: absolute;
   width: 100%;
@@ -126,18 +114,19 @@ const ContentModal = styled.div`
   ${FlexColCenter}
 
   * {
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 `;
 
 const Modal = styled.div`
-  background-color: ${backgroundColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   width: 84%;
   max-width: 520px;
   margin: 0px 8%;
   height: 384px;
   color: black;
-  box-shadow: 0px 0px 8px ${colorBorder}, 0px 0px 8px ${colorBorder};
+  box-shadow: 0px 0px 8px ${(props) => props.theme.colorBorder},
+    0px 0px 8px ${(props) => props.theme.colorBorder};
   font-size: 45px;
 
   .title {
@@ -147,7 +136,7 @@ const Modal = styled.div`
     font-size: 14px;
     font-weight: bold;
     ${FlexRowCenter};
-    border-bottom: 1px solid ${colorBorder};
+    border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
     * {
       font-family: inherit;
@@ -175,7 +164,7 @@ const Modal = styled.div`
     background-color: transparent;
     height: 44px;
     width: 100%;
-    border-bottom: 1px solid ${colorBorder};
+    border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
     ${FlexRowCenter};
 
@@ -200,67 +189,6 @@ const Modal = styled.div`
         background-color: ${colorPinned};
         color: #ffffff;
       }
-    }
-  }
-
-  .content {
-    height: 264px;
-    width: 84%;
-    margin: 0px 8%;
-    ${FlexColCenter};
-
-    * {
-      font-family: inherit;
-    }
-
-    .content-div {
-      max-width: 352px;
-      width: 100%;
-      height: 140px;
-      ${FlexColCenter}
-      justify-content: flex-start;
-
-      > * {
-        width: 100%;
-      }
-
-      .content-text {
-        color: #a1a4a8;
-        font-size: 14px;
-        font-weight: bold;
-        margin: 4px 0px;
-      }
-
-      .content-gmail {
-        border: 1px solid ${colorBorder};
-        font-size: 14px;
-        text-align: center;
-        height: 42px;
-        ${FlexRowCenter}
-      }
-
-      .content-editAccount {
-        margin-top: 24px;
-        font-size: 14px;
-        ${FlexRowCenter};
-
-        * {
-          color: ${colorPinned};
-        }
-      }
-    }
-    .content-btn {
-      background-color: ${colorPinned};
-      border: none;
-      border-radius: 4px;
-      color: #ffffff;
-      height: 42px;
-      max-width: 352px;
-      width: 100%;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      ${FlexRowCenter}
     }
   }
 `;

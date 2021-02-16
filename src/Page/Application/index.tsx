@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { AppContextProvider } from './context/AppContext';
-
+import { AppContextProvider } from 'ContextApp/AppContext';
 import Application from './Application';
 
 const index = () => {

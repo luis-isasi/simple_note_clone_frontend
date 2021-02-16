@@ -20,6 +20,9 @@
       "Constants": [
         "src/Constants.ts"
       ],
+      "Hooks/*": [
+        "src/Hooks/*"
+      ],
       "Context/*": [
         "src/Context/*"
       ],

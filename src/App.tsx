@@ -9,18 +9,15 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
 import Home from './Page/Home';
 import Login from './Page/Login';
 import PageDefault from './Page/PageDefault';
 import Signup from './Page/Signup';
 import Application from './Page/Application';
 import { CssReset } from './GlobalStyle';
-
 import RedirectIfUserExists from './Components/RedirectIfUserExists';
-
 import { AppSessionProvider } from './Context/AppSession';
-
+import { ThemeContextProvider, useTheme } from 'Context/ThemeContext';
 import NoteTest from './NoteTest';
 import { USER_SESSION_KEY } from './Constants';
 
@@ -62,37 +59,39 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <AppSessionProvider>
-      <ApolloProvider client={client}>
-        <GlobalStyle />
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/login">
-              <RedirectIfUserExists>
-                <Login />
-              </RedirectIfUserExists>
-            </Route>
-            <Route exact path="/register">
-              <RedirectIfUserExists>
-                <Signup />
-              </RedirectIfUserExists>
-            </Route>
-            <Route exact path="/app">
-              <Application />
-            </Route>
-            <Route exact path="/notetest">
-              <NoteTest />
-            </Route>
-            <Route>
-              <PageDefault />
-            </Route>
-          </Switch>
-        </Router>
-      </ApolloProvider>
-    </AppSessionProvider>
+    <ThemeContextProvider>
+      <AppSessionProvider>
+        <ApolloProvider client={client}>
+          <GlobalStyle />
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/login">
+                <RedirectIfUserExists>
+                  <Login />
+                </RedirectIfUserExists>
+              </Route>
+              <Route exact path="/register">
+                <RedirectIfUserExists>
+                  <Signup />
+                </RedirectIfUserExists>
+              </Route>
+              <Route exact path="/app">
+                <Application />
+              </Route>
+              <Route exact path="/notetest">
+                <NoteTest />
+              </Route>
+              <Route>
+                <PageDefault />
+              </Route>
+            </Switch>
+          </Router>
+        </ApolloProvider>
+      </AppSessionProvider>
+    </ThemeContextProvider>
   );
 };
 

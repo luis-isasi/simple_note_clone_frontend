@@ -61,7 +61,7 @@ const Div = styled.div`
   padding: 20px;
   width: 100%;
   height: 104px;
-  border-bottom: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
   display: flex;
   align-items: center;
 
@@ -77,7 +77,7 @@ const Div = styled.div`
 const Text = styled.div`
   > span {
     font-weight: 400 !important;
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 `;
 export default Markdown;

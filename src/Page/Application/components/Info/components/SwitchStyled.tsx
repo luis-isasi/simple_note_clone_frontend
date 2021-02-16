@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { colorSwitchON, colorSwitchOFF } from 'StylesApp';
+
 export const Switch = styled.div`
   > input {
     display: none;
@@ -36,7 +38,7 @@ export const Input = styled.input.attrs((props) => ({
   display: none;
 
   &:checked + label {
-    background-color: #70f324;
+    background-color: ${colorSwitchON};
   }
 
   &:checked + label:before {
@@ -54,7 +56,7 @@ export const Label = styled.label.attrs((props) => ({
   height: 14px;
   padding: 2px;
   border-radius: 24px;
-  background-color: #d6d4d4;
+  background-color: ${colorSwitchOFF};
 
   &:before {
     content: '';

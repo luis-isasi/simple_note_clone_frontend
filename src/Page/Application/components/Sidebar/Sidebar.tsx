@@ -9,7 +9,7 @@ import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 import Header from './components/Header';
 import Search from './components/Search';
 import ListNotes from './components/ListNotes';
-import { IconAnimation, Error, colorBorder } from 'StylesApp';
+import { IconAnimation, Error } from 'StylesApp';
 
 const Sidebar = ({ setEditNote }) => {
   const {
@@ -128,14 +128,14 @@ const Div = styled.div`
   @media only screen and (min-width: 990px) {
     flex-basis: 328px;
     max-width: 328px;
-    border-right: 1px solid ${colorBorder};
+    border-right: 1px solid ${(props) => props.theme.colorBorder};
   }
 
   //TABLET
   @media only screen and (max-width: 989px) and (min-width: 768px) {
     flex-basis: 280px;
     max-width: 280px;
-    border-right: 1px solid ${colorBorder};
+    border-right: 1px solid ${(props) => props.theme.colorBorder};
   }
 
   //MOVIL

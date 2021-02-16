@@ -20,6 +20,7 @@ module.exports = {
       Components: path.resolve(__dirname, '../src/Components/'),
       Images: path.resolve(__dirname, '../src/Images/'),
       Constants: path.resolve(__dirname, '../src/Constants.ts'),
+      Hooks: path.resolve(__dirname, '../src/Hooks/'),
       Context: path.resolve(__dirname, '../src/Context/'),
       Page: path.resolve(__dirname, '../src/Page/'),
       ContextApp: path.resolve(__dirname, '../src/Page/Application/context/'),

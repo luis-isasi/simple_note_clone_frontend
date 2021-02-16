@@ -4,14 +4,7 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 
 import GET_TAG from 'GraphqlApp/GetTags.graphql';
-import {
-  IconAnimation,
-  Error,
-  colorBorder,
-  scrollbarStyle,
-  colorText,
-  backgroundHoverTag,
-} from 'StylesApp';
+import { IconAnimation, Error, scrollbarStyle } from 'StylesApp';
 import ListTagForEdit from './components/ListTagForEdit';
 
 const Tags = ({ setSearchTag, showMain }) => {
@@ -74,8 +67,8 @@ const Tags = ({ setSearchTag, showMain }) => {
 
 //-------------style------------
 const Div = styled.div`
-  border-top: 1px solid ${colorBorder};
-  border-bottom: 1px solid ${colorBorder};
+  border-top: 1px solid ${(props) => props.theme.colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
   overflow: hidden;
 
   display: flex;
@@ -83,7 +76,7 @@ const Div = styled.div`
   justify-content: flex-start;
 
   * {
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 `;
 
@@ -127,7 +120,7 @@ const ButtonTag = styled.button`
   height: 40px;
   padding: 2px 6px;
   margin: 0px 0px 0px 16px;
-  border-bottom: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
   text-align: left;
   cursor: pointer;
   font-family: inherit;
@@ -136,7 +129,7 @@ const ButtonTag = styled.button`
 
   &:hover {
     /* background-color: #f6f7f7; */
-    background-color: ${backgroundHoverTag};
+    background-color: ${(props) => props.theme.backgroundHoverTag};
   }
 `;
 

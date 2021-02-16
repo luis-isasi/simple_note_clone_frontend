@@ -1,12 +1,8 @@
 import * as React from 'react';
 
 import styled, { keyframes } from 'styled-components';
-import Media from 'react-media';
-import { useMediaQuery } from 'react-responsive';
 
 const NoteTest = () => {
-  // const [state, setState] = React.useState(false);
-
   // const isDesktopOrLaptop = useMediaQuery({
   //   query: '(min-device-width: 1224px)',
   // });
@@ -19,12 +15,9 @@ const NoteTest = () => {
   // const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' });
   return (
     <Div>
-      {/* <h1>Device Test!</h1>
-      {isDesktopOrLaptop && <p>You are a desktop or laptop</p>}
-      {isBigScreen && <p>You also have a huge screen</p>}
-      {isTabletOrMobile && (
-        <p>You are sized like a tablet or mobile phone though</p>
-      )} */}
+      <div>DIV 1</div>
+
+      <div> DIV 2</div>
     </Div>
   );
 };

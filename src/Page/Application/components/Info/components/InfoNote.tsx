@@ -3,7 +3,7 @@ import * as React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import styled, { css } from 'styled-components';
 
-import { colorIcon, colorBorder, colorText } from 'StylesApp';
+import { colorIcon } from 'StylesApp';
 
 const InfoNote = ({ note, showInfo }) => {
   const { createdAt, updatedAt, text } = note;
@@ -65,7 +65,7 @@ const Div = styled.div`
   font-family: inherit;
   font-size: 14px;
   font-weight: normal;
-  border-bottom: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
   display: flex;
   flex-direction: column;
@@ -83,12 +83,11 @@ const Div = styled.div`
     }
 
     p {
-      color: ${colorText};
+      color: ${(props) => props.theme.colorText};
     }
 
     strong {
-      color: ${colorText};
-      /* color: #37393b; */
+      color: ${(props) => props.theme.colorText};
     }
   }
 `;

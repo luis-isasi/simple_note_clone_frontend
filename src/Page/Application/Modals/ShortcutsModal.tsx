@@ -142,7 +142,7 @@ const FlexColCenter = css`
 `;
 
 const ContentModal = styled.div`
-  background-color: ${backgroundContentModal};
+  background-color: ${(props) => props.theme.backgroundContentModal};
 
   position: absolute;
   width: 100%;
@@ -152,17 +152,18 @@ const ContentModal = styled.div`
   ${FlexColCenter}
 
   * {
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 `;
 
 const Modal = styled.div`
-  background-color: ${backgroundColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   width: 84%;
   max-width: 500px;
   margin: 0px 8%;
   height: 548px;
-  box-shadow: 0px 0px 8px ${colorBorder}, 0px 0px 8px ${colorBorder};
+  box-shadow: 0px 0px 8px ${(props) => props.theme.colorBorder},
+    0px 0px 8px ${(props) => props.theme.colorBorder};
 
   * {
     font-family: inherit;
@@ -174,7 +175,7 @@ const Modal = styled.div`
     font-size: 14px;
     font-weight: bold;
     ${FlexRowCenter};
-    border-bottom: 1px solid ${colorBorder};
+    border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
     > span {
       flex-grow: 1;
@@ -257,7 +258,7 @@ const Div = styled.div`
 const Letter = styled.p`
   box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid ${colorText};
+  border: 1px solid ${(props) => props.theme.colorText};
   padding: 2px 5px;
   font-family: monospace, monospace;
   font-size: 13px;

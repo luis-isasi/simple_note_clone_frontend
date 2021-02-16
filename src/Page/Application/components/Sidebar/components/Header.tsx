@@ -30,7 +30,7 @@ const Div = styled.div`
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${colorBorder};
+  border-bottom: 1px solid ${(props) => props.theme.colorBorder};
 
   * {
     display: flex;
@@ -42,7 +42,7 @@ const Div = styled.div`
     text-align: center;
     font-weight: 600;
     font-size: 16px;
-    color: ${colorText};
+    color: ${(props) => props.theme.colorText};
   }
 `;
 
