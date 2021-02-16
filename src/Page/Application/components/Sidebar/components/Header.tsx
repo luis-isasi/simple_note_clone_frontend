@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import { colorBorder, colorText } from 'StylesApp';
 import MainIcon from './MainIcon';
 import CreateNote from './CreateNote';
 

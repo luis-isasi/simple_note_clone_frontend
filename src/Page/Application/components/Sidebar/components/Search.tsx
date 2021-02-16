@@ -7,7 +7,6 @@ import { Shortcuts } from 'shortcuts';
 import { useMediaQuery } from 'react-responsive';
 
 import { useAppContext } from 'ContextApp/AppContext';
-import { colorBorder, colorText } from 'StylesApp';
 
 const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
   const {

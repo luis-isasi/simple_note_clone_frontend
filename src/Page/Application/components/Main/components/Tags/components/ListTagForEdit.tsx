@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client';
 import { useAppContext } from 'ContextApp/AppContext';
 
 import InputTag from './InputTag';
-import { colorBorder } from 'StylesApp';
+
 import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
 
 const ListTagForEdit = ({ tags }) => {

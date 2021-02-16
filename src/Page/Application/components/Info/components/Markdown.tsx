@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import { colorBorder, colorText } from 'StylesApp';
 import { Switch, Input, Label } from './SwitchStyled';
 
 const Markdown = ({
