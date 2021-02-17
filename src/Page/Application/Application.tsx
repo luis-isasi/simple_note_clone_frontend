@@ -11,9 +11,10 @@ import Info from './components/Info';
 import Sidebar from './components/Sidebar';
 import EditNote from './components/EditNote';
 import { useAppContext } from 'ContextApp/AppContext';
+import { useUserSettings } from 'Context/SettingsContext';
+
 import { MainActive, MainNoActive, InfoActive, InfoNoActive } from 'StylesApp';
 import ShortcutsModal from './Modals/ShortcutsModal';
-import { useTheme } from 'Context/ThemeContext';
 
 const Application = () => {
   const {
@@ -28,7 +29,7 @@ const Application = () => {
   } = useAppContext();
 
   const [editNote, setEditNote] = React.useState(false);
-  const [valueNote, setValueNote] = React.useState(undefined);
+  const [switchPinned, setSwitchPinned] = React.useState(false);
 
   const [showMarkdown, setShowMakdown] = React.useState(false);
 
@@ -37,6 +38,9 @@ const Application = () => {
   });
 
   const history = useHistory();
+  const {
+    settings: { theme },
+  } = useUserSettings();
 
   React.useEffect(() => {
     const token = localStorage.getItem(USER_SESSION_KEY);
@@ -64,36 +68,48 @@ const Application = () => {
     };
   }, [shortcutsModal]);
 
-  return (
-    <>
-      <App>
-        {main && <Main className="mainActive" id="main" />}
-        <Div
-          className={main ? 'showMain' : info && 'showInfo'}
-          id="Application"
-        >
-          <Sidebar
-            sidebar={sidebar}
-            editNote={editNote}
-            setEditNote={setEditNote}
-          />
-          <EditNote
-            showMarkdown={showMarkdown}
-            setShowMakdown={setShowMakdown}
-            note={note}
-            trash={trash}
-            allNotes={allNotes}
-            setEditNote={setEditNote}
-            editNote={editNote}
-          />
-        </Div>
-        {info && <Info className="infoActive" id="info" />}
-      </App>
-      {shortcutsModal && (
-        <ShortcutsModal setShortcutsModal={setShortcutsModal} />
-      )}
-    </>
-  );
+  if (theme !== undefined) {
+    return (
+      <>
+        <App>
+          {main && <Main className="mainActive" id="main" />}
+          <Div
+            className={main ? 'showMain' : info && 'showInfo'}
+            id="Application"
+          >
+            <Sidebar
+              sidebar={sidebar}
+              editNote={editNote}
+              setEditNote={setEditNote}
+              switchPinned={switchPinned}
+              setSwitchPinned={setSwitchPinned}
+            />
+            <EditNote
+              showMarkdown={showMarkdown}
+              setShowMakdown={setShowMakdown}
+              note={note}
+              trash={trash}
+              allNotes={allNotes}
+              setEditNote={setEditNote}
+              editNote={editNote}
+            />
+          </Div>
+          {info && (
+            <Info
+              className="infoActive"
+              id="info"
+              setSwitchPinned={setSwitchPinned}
+            />
+          )}
+        </App>
+        {shortcutsModal && (
+          <ShortcutsModal setShortcutsModal={setShortcutsModal} />
+        )}
+      </>
+    );
+  }
+
+  return null;
 };
 
 //---------------STYLED------------
@@ -105,8 +121,6 @@ const App = styled.div`
   overflow: hidden;
 
   .showMain {
-    /* opacity: 0.35; */
-
     > * {
       opacity: 0.5;
       pointer-events: none;
@@ -114,7 +128,6 @@ const App = styled.div`
   }
 
   .showInfo {
-    /* opacity: 0.35; */
     position: relative;
     animation: ${InfoActive} 0.2s linear;
     right: 320px;
@@ -126,7 +139,6 @@ const App = styled.div`
   }
 
   .hideInfo {
-    /* opacity: 0.35; */
     animation: ${InfoNoActive} 0.2s linear;
     right: 0px;
 

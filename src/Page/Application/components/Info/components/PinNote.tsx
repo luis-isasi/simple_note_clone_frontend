@@ -10,16 +10,19 @@ const PinNote = ({
   pinNote,
   unpinNote,
   selectNote,
+  setSwitchPinned,
 }) => {
   const handledInputCheck = (e) => {
     const checked = e.target.checked;
 
     if (checked) {
-      selectNote({ ...note, pinned: true });
       pinNote({ variables: { noteId: id } });
+      selectNote({ ...note, pinned: true });
+      setSwitchPinned(true);
     } else {
-      selectNote({ ...note, pinned: false });
       unpinNote({ variables: { noteId: id } });
+      selectNote({ ...note, pinned: false });
+      setSwitchPinned(true);
     }
   };
 

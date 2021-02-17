@@ -11,7 +11,7 @@ import Search from './components/Search';
 import ListNotes from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
 
-const Sidebar = ({ setEditNote }) => {
+const Sidebar = ({ setEditNote, switchPinned, setSwitchPinned }) => {
   const {
     note,
     selectNote,
@@ -95,6 +95,8 @@ const Sidebar = ({ setEditNote }) => {
           trash={trash}
           allNotes={allNotes}
           setEditNote={setEditNote}
+          switchPinned={switchPinned}
+          setSwitchPinned={setSwitchPinned}
         />
       );
     }
@@ -119,6 +121,7 @@ const Sidebar = ({ setEditNote }) => {
 
 //------------STYLED-------------
 const Div = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor} !important;
   display: flex;
   flex-flow: column;
   min-height: 100vh;

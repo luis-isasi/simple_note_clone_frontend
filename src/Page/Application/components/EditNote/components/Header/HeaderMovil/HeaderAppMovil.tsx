@@ -66,7 +66,7 @@ const HeaderApp = ({
   };
 
   return (
-    <Header theme={{ colorBorder, backgroundColor }}>
+    <Header>
       <button className="btnBack" onClick={onClick}>
         <ArrowBackOutlinedIcon />
       </button>
@@ -122,13 +122,16 @@ const styleIcon = css`
 
 const Header = styled.header`
   ${flexRowCenterBetween}
-  background-color: #ffffff;
   box-sizing: border-box;
   width: 100%;
   padding: 0px 16px;
   flex-basis: 56px;
   min-height: 56px;
   border-bottom: 1px solid ${(props) => props.theme.colorBorder};
+
+  * {
+    color: ${colorIcon};
+  }
 
   > .btnBack {
     background-color: transparent;
@@ -140,10 +143,6 @@ const Header = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  * {
-    color: ${colorIcon};
   }
 `;
 

@@ -11,7 +11,7 @@ import InfoNote from './components/InfoNote';
 import PinNote from './components/PinNote';
 import Markdown from './components/Markdown';
 
-const Info = ({ className, id }) => {
+const Info = ({ className, id, setSwitchPinned }) => {
   const { note, showInfo, selectNote } = useAppContext();
 
   const [pinNote] = useMutation(PIN_NOTE);
@@ -26,6 +26,7 @@ const Info = ({ className, id }) => {
         pinNote={pinNote}
         unpinNote={unpinNote}
         selectNote={selectNote}
+        setSwitchPinned={setSwitchPinned}
       />
       <Markdown updateNote={updateNote} note={note} selectNote={selectNote} />
     </Div>
@@ -37,7 +38,6 @@ const Div = styled.div.attrs((props) => ({
   className: props.className,
   id: props.id,
 }))`
-  background-color: #ffffff;
   border-left: 1px solid ${(props) => props.theme.colorBorder};
   height: 100%;
   min-width: 320px;

@@ -20,12 +20,12 @@ const ListNotes = ({
   trash,
   allNotes,
   setEditNote,
+  switchPinned,
+  setSwitchPinned,
 }) => {
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
-  const trashRef = React.useRef(trash);
-  const allNotesRef = React.useRef(allNotes);
 
   const shortcuts = new Shortcuts();
   const client = useApolloClient();
@@ -61,9 +61,6 @@ const ListNotes = ({
 
   React.useEffect(() => {
     if (isDesktopOrLaptop) {
-      // Asigamos la primera nota en Desktop
-      // selectNote(listNotes[indexNote.current]);
-
       //ADDING SHORTCUTS
       shortcuts.add([
         {
@@ -109,42 +106,42 @@ const ListNotes = ({
   }, [listNotes, trash, allNotes]);
 
   React.useEffect(() => {
-    console.log('USEFFECT WITH LISTNOTES');
+    console.log('LISTNOTES CHANGE');
 
     const currentNotesLength = listNoteLength.current;
     const newNotesLength = listNotes.length;
 
-    console.log({ currentNotesLength, newNotesLength });
+    // if (note) {
+    //   notePinRef.current = {
+    //     id: note.id,
+    //     pinned: note.pinned,
+    //   };
+    // }
 
-    if (isDesktopOrLaptop) {
-      if (allNotes !== allNotesRef.current) {
-        console.log({ allNotes, allNotesRef });
+    // console.log({ currentNotesLength, newNotesLength });
 
-        console.log('ALLNOTES CAMBIO');
-        indexNote.current = 0;
-        selectNote(listNotes[0]);
+    // ACA DEBEMOS DE SABER SI VIENEN DIFERENTE ARRAYS
 
-        allNotesRef.current = allNotes;
-        return;
-      }
+    if (switchPinned) {
+      console.log('SE PRESIONO PIN!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      setSwitchPinned(false);
+      // Asigamos la primera nota en Desktop
+    } else {
+      console.log('SELECT CURRENT NOTE ');
 
-      if (trash !== trashRef.current) {
-        console.log('TRASH CAMBIO');
-        indexNote.current = 0;
-        selectNote(listNotes[0]);
-        trashRef.current = trash;
-        return;
-      }
+      // listNotesRef.current = listNotesJSON;
+      selectNote(listNotes[indexNote.current]);
+
+      //guardamos el length del nuevo listNotes
+      listNoteLength.current = listNotes.length;
+      return;
     }
 
-    if (isDesktopOrLaptop) {
-      if (currentNotesLength !== newNotesLength) {
-        console.log('DIFERENT LISTNOTES');
-
-        // Asigamos la primera nota en Desktop
-        selectNote(listNotes[indexNote.current]);
-      }
-    }
+    // if (currentNotesLength === newNotesLength && trash) {
+    //   console.log('DIFERENT LISTNOTES');
+    //   selectNote(listNotes[indexNote.current]);
+    //   // Asigamos la primera nota en Desktop
+    // }
 
     //DELETE  NOTE
     if (newNotesLength === currentNotesLength - 1) {
@@ -175,13 +172,52 @@ const ListNotes = ({
   }, [listNotes]);
 
   React.useEffect(() => {
-    indexNote.current = 0;
+    // indexNote.current = 0;
+    if (isDesktopOrLaptop) {
+      if (allNotes) {
+        // console.log({ allNotes, allNotesRef });
+        // console.log('ALLNOTES CAMBIO');
+        indexNote.current = 0;
+
+        return;
+      }
+    }
+
+    if (trash) {
+      // console.log('TRASH CAMBIO');
+      indexNote.current = 0;
+
+      return;
+    }
   }, [trash, allNotes]);
 
-  React.useEffect(() => {
-    console.log('LAST USEEFFECT');
+  // React.useEffect(() => {
+  //   // console.log('EFFECT CHANGE');
+  //   // if (isDesktopOrLaptop) {
+  //   //   if (allNotes !== allNotesRef.current) {
+  //   //     // console.log({ allNotes, allNotesRef });
+  //   //     indexNote.current = 0;
+  //   //     console.log('ALLNOTES CAMBIO');
+  //   //     selectNote(listNotes[0]);
+  //   //     allNotesRef.current = allNotes;
+  //   //     return;
+  //   //   }
+  //   //   if (trash !== trashRef.current) {
+  //   //     console.log('TRASH CAMBIO');
+  //   //     indexNote.current = 0;
+  //   //     selectNote(listNotes[0]);
+  //   //     trashRef.current = trash;
+  //   //     return;
+  //   //   }
+  //   // }
+  // }, [trash, allNotes, listNotes]);
 
-    selectNote(listNotes[indexNote.current]);
+  React.useEffect(() => {
+    // console.log('LAST USEEFFECT');
+
+    if (isDesktopOrLaptop) {
+      selectNote(listNotes[indexNote.current]);
+    }
   }, []);
 
   const renderNotes = () => {
@@ -306,7 +342,6 @@ const BtnNote = styled.button`
   }
 
   .noteText {
-    background-color: transparent;
     box-sizing: border-box;
     background-color: transparent !important;
     display: flex;

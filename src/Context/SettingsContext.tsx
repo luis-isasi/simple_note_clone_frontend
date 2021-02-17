@@ -22,7 +22,7 @@ const SettingsContext = React.createContext<ContextState | undefined>(
 
 export const SettingsContextProvider = ({ children }) => {
   const [settings, setSettings] = React.useState<ContextState['settings']>({
-    theme: ThemeMode.LIGHT,
+    theme: undefined,
   });
 
   React.useEffect(() => {

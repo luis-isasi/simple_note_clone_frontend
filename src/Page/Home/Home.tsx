@@ -48,6 +48,7 @@ const DivHome = styled.div`
     color: #ffffff;
     font-size: 20px;
     background-color: #3361cc;
+
     &:hover {
       background-color: #25489b;
     }

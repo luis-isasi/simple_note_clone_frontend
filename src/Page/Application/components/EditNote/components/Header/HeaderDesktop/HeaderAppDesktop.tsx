@@ -114,7 +114,6 @@ const flexRowEnd = css`
 const Header = styled.header`
   ${(props) =>
     props.allNotes || props.name ? `${flexRowCenterBetween}` : `${flexRowEnd}`}
-  background-color: #ffffff;
 
   flex-basis: 55px;
   min-height: 55px;
