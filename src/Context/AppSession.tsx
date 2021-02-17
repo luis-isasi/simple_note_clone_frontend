@@ -39,7 +39,7 @@ export const AppSessionProvider = ({ children }) => {
   }, []);
 
   const signinUser = (_data: RawUser) => {
-    const user_settings = JSON.parse(localStorage.getItem(USER_SETTINGS));
+    // const user_settings = JSON.parse(localStorage.getItem(USER_SETTINGS));
 
     const data = {
       token: _data.token,
@@ -49,23 +49,23 @@ export const AppSessionProvider = ({ children }) => {
 
     //verificamos que se este haciendo un nuevo login con otro user
     //para poder restablecer user_settings
-    if (user_settings) {
-      if (user_settings.email !== _data.user.email) {
-        const newSettings = {
-          email: _data.user.email,
-          theme: 'Light',
-        };
+    // if (user_settings) {
+    //   if (user_settings.email !== _data.user.email) {
+    //     const newSettings = {
+    //       // email: _data.user.email,
+    //       theme: 'light',
+    //     };
 
-        localStorage.setItem(USER_SETTINGS, JSON.stringify(newSettings));
-      }
-    } else {
-      const newSettings = {
-        email: _data.user.email,
-        theme: 'Light',
-      };
+    //     localStorage.setItem(USER_SETTINGS, JSON.stringify(newSettings));
+    //   }
+    // } else {
+    //   // const newSettings = {
+    //   //   // email: _data.user.email,
+    //   //   // theme: 'light',
+    //   // };
 
-      localStorage.setItem(USER_SETTINGS, JSON.stringify(newSettings));
-    }
+    //   // localStorage.setItem(USER_SETTINGS, JSON.stringify(newSettings));
+    // }
 
     localStorage.setItem(USER_SESSION_KEY, JSON.stringify(data));
     setUser(data);

@@ -24,6 +24,8 @@ const ListNotes = ({
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
+  const trashRef = React.useRef(trash);
+  const allNotesRef = React.useRef(allNotes);
 
   const shortcuts = new Shortcuts();
   const client = useApolloClient();
@@ -58,13 +60,10 @@ const ListNotes = ({
   });
 
   React.useEffect(() => {
-    indexNote.current = 0;
-  }, [trash, allNotes]);
-
-  React.useEffect(() => {
     if (isDesktopOrLaptop) {
       // Asigamos la primera nota en Desktop
-      selectNote(listNotes[indexNote.current]);
+      // selectNote(listNotes[indexNote.current]);
+
       //ADDING SHORTCUTS
       shortcuts.add([
         {
@@ -72,6 +71,8 @@ const ListNotes = ({
           handler: (e) => {
             e.preventDefault();
             //PREVIOUS NOTE
+            console.log('PREVIOUS NOTE');
+
             let index = indexNote.current;
             //SI NO ES LA PRIMERA NOTA SELECCIONAMOS LA ANTERIOR
             if (!(index === 0)) {
@@ -85,6 +86,8 @@ const ListNotes = ({
           handler: (e) => {
             e.preventDefault();
             //NEXT NOTE
+            console.log('NEXT NOTE');
+
             let index = indexNote.current + 1;
             //SI NO ES LA ULTIMA NOTA SELECCIONAMOS LA SIGUIENTE
             if (!(index === listNoteLength.current)) {
@@ -106,11 +109,47 @@ const ListNotes = ({
   }, [listNotes, trash, allNotes]);
 
   React.useEffect(() => {
+    console.log('USEFFECT WITH LISTNOTES');
+
     const currentNotesLength = listNoteLength.current;
     const newNotesLength = listNotes.length;
 
+    console.log({ currentNotesLength, newNotesLength });
+
+    if (isDesktopOrLaptop) {
+      if (allNotes !== allNotesRef.current) {
+        console.log({ allNotes, allNotesRef });
+
+        console.log('ALLNOTES CAMBIO');
+        indexNote.current = 0;
+        selectNote(listNotes[0]);
+
+        allNotesRef.current = allNotes;
+        return;
+      }
+
+      if (trash !== trashRef.current) {
+        console.log('TRASH CAMBIO');
+        indexNote.current = 0;
+        selectNote(listNotes[0]);
+        trashRef.current = trash;
+        return;
+      }
+    }
+
+    if (isDesktopOrLaptop) {
+      if (currentNotesLength !== newNotesLength) {
+        console.log('DIFERENT LISTNOTES');
+
+        // Asigamos la primera nota en Desktop
+        selectNote(listNotes[indexNote.current]);
+      }
+    }
+
     //DELETE  NOTE
     if (newNotesLength === currentNotesLength - 1) {
+      console.log('DELETE NOTE');
+
       listNoteLength.current = newNotesLength;
       let index = indexNote.current;
 
@@ -124,6 +163,8 @@ const ListNotes = ({
 
     //ADDING NEW NOTE
     if (newNotesLength === currentNotesLength + 1) {
+      console.log('ADDING NOTE');
+
       listNoteLength.current = newNotesLength;
       indexNote.current = lengthPinned;
       selectNote(listNotes[indexNote.current]);
@@ -132,6 +173,16 @@ const ListNotes = ({
     //guardamos el length del nuevo listNotes
     listNoteLength.current = listNotes.length;
   }, [listNotes]);
+
+  React.useEffect(() => {
+    indexNote.current = 0;
+  }, [trash, allNotes]);
+
+  React.useEffect(() => {
+    console.log('LAST USEEFFECT');
+
+    selectNote(listNotes[indexNote.current]);
+  }, []);
 
   const renderNotes = () => {
     //SE REALIZO UNA BUSQUEDAD PERO NO HAY RESULTADOS, DAMOS LA OPCION DE CREAR UNO CON EL VALUE SEARCH

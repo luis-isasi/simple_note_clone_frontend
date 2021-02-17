@@ -4,53 +4,66 @@ import styled from 'styled-components';
 
 import { colorSwitchON, colorSwitchOFF } from 'StylesApp';
 
-const Display = ({ theme, changeTheme }) => {
-  const [light, setLight] = React.useState(() =>
-    theme === 'Light' ? true : false
-  );
-  const [dark, setDark] = React.useState(() =>
-    theme === 'Dark' ? true : false
-  );
+import { ThemeMode } from 'Context/SettingsContext';
+
+type DisplayProps = {
+  theme: ThemeMode;
+  changeTheme(theme: ThemeMode): void;
+};
+const Display: React.FC<DisplayProps> = ({ theme, changeTheme }) => {
+  // const [light, setLight] = React.useState(() =>
+  //   theme === ThemeMode.LIGHT ? true : false
+  // );
+  // const [dark, setDark] = React.useState(() =>
+  //   theme === ThemeMode.DARK ? true : false
+  // );
+
+  console.log({ theme });
 
   //CHANGE DARKMODE OR LIGHTMODE
   const onClick = (mode) => () => {
-    if (mode === 'Light') {
-      setDark(false);
-      setLight(true);
-    }
+    // if (mode === ThemeMode.LIGHT) {
+    //   setDark(false);
+    //   setLight(true);
+    // }
 
-    if (mode === 'Dark') {
-      setLight(false);
-      setDark(true);
-    }
+    // if (mode === ThemeMode.DARK) {
+    //   setLight(false);
+    //   setDark(true);
+    // }
 
     changeTheme(mode);
   };
+
+  const isLight = theme === ThemeMode.LIGHT;
+  const isDark = theme === ThemeMode.DARK;
 
   return (
     <Div>
       <span>THEME</span>
       <div className="content-themes">
-        <button className="control-light" onClick={onClick('Light')}>
+        <button className="control-light" onClick={onClick(ThemeMode.LIGHT)}>
           <p>Light</p>
           <div className="control-input-theme">
             <input
               type="radio"
               className="regular-radio"
               id="theme-light"
-              checked={light}
+              checked={isLight}
+              readOnly
             />
             <label htmlFor="theme-light"></label>
           </div>
         </button>
-        <button className="control-dark" onClick={onClick('Dark')}>
+        <button className="control-dark" onClick={onClick(ThemeMode.DARK)}>
           <p>Dark</p>
           <div className="control-input-theme">
             <input
               type="radio"
               className="regular-radio"
               id="theme-dark"
-              checked={dark}
+              checked={isDark}
+              readOnly
             />
             <label htmlFor="theme-dark"></label>
           </div>

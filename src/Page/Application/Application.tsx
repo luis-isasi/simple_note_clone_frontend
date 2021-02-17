@@ -28,11 +28,9 @@ const Application = () => {
   } = useAppContext();
 
   const [editNote, setEditNote] = React.useState(false);
-  const [showMarkdown, setShowMakdown] = React.useState(false);
+  const [valueNote, setValueNote] = React.useState(undefined);
 
-  //Style Theme
-  const { themeStyle } = useTheme();
-  console.log({ themeStyle });
+  const [showMarkdown, setShowMakdown] = React.useState(false);
 
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -65,10 +63,6 @@ const Application = () => {
       }
     };
   }, [shortcutsModal]);
-
-  if (themeStyle === undefined) {
-    return null;
-  }
 
   return (
     <>

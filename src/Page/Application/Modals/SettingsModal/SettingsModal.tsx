@@ -8,7 +8,7 @@ import { useHistory } from 'react-router';
 
 import { colorIcon, colorPinned } from 'StylesApp';
 import { useSessionContext } from 'Context/AppSession';
-import { useTheme } from 'Context/ThemeContext';
+import { useUserSettings } from 'Context/SettingsContext';
 import Account from './components/Account';
 import Display from './components/Display';
 
@@ -18,7 +18,7 @@ const SettingsModal = ({ setState }) => {
     display: false,
   });
 
-  const { theme, changeTheme } = useTheme();
+  const { settings, changeTheme } = useUserSettings();
 
   const history = useHistory();
 
@@ -82,7 +82,9 @@ const SettingsModal = ({ setState }) => {
           </button>
         </div>
         {nav.account && <Account email={email} handlerLogOut={handlerLogOut} />}
-        {nav.display && <Display theme={theme} changeTheme={changeTheme} />}
+        {nav.display && (
+          <Display theme={settings.theme} changeTheme={changeTheme} />
+        )}
       </Modal>
     </ContentModal>,
     document.querySelector('#modal')

@@ -17,7 +17,8 @@ import Application from './Page/Application';
 import { CssReset } from './GlobalStyle';
 import RedirectIfUserExists from './Components/RedirectIfUserExists';
 import { AppSessionProvider } from './Context/AppSession';
-import { ThemeContextProvider, useTheme } from 'Context/ThemeContext';
+import { SettingsContextProvider } from 'Context/SettingsContext';
+
 import NoteTest from './NoteTest';
 import { USER_SESSION_KEY } from './Constants';
 
@@ -59,7 +60,7 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <ThemeContextProvider>
+    <SettingsContextProvider>
       <AppSessionProvider>
         <ApolloProvider client={client}>
           <GlobalStyle />
@@ -91,7 +92,7 @@ const App = () => {
           </Router>
         </ApolloProvider>
       </AppSessionProvider>
-    </ThemeContextProvider>
+    </SettingsContextProvider>
   );
 };
 
