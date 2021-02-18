@@ -11,25 +11,6 @@ type ThemeState = {
   themeStyle: Theme;
 };
 
-// type ThemeState = {
-//   theme: Theme;
-//   setTheme(theme: Theme): void;
-//   colorIconSelect: string;
-//   colorText: string;
-//   colorTextNote: string;
-//   backgroundColor: string;
-//   colorBorder: string;
-//   backgroundTag: string;
-//   colorTag: string;
-//   backgroundHoverTag: string;
-//   backgroundSelectNote: string;
-//   backgroundSelectMainOptions: string;
-//   backgroundHoverNote: string;
-//   backgroundContentModal: string;
-//   backgroundColorScroll: string;
-//   borderColorScroll: string;
-// };
-
 const ThemeContext = React.createContext<ThemeState | undefined>(undefined);
 
 export const ThemeContextProvider = ({ children }) => {
@@ -87,10 +68,6 @@ export const ThemeContextProvider = ({ children }) => {
 
     setTheme(mode);
   };
-
-  if (themeStyle === undefined) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider
