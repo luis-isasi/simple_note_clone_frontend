@@ -30,6 +30,7 @@ const Application = () => {
 
   const [editNote, setEditNote] = React.useState(false);
   const [switchPinned, setSwitchPinned] = React.useState(false);
+  const [textNote, setTextNote] = React.useState(undefined);
 
   const [showMarkdown, setShowMakdown] = React.useState(false);
 
@@ -49,6 +50,12 @@ const Application = () => {
       return;
     }
   }, []);
+
+  React.useEffect(() => {
+    if (note) {
+      setTextNote(note.text);
+    }
+  }, [note]);
 
   React.useEffect(() => {
     const shortcuts = new Shortcuts();
@@ -83,6 +90,7 @@ const Application = () => {
               setEditNote={setEditNote}
               switchPinned={switchPinned}
               setSwitchPinned={setSwitchPinned}
+              textNote={textNote}
             />
             <EditNote
               showMarkdown={showMarkdown}
@@ -92,6 +100,8 @@ const Application = () => {
               allNotes={allNotes}
               setEditNote={setEditNote}
               editNote={editNote}
+              textNote={textNote}
+              setTextNote={setTextNote}
             />
           </Div>
           {info && (

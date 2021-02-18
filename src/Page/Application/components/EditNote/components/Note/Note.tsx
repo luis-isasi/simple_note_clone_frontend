@@ -11,16 +11,8 @@ import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 import { MarkdownCSS } from './components/MarkdownCSS';
 
-const Note = ({ showMarkdown, note, trash }) => {
-  const [value, setValue] = React.useState(note ? note.text : '');
-
+const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
   const [updateNote] = useMutation(UPDATE_NOTE);
-
-  React.useEffect(() => {
-    if (note) {
-      setValue(note.text);
-    }
-  }, [note]);
 
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
@@ -38,7 +30,7 @@ const Note = ({ showMarkdown, note, trash }) => {
     const {
       target: { value: _value },
     } = e;
-    setValue(_value);
+    setTextNote(_value);
     onUpdateNodeDebounce(note.id, _value);
   };
 
@@ -53,14 +45,14 @@ const Note = ({ showMarkdown, note, trash }) => {
                   color: `${(props) => props.theme.colorText} !important`,
                 }}
               >
-                <Markdown>{value}</Markdown>
+                <Markdown>{textNote}</Markdown>
               </MarkdownCSS>
             </CodeMarkdown>
           ) : (
             <TextArea
               id="textNote"
               onChange={onChange}
-              value={value}
+              value={textNote}
               autoFocus
             ></TextArea>
           )}

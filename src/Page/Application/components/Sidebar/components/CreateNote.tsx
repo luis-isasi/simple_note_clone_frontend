@@ -16,6 +16,7 @@ const CreateNote = ({
   hover,
   searchGraphqlVariable,
   onClickClear,
+  setAddingNewNote,
 }) => {
   const { selectNote, trash } = useAppContext();
 
@@ -55,7 +56,6 @@ const CreateNote = ({
           },
         },
       });
-      // outline: none;
       selectNote(createNote);
       if (onClickClear) onClickClear();
     },
@@ -71,6 +71,7 @@ const CreateNote = ({
 
   const onClick = () => {
     let _text = searchGraphqlVariable || '';
+    setAddingNewNote(true);
     createNote({
       variables: {
         text: _text,
@@ -79,7 +80,12 @@ const CreateNote = ({
   };
 
   return (
-    <BtnNewNote onClick={onClick} hover={hover} disabled={trash}>
+    <BtnNewNote
+      onClick={onClick}
+      hover={hover}
+      disabled={trash}
+      id="btn-new-note"
+    >
       {children || <PostAddIcon />}
     </BtnNewNote>
   );
@@ -94,7 +100,9 @@ const hover = css`
   }
 `;
 
-const BtnNewNote = styled.button`
+const BtnNewNote = styled.button.attrs((props) => ({
+  id: props.id,
+}))`
   background-color: transparent;
   border: none;
   cursor: pointer;

@@ -22,6 +22,9 @@ const ListNotes = ({
   setEditNote,
   switchPinned,
   setSwitchPinned,
+  textNote,
+  addingNewNote,
+  setAddingNewNote,
 }) => {
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
@@ -68,8 +71,6 @@ const ListNotes = ({
           handler: (e) => {
             e.preventDefault();
             //PREVIOUS NOTE
-            console.log('PREVIOUS NOTE');
-
             let index = indexNote.current;
             //SI NO ES LA PRIMERA NOTA SELECCIONAMOS LA ANTERIOR
             if (!(index === 0)) {
@@ -83,8 +84,6 @@ const ListNotes = ({
           handler: (e) => {
             e.preventDefault();
             //NEXT NOTE
-            console.log('NEXT NOTE');
-
             let index = indexNote.current + 1;
             //SI NO ES LA ULTIMA NOTA SELECCIONAMOS LA SIGUIENTE
             if (!(index === listNoteLength.current)) {
@@ -106,46 +105,32 @@ const ListNotes = ({
   }, [listNotes, trash, allNotes]);
 
   React.useEffect(() => {
-    console.log('LISTNOTES CHANGE');
-
     const currentNotesLength = listNoteLength.current;
     const newNotesLength = listNotes.length;
 
-    // if (note) {
-    //   notePinRef.current = {
-    //     id: note.id,
-    //     pinned: note.pinned,
-    //   };
-    // }
-
-    // console.log({ currentNotesLength, newNotesLength });
-
-    // ACA DEBEMOS DE SABER SI VIENEN DIFERENTE ARRAYS
-
     if (switchPinned) {
-      console.log('SE PRESIONO PIN!!!!!!!!!!!!!!!!!!!!!!!!!!');
       setSwitchPinned(false);
-      // Asigamos la primera nota en Desktop
     } else {
-      console.log('SELECT CURRENT NOTE ');
+      //SI ESTAMOS EN DESKTOP Y NO SE ESTA AÑADIENDO UNA NOTA, SELECCIONAMOS LA PRIMERA NOTA
+      console.log({ addingNewNote });
 
-      // listNotesRef.current = listNotesJSON;
-      selectNote(listNotes[indexNote.current]);
+      if (isDesktopOrLaptop && !addingNewNote) {
+        console.log('SELECT CURRENT NOTE');
+        console.log({ indexNote });
 
-      //guardamos el length del nuevo listNotes
-      listNoteLength.current = listNotes.length;
-      return;
+        selectNote(listNotes[indexNote.current]);
+
+        //guardamos el length del nuevo listNotes
+        listNoteLength.current = listNotes.length;
+        return;
+      } else {
+        setAddingNewNote(false);
+      }
     }
-
-    // if (currentNotesLength === newNotesLength && trash) {
-    //   console.log('DIFERENT LISTNOTES');
-    //   selectNote(listNotes[indexNote.current]);
-    //   // Asigamos la primera nota en Desktop
-    // }
 
     //DELETE  NOTE
     if (newNotesLength === currentNotesLength - 1) {
-      console.log('DELETE NOTE');
+      console.log('DELETING NOTE');
 
       listNoteLength.current = newNotesLength;
       let index = indexNote.current;
@@ -160,7 +145,7 @@ const ListNotes = ({
 
     //ADDING NEW NOTE
     if (newNotesLength === currentNotesLength + 1) {
-      console.log('ADDING NOTE');
+      console.log('ADDING NEW NOTE');
 
       listNoteLength.current = newNotesLength;
       indexNote.current = lengthPinned;
@@ -172,49 +157,12 @@ const ListNotes = ({
   }, [listNotes]);
 
   React.useEffect(() => {
-    // indexNote.current = 0;
     if (isDesktopOrLaptop) {
-      if (allNotes) {
-        // console.log({ allNotes, allNotesRef });
-        // console.log('ALLNOTES CAMBIO');
-        indexNote.current = 0;
-
-        return;
-      }
-    }
-
-    if (trash) {
-      // console.log('TRASH CAMBIO');
       indexNote.current = 0;
-
-      return;
     }
   }, [trash, allNotes]);
 
-  // React.useEffect(() => {
-  //   // console.log('EFFECT CHANGE');
-  //   // if (isDesktopOrLaptop) {
-  //   //   if (allNotes !== allNotesRef.current) {
-  //   //     // console.log({ allNotes, allNotesRef });
-  //   //     indexNote.current = 0;
-  //   //     console.log('ALLNOTES CAMBIO');
-  //   //     selectNote(listNotes[0]);
-  //   //     allNotesRef.current = allNotes;
-  //   //     return;
-  //   //   }
-  //   //   if (trash !== trashRef.current) {
-  //   //     console.log('TRASH CAMBIO');
-  //   //     indexNote.current = 0;
-  //   //     selectNote(listNotes[0]);
-  //   //     trashRef.current = trash;
-  //   //     return;
-  //   //   }
-  //   // }
-  // }, [trash, allNotes, listNotes]);
-
   React.useEffect(() => {
-    // console.log('LAST USEEFFECT');
-
     if (isDesktopOrLaptop) {
       selectNote(listNotes[indexNote.current]);
     }
@@ -269,7 +217,12 @@ const ListNotes = ({
       >
         <div className="pinned">{_note.pinned && <AttachFileIcon />}</div>
         <div className="noteText">
-          <p>{_note.text || <NewNote>New Note...</NewNote>}</p>
+          {/* <p>{_note.text || <NewNote>New Note...</NewNote>}</p> */}
+          <p>
+            {`${_note.id === noteSelectedId ? textNote : _note.text}` || (
+              <NewNote>New Note...</NewNote>
+            )}
+          </p>
         </div>
       </BtnNote>
     ));
