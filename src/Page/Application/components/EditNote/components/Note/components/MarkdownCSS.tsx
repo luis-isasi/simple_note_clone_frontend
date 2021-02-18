@@ -139,8 +139,6 @@ export const MarkdownCSS = styled.div`
     font-size: 0.707em;
   }
 
-  /* https://github.com/mrmrs/fluidity */
-
   img,
   canvas,
   iframe,
@@ -164,8 +162,6 @@ export const MarkdownCSS = styled.div`
     margin: 0;
     max-width: 100%;
   }
-
-  /* === A bit of a gross hack so we can have bleeding divs/blockquotes. */
 
   p,
   *:not(div):not(img):not(body):not(html):not(li):not(blockquote):not(p) {
@@ -194,13 +190,9 @@ export const MarkdownCSS = styled.div`
     list-style: disc !important;
   }
 
-  /* Counteract the specificity of the gross *:not() chain. */
-
   h1 {
     padding: 4rem 0 !important;
   }
-
-  /*  === End gross hack */
 
   p {
     color: #555 !important;

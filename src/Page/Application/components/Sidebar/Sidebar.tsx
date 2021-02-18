@@ -7,7 +7,7 @@ import { useQuery } from '@apollo/client';
 import { useAppContext } from 'ContextApp/AppContext';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
 import Header from './components/Header';
-import Search from './components/Search';
+import Search from './components/Header/components/Search';
 import ListNotes from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
 
