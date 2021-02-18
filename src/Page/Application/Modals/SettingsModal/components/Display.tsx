@@ -11,27 +11,8 @@ type DisplayProps = {
   changeTheme(theme: ThemeMode): void;
 };
 const Display: React.FC<DisplayProps> = ({ theme, changeTheme }) => {
-  // const [light, setLight] = React.useState(() =>
-  //   theme === ThemeMode.LIGHT ? true : false
-  // );
-  // const [dark, setDark] = React.useState(() =>
-  //   theme === ThemeMode.DARK ? true : false
-  // );
-
-  console.log({ theme });
-
   //CHANGE DARKMODE OR LIGHTMODE
   const onClick = (mode) => () => {
-    // if (mode === ThemeMode.LIGHT) {
-    //   setDark(false);
-    //   setLight(true);
-    // }
-
-    // if (mode === ThemeMode.DARK) {
-    //   setLight(false);
-    //   setDark(true);
-    // }
-
     changeTheme(mode);
   };
 

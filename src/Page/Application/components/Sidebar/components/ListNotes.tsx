@@ -112,17 +112,9 @@ const ListNotes = ({
       setSwitchPinned(false);
     } else {
       //SI ESTAMOS EN DESKTOP Y NO SE ESTA AÑADIENDO UNA NOTA, SELECCIONAMOS LA PRIMERA NOTA
-      console.log({ addingNewNote });
 
       if (isDesktopOrLaptop && !addingNewNote) {
-        console.log('SELECT CURRENT NOTE');
-        console.log({ indexNote });
-
         selectNote(listNotes[indexNote.current]);
-
-        //guardamos el length del nuevo listNotes
-        listNoteLength.current = listNotes.length;
-        return;
       } else {
         setAddingNewNote(false);
       }
@@ -130,8 +122,6 @@ const ListNotes = ({
 
     //DELETE  NOTE
     if (newNotesLength === currentNotesLength - 1) {
-      console.log('DELETING NOTE');
-
       listNoteLength.current = newNotesLength;
       let index = indexNote.current;
 
@@ -145,8 +135,6 @@ const ListNotes = ({
 
     //ADDING NEW NOTE
     if (newNotesLength === currentNotesLength + 1) {
-      console.log('ADDING NEW NOTE');
-
       listNoteLength.current = newNotesLength;
       indexNote.current = lengthPinned;
       selectNote(listNotes[indexNote.current]);
@@ -201,6 +189,10 @@ const ListNotes = ({
       );
     }
     const onClickNote = (_note, index) => () => {
+      //AGREGAMOS EL FOCUS CUANDO SE HAGA UNA BUSQUEDA Y SE DE CLICK EN UNA NOTA
+      const textAreaNote = document.getElementById('textNote');
+      if (textAreaNote) textAreaNote.focus();
+
       if (!isDesktopOrLaptop) {
         setEditNote(true);
       }

@@ -171,10 +171,16 @@ export const AppContextProvider = ({ children }) => {
   };
 
   const selectNote = (note: Note) => {
-    //OBTENEMOS EL TEXTAREA Y LE DAMOS FOCUS(),
+    //OBTENEMOS EL TEXTAREA Y LE DAMOS FOCUS,
+
+    const searchNote = document.querySelector('#InputSearchNote');
     const textAreaNote = document.getElementById('textNote');
-    //ANTES NOS ASEGURAMOS DE QUE YA SE HALLA RENDERIZADO EN EL DOM
-    if (textAreaNote) textAreaNote.focus();
+
+    if (searchNote.value) {
+    } else {
+      //ANTES NOS ASEGURAMOS DE QUE YA SE HALLA RENDERIZADO EN EL DOM
+      if (textAreaNote) textAreaNote.focus();
+    }
 
     //SETEAMOS LA NOTA
     setNote(note);

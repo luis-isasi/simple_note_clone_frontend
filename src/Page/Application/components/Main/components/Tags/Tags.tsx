@@ -126,9 +126,11 @@ const ButtonTag = styled.button`
   font-family: inherit;
   font-size: 14px;
   font-weight: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   &:hover {
-    /* background-color: #f6f7f7; */
     background-color: ${(props) => props.theme.backgroundHoverTag};
   }
 `;
