@@ -24,9 +24,9 @@ const EditNote = ({
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 766px)' });
 
   return (
-    <>
+    <Content>
       {isDesktopOrLaptop && (
-        <ContentDesktop>
+        <>
           <HeaderDesktop
             showMarkdown={showMarkdown}
             setShowMakdown={setShowMakdown}
@@ -41,10 +41,10 @@ const EditNote = ({
             textNote={textNote}
             setTextNote={setTextNote}
           />
-        </ContentDesktop>
+        </>
       )}
       {isTabletOrMobile && note && editNote && (
-        <ContentMovil>
+        <>
           <HeaderMovil
             showMarkdown={showMarkdown}
             setShowMakdown={setShowMakdown}
@@ -53,25 +53,22 @@ const EditNote = ({
             allNotes={allNotes}
             setEditNote={setEditNote}
           />
-          <Note showMarkdown={showMarkdown} note={note} trash={trash} />
-        </ContentMovil>
+          <Note
+            showMarkdown={showMarkdown}
+            note={note}
+            trash={trash}
+            textNote={textNote}
+            setTextNote={setTextNote}
+          />
+        </>
       )}
-    </>
+    </Content>
   );
 };
 
 //-------------STYLED-----------
 
-const ContentDesktop = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-`;
-
-const ContentMovil = styled.div.attrs((props) => ({
-  id: props.id,
-}))`
+const Content = styled.div`
   flex-grow: 1;
   display: flex;
   flex-flow: column;

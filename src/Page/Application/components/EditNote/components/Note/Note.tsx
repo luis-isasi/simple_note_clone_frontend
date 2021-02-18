@@ -14,14 +14,8 @@ import { MarkdownCSS } from './components/MarkdownCSS';
 const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
   const [updateNote] = useMutation(UPDATE_NOTE);
 
-  console.log({ textNote });
-
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
-      console.log('====================================');
-      console.log('MANDANDO DEBOUNCE');
-      console.log({ text });
-      console.log('====================================');
       updateNote({
         variables: {
           id,
@@ -74,6 +68,7 @@ const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
 };
 
 //--------------styled-----------------
+
 const Div = styled.div`
   width: 100%;
   flex-grow: 1;
@@ -131,4 +126,4 @@ const DivLogo = styled.div`
   }
 `;
 
-export default Note;
+export default React.memo(Note);
