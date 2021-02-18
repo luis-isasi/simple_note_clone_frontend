@@ -71,6 +71,8 @@ const CreateNote = ({
 
   const onClick = () => {
     let _text = searchGraphqlVariable || '';
+    console.log({ setAddingNewNote });
+
     setAddingNewNote(true);
     createNote({
       variables: {
@@ -116,7 +118,7 @@ const BtnNewNote = styled.button.attrs((props) => ({
     color: ${colorPinned};
   }
 
-  ${(props) => (props.hover === undefined ? hover : null)};
+  ${(props) => (props.hover ? hover : null)};
 `;
 
 export default React.memo(CreateNote);

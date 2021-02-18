@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-import MainIcon from './MainIcon';
-import CreateNote from './CreateNote';
+import MainIcon from './components/MainIcon';
+import CreateNote from './components/CreateNote';
 
 const Header = ({ allNotes, trash, tagName, setAddingNewNote }) => {
   return (
@@ -15,7 +15,7 @@ const Header = ({ allNotes, trash, tagName, setAddingNewNote }) => {
         {tagName && allNotes && 'Notes with  Selected Tag'}
         {tagName && trash && `Notes with tag '${tagName}'`}
       </h3>
-      <CreateNote setAddingNewNote={setAddingNewNote} />
+      <CreateNote setAddingNewNote={setAddingNewNote} hover={true} />
     </Div>
   );
 };

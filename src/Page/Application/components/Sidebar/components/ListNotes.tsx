@@ -6,7 +6,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { Shortcuts } from 'shortcuts';
 import { useMediaQuery } from 'react-responsive';
 
-import CreateNote from './CreateNote';
+import CreateNote from './Header/components/CreateNote';
 import { colorPinned, scrollbarStyle } from 'StylesApp';
 import EMPTY_TRASH from 'GraphqlApp/EmptyTrash.graphql';
 import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
@@ -167,6 +167,7 @@ const ListNotes = ({
               hover={false}
               searchGraphqlVariable={searchGraphqlVariable}
               onClickClear={onClickClear}
+              setAddingNewNote={setAddingNewNote}
             >
               <p>{`Create a new note with "${searchGraphqlVariable}"`}</p>
             </CreateNote>
@@ -181,7 +182,7 @@ const ListNotes = ({
         <DivNoNotes>
           <div>
             <NoNotes>No Notes</NoNotes>
-            <CreateNote hover={false}>
+            <CreateNote hover={false} setAddingNewNote={setAddingNewNote}>
               <p>Create a new note</p>
             </CreateNote>
           </div>
