@@ -118,6 +118,7 @@ const ButtonTag = styled.button`
   background-color: transparent;
   border: none;
   height: 40px;
+  min-height: 40px;
   padding: 2px 6px;
   margin: 0px 0px 0px 16px;
   border-bottom: 1px solid ${(props) => props.theme.colorBorder};
