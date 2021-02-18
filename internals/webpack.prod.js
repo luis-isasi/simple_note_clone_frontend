@@ -68,6 +68,7 @@ module.exports = {
     new CaseSensitivePathsPlugin(),
     new HtmlWebpackPLugin({
       template: path.resolve(__dirname, '../public/index.html'),
+      favicon: 'src/Images/simplenNoteBlack-logo.png',
       title: 'index',
       minify: {
         collapseBooleanAttributes: true,
