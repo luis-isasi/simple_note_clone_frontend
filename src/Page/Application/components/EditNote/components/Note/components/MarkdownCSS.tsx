@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const MarkdownCSS = styled.div`
+  * {
+    color: ${(props) => props.theme.colorText};
+  }
+
   @media print {
     *,
     *:before,
@@ -199,7 +203,7 @@ export const MarkdownCSS = styled.div`
   /*  === End gross hack */
 
   p {
-    color: #555;
+    color: #555 !important;
     height: auto;
     line-height: 1.45;
   }
@@ -210,7 +214,7 @@ export const MarkdownCSS = styled.div`
   }
 
   pre {
-    background-color: #fafafa;
+    background-color: #fafafa !important;
     font-size: 0.8rem;
     overflow-x: scroll;
     padding: 1.125em;
@@ -218,12 +222,12 @@ export const MarkdownCSS = styled.div`
 
   a,
   a:visited {
-    color: #3498db;
+    color: #3498db !important;
   }
 
   a:hover,
   a:focus,
   a:active {
-    color: #2980b9;
+    color: #2980b9 !important;
   }
 `;

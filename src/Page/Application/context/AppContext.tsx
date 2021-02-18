@@ -172,6 +172,7 @@ export const AppContextProvider = ({ children }) => {
 
   const selectNote = (note: Note) => {
     const searchNote = document.querySelector('#InputSearchNote');
+
     //OBTENEMOS EL TEXTAREA Y LE DAMOS FOCUS,
     const textAreaNote = document.getElementById('textNote');
 
