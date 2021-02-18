@@ -71,7 +71,6 @@ const CreateNote = ({
 
   const onClick = () => {
     let _text = searchGraphqlVariable || '';
-    console.log({ setAddingNewNote });
 
     setAddingNewNote(true);
     createNote({
