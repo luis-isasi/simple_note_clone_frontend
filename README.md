@@ -29,4 +29,6 @@
 
 Image:
 
-![](https://i.ibb.co/8x94NsQ/LOGIN-USER.gif)
+![](https://github.com/Luis16Isasi/my-gifs/blob/master/add_note_and_edit.gif)
+
+![](https://github.com/Luis16Isasi/my-gifs/blob/master/pin_to_top.gif)
