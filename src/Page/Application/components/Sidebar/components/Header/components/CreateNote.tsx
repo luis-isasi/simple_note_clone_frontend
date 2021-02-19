@@ -16,7 +16,6 @@ const CreateNote = ({
   hover,
   searchGraphqlVariable,
   onClickClear,
-  setAddingNewNote,
 }) => {
   const { selectNote, trash } = useAppContext();
 
@@ -24,9 +23,10 @@ const CreateNote = ({
     query: '(min-width: 767px)',
   });
 
+  const shortcuts = new Shortcuts();
+
   React.useEffect(() => {
-    if (isDesktopOrLaptop) {
-      const shortcuts = new Shortcuts();
+    if (isDesktopOrLaptop && !trash) {
       shortcuts.add([
         // Adding some shortcuts
         {
@@ -34,12 +34,21 @@ const CreateNote = ({
           handler: (e) => {
             e.preventDefault();
             onClick();
-            return true;
           },
         },
       ]);
     }
-  }, []);
+
+    return () => {
+      if (isDesktopOrLaptop) {
+        shortcuts.remove([
+          {
+            shortcut: 'Ctrl+Shift+L',
+          },
+        ]);
+      }
+    };
+  }, [trash]);
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote] = useMutation(CREATE_NOTE, {
@@ -72,7 +81,6 @@ const CreateNote = ({
   const onClick = () => {
     let _text = searchGraphqlVariable || '';
 
-    setAddingNewNote(true);
     createNote({
       variables: {
         text: _text,
@@ -120,4 +128,4 @@ const BtnNewNote = styled.button.attrs((props) => ({
   ${(props) => (props.hover ? hover : null)};
 `;
 
-export default React.memo(CreateNote);
+export default CreateNote;

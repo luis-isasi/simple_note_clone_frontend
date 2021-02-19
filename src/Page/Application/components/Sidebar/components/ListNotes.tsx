@@ -22,9 +22,6 @@ const ListNotes = ({
   setEditNote,
   switchPinned,
   setSwitchPinned,
-  textNote,
-  addingNewNote,
-  setAddingNewNote,
 }) => {
   const noteSelectedId = note ? note.id : '';
   const indexNote = React.useRef(0);
@@ -32,6 +29,8 @@ const ListNotes = ({
 
   const shortcuts = new Shortcuts();
   const client = useApolloClient();
+
+  console.log({ note });
 
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -108,18 +107,6 @@ const ListNotes = ({
     const currentNotesLength = listNoteLength.current;
     const newNotesLength = listNotes.length;
 
-    if (switchPinned) {
-      setSwitchPinned(false);
-    } else {
-      //SI ESTAMOS EN DESKTOP Y NO SE ESTA AÑADIENDO UNA NOTA, SELECCIONAMOS LA PRIMERA NOTA
-
-      if (isDesktopOrLaptop && !addingNewNote) {
-        selectNote(listNotes[indexNote.current]);
-      } else {
-        setAddingNewNote(false);
-      }
-    }
-
     //DELETE  NOTE
     if (newNotesLength === currentNotesLength - 1) {
       listNoteLength.current = newNotesLength;
@@ -148,13 +135,21 @@ const ListNotes = ({
     if (isDesktopOrLaptop) {
       indexNote.current = 0;
     }
-  }, [trash, allNotes]);
+  }, [trash, allNotes, searchGraphqlVariable]);
 
   React.useEffect(() => {
-    if (isDesktopOrLaptop) {
+    if (note && listNotes.length > 0) {
+      if (isDesktopOrLaptop && listNotes[indexNote.current].id !== note.id) {
+        if (switchPinned) {
+          setSwitchPinned(false);
+        } else {
+          selectNote(listNotes[indexNote.current]);
+        }
+      }
+    } else {
       selectNote(listNotes[indexNote.current]);
     }
-  }, []);
+  }, [listNotes, note]);
 
   const renderNotes = () => {
     //SE REALIZO UNA BUSQUEDAD PERO NO HAY RESULTADOS, DAMOS LA OPCION DE CREAR UNO CON EL VALUE SEARCH
@@ -167,7 +162,6 @@ const ListNotes = ({
               hover={false}
               searchGraphqlVariable={searchGraphqlVariable}
               onClickClear={onClickClear}
-              setAddingNewNote={setAddingNewNote}
             >
               <p>{`Create a new note with "${searchGraphqlVariable}"`}</p>
             </CreateNote>
@@ -182,7 +176,7 @@ const ListNotes = ({
         <DivNoNotes>
           <div>
             <NoNotes>No Notes</NoNotes>
-            <CreateNote hover={false} setAddingNewNote={setAddingNewNote}>
+            <CreateNote hover={false}>
               <p>Create a new note</p>
             </CreateNote>
           </div>
@@ -212,7 +206,7 @@ const ListNotes = ({
         <div className="noteText">
           {/* <p>{_note.text || <NewNote>New Note...</NewNote>}</p> */}
           <p>
-            {`${_note.id === noteSelectedId ? textNote : _note.text}` || (
+            {`${_note.id === noteSelectedId ? note.text : _note.text}` || (
               <NewNote>New Note...</NewNote>
             )}
           </p>

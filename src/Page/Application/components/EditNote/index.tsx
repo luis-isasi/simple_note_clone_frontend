@@ -15,8 +15,6 @@ const EditNote = ({
   allNotes,
   setEditNote,
   editNote,
-  textNote,
-  setTextNote,
 }) => {
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -34,13 +32,7 @@ const EditNote = ({
             trash={trash}
             allNotes={allNotes}
           />
-          <Note
-            showMarkdown={showMarkdown}
-            note={note}
-            trash={trash}
-            textNote={textNote}
-            setTextNote={setTextNote}
-          />
+          <Note showMarkdown={showMarkdown} note={note} trash={trash} />
         </>
       )}
       {isTabletOrMobile && note && editNote && (
@@ -53,13 +45,7 @@ const EditNote = ({
             allNotes={allNotes}
             setEditNote={setEditNote}
           />
-          <Note
-            showMarkdown={showMarkdown}
-            note={note}
-            trash={trash}
-            textNote={textNote}
-            setTextNote={setTextNote}
-          />
+          <Note showMarkdown={showMarkdown} note={note} trash={trash} />
         </>
       )}
     </Content>

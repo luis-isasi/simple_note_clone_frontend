@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import MainIcon from './components/MainIcon';
 import CreateNote from './components/CreateNote';
 
-const Header = ({ allNotes, trash, tagName, setAddingNewNote }) => {
+const Header = ({ allNotes, trash, tagName }) => {
   return (
     <Div>
       <MainIcon />
@@ -13,9 +13,9 @@ const Header = ({ allNotes, trash, tagName, setAddingNewNote }) => {
         {allNotes && !tagName && 'All Notes'}
         {trash && !tagName && 'Trash'}
         {tagName && allNotes && 'Notes with  Selected Tag'}
-        {tagName && trash && `Notes with tag '${tagName}'`}
+        {tagName && trash && 'Notes with  Selected Tag'}
       </h3>
-      <CreateNote setAddingNewNote={setAddingNewNote} hover={true} />
+      <CreateNote hover={true} />
     </Div>
   );
 };

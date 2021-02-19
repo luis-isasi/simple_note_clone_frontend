@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
+import { useAppContext } from 'ContextApp/AppContext';
 import { scrollbarStyle } from 'StylesApp';
 import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
@@ -14,8 +15,13 @@ import { MarkdownCSS } from './components/MarkdownCSS';
 const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
   const [updateNote] = useMutation(UPDATE_NOTE);
 
+  const { setTextSelectedNote } = useAppContext();
+
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
+      console.log('MANDANDO DEBOUNCE');
+      console.log({ text });
+
       updateNote({
         variables: {
           id,
@@ -28,10 +34,13 @@ const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
 
   const onChange = (e) => {
     const {
-      target: { value: _value },
+      target: { value },
     } = e;
-    setTextNote(_value);
-    onUpdateNodeDebounce(note.id, _value);
+    console.log({ value });
+
+    setTextSelectedNote(value);
+    // setTextNote(_value);
+    onUpdateNodeDebounce(note.id, value);
   };
 
   return (
@@ -45,14 +54,15 @@ const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
                   color: `${(props) => props.theme.colorText} !important`,
                 }}
               >
-                <Markdown>{textNote}</Markdown>
+                <Markdown>{note.text}</Markdown>
               </MarkdownCSS>
             </CodeMarkdown>
           ) : (
             <TextArea
               id="textNote"
               onChange={onChange}
-              value={textNote}
+              value={note.text}
+              // value={textNote}
               autoFocus
             ></TextArea>
           )}

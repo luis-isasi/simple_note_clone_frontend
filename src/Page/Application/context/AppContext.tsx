@@ -8,6 +8,7 @@ import { Note, Tag } from 'TypesApp';
 type AppState = {
   note: Note;
   selectNote(note: Note): void;
+  setTextSelectedNote(text: string): void;
   addTagInCurrentNote(tag: Tag): void;
   deleteTagInCurrentNote(tag: Tag): void;
   allNotes: boolean;
@@ -184,11 +185,17 @@ export const AppContextProvider = ({ children }) => {
     //SETEAMOS LA NOTA
     setNote(note);
   };
+
+  const setTextSelectedNote = (text) => {
+    setNote({ ...note, text });
+  };
+
   return (
     <AppContext.Provider
       value={{
         note,
         selectNote,
+        setTextSelectedNote,
         addTagInCurrentNote,
         deleteTagInCurrentNote,
         allNotes,
