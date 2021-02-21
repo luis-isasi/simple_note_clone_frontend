@@ -14,7 +14,13 @@ import DeleteNote from '../components/DeleteNote';
 import InformationNote from '../components/InfoNoteIcon';
 import Share from '../components/Share';
 
-const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
+const HeaderApp = ({
+  showMarkdown,
+  setShowMakdown,
+  allNotes,
+  selectedNote,
+  trash,
+}) => {
   const {
     searchTag: { name },
   } = useAppContext();
@@ -44,11 +50,11 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
   });
 
   const handlerBtnDeleteForever = () => {
-    deleteForevereNote({ variables: { id: note.id } });
+    deleteForevereNote({ variables: { id: selectedNote.id } });
   };
 
   const handlerBtnRestore = () => {
-    restoreNote({ variables: { id: note.id } });
+    restoreNote({ variables: { id: selectedNote.id } });
   };
 
   return (
@@ -56,9 +62,9 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
       {(allNotes || name) && (
         <>
           <ToggleSidebar />
-          {note && (
+          {selectedNote && (
             <Options>
-              {note.isMarkdown && (
+              {selectedNote.isMarkdown && (
                 <ShowMarkdown
                   showMarkdown={showMarkdown}
                   setShowMakdown={setShowMakdown}
@@ -71,7 +77,7 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
           )}
         </>
       )}
-      {trash && note && (
+      {trash && selectedNote && (
         <DivTrash>
           <button className="btnDelete" onClick={handlerBtnDeleteForever}>
             Delete Forever

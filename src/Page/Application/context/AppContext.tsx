@@ -5,8 +5,8 @@ import { useApolloClient, gql } from '@apollo/client';
 import { Note, Tag } from 'TypesApp';
 
 type AppState = {
-  note: Note;
-  selectNote(note: Note): void;
+  selectedNote: Note;
+  selectNote(selectedNote: Note): void;
   setTextSelectedNote(text: string): void;
   addTagInCurrentNote(tag: Tag): void;
   deleteTagInCurrentNote(tag: Tag): void;
@@ -29,7 +29,7 @@ type AppState = {
 const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export const AppContextProvider = ({ children }) => {
-  const [note, setNote] = React.useState(undefined);
+  const [selectedNote, setSelectedNote] = React.useState(undefined);
   const [allNotes, setAllNotes] = React.useState(true);
   const [trash, setTrash] = React.useState(false);
   const [sidebar, setSidebar] = React.useState(true);
@@ -106,16 +106,16 @@ export const AppContextProvider = ({ children }) => {
   };
 
   const addTagInCurrentNote = (tag: Tag) => {
-    // update the note from the context
+    // update the selectedNote from the context
 
-    const existingTags = note.tags;
+    const existingTags = selectedNote.tags;
     const existing = existingTags.find((_tag) => _tag.name === tag.name);
 
     //if no existing tag, add the new Tag
     if (!existing) {
-      setNote({
-        ...note,
-        tags: [...note.tags, tag],
+      setSelectedNote({
+        ...selectedNote,
+        tags: [...selectedNote.tags, tag],
       });
     } else {
     }
@@ -123,7 +123,7 @@ export const AppContextProvider = ({ children }) => {
     // update the cache
     client.cache.modify({
       //le pasamos la nota seleccionada para acceder dentro de ella
-      id: client.cache.identify(note),
+      id: client.cache.identify(selectedNote),
       //accedemos a el campo "tags" y creamos una referencia
       fields: {
         tags(existingsTags = []) {
@@ -153,13 +153,15 @@ export const AppContextProvider = ({ children }) => {
   };
 
   const deleteTagInCurrentNote = (tag: Tag) => {
-    const tags = note.tags.filter((currentTag) => currentTag.id !== tag.id);
-    setNote({
-      ...note,
+    const tags = selectedNote.tags.filter(
+      (currentTag) => currentTag.id !== tag.id
+    );
+    setSelectedNote({
+      ...selectedNote,
       tags,
     });
     client.cache.modify({
-      id: client.cache.identify(note),
+      id: client.cache.identify(selectedNote),
       fields: {
         tags(existingstags = []) {
           const tagId = client.cache.identify(tag);
@@ -170,7 +172,7 @@ export const AppContextProvider = ({ children }) => {
     });
   };
 
-  const selectNote = (note: Note) => {
+  const selectNote = (selectedNote: Note) => {
     const searchNote = document.querySelector('#InputSearchNote');
 
     //OBTENEMOS EL TEXTAREA Y LE DAMOS FOCUS,
@@ -182,17 +184,17 @@ export const AppContextProvider = ({ children }) => {
       }
     }
     //SETEAMOS LA NOTA
-    setNote(note);
+    setSelectedNote(selectedNote);
   };
 
   const setTextSelectedNote = (text) => {
-    setNote({ ...note, text });
+    setSelectedNote({ ...selectedNote, text });
   };
 
   return (
     <AppContext.Provider
       value={{
-        note,
+        selectedNote,
         selectNote,
         setTextSelectedNote,
         addTagInCurrentNote,

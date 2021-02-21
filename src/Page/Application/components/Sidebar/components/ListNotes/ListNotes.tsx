@@ -22,7 +22,7 @@ import {
 
 const ListNotes = ({
   filterNotes: { listNotes, lengthPinned },
-  note,
+  selectedNote,
   selectNote,
   searchGraphqlVariable,
   onClickClear,
@@ -33,7 +33,7 @@ const ListNotes = ({
   setSwitchPinned,
   loadingUpdateTextNote,
 }) => {
-  const noteSelectedId = note ? note.id : '';
+  const noteSelectedId = selectedNote ? selectedNote.id : '';
   const indexNote = React.useRef(0);
   const listNoteLength = React.useRef(listNotes.length);
 
@@ -146,8 +146,11 @@ const ListNotes = ({
   }, [trash, allNotes, searchGraphqlVariable]);
 
   React.useEffect(() => {
-    if (note && listNotes.length > 0) {
-      if (isDesktopOrLaptop && listNotes[indexNote.current].id !== note.id) {
+    if (selectedNote && listNotes.length > 0) {
+      if (
+        isDesktopOrLaptop &&
+        listNotes[indexNote.current].id !== selectedNote.id
+      ) {
         if (switchPinned) {
           setSwitchPinned(false);
         } else {
@@ -157,7 +160,7 @@ const ListNotes = ({
     } else {
       selectNote(listNotes[indexNote.current]);
     }
-  }, [listNotes, note]);
+  }, [listNotes, selectedNote]);
 
   const renderNotes = () => {
     //SE REALIZO UNA BUSQUEDAD PERO NO HAY RESULTADOS, DAMOS LA OPCION DE CREAR UNO CON EL VALUE SEARCH
@@ -218,9 +221,8 @@ const ListNotes = ({
             )}
           </div>
           <p>
-            {`${_note.id === noteSelectedId ? note.text : _note.text}` || (
-              <NewNote>New Note...</NewNote>
-            )}
+            {`${_note.id === noteSelectedId ? selectedNote.text : _note.text
+              }` || <NewNote>New Note...</NewNote>}
           </p>
         </div>
       </BtnNote>

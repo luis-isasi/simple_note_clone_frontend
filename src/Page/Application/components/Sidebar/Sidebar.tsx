@@ -18,7 +18,7 @@ const Sidebar = ({
   loadingUpdateTextNote,
 }) => {
   const {
-    note,
+    selectedNote,
     selectNote,
     trash,
     allNotes,
@@ -43,10 +43,10 @@ const Sidebar = ({
 
     //FILTRANDO LA DATA
     if (data) {
-      data.notes.forEach((note) => {
+      data.notes.forEach((selectedNote) => {
         //filtramos y los añadimos en diferentes array para luego juntarlos como queremos
-        if (note.pinned) notesPinned.push(note);
-        else notesNoPinned.push(note);
+        if (selectedNote.pinned) notesPinned.push(selectedNote);
+        else notesNoPinned.push(selectedNote);
       });
 
       setFilterNotes({
@@ -94,7 +94,7 @@ const Sidebar = ({
       return (
         <ListNotes
           filterNotes={filterNotes}
-          note={note}
+          selectedNote={selectedNote}
           selectNote={selectNote}
           searchGraphqlVariable={searchGraphqlVariable}
           onClickClear={onClickClear}

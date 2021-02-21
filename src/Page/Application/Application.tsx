@@ -26,7 +26,7 @@ const Application = () => {
     shortcutsModal,
     setShortcutsModal,
     allNotes,
-    note,
+    selectedNote,
     trash,
   } = useAppContext();
 
@@ -93,7 +93,7 @@ const Application = () => {
             <EditNote
               showMarkdown={showMarkdown}
               setShowMakdown={setShowMakdown}
-              note={note}
+              selectedNote={selectedNote}
               trash={trash}
               allNotes={allNotes}
               setEditNote={setEditNote}

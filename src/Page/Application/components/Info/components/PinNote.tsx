@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { Switch, Input, Label } from './SwitchStyled';
 
 const PinNote = ({
-  note,
-  note: { id, pinned },
+  selectedNote,
+  selectedNote: { id, pinned },
   pinNote,
   unpinNote,
   selectNote,
@@ -17,11 +17,11 @@ const PinNote = ({
 
     if (checked) {
       pinNote({ variables: { noteId: id } });
-      selectNote({ ...note, pinned: true });
+      selectNote({ ...selectedNote, pinned: true });
       setSwitchPinned(true);
     } else {
       unpinNote({ variables: { noteId: id } });
-      selectNote({ ...note, pinned: false });
+      selectNote({ ...selectedNote, pinned: false });
       setSwitchPinned(true);
     }
   };

@@ -5,8 +5,8 @@ import styled, { css } from 'styled-components';
 
 import { colorIcon } from 'StylesApp';
 
-const InfoNote = ({ note, showInfo }) => {
-  const { createdAt, updatedAt, text } = note;
+const InfoNote = ({ selectedNote, showInfo }) => {
+  const { createdAt, updatedAt, text } = selectedNote;
 
   const finWords = (text) => {
     text = text.trim();

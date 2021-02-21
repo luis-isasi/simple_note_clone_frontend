@@ -11,7 +11,7 @@ import DELETE_NOTE from 'GraphqlApp/DeleteNote.graphql';
 import { HoverText } from 'StylesApp';
 
 const DeleteNote = ({ setEditNote }) => {
-  const appData = useAppContext();
+  const { selectedNote } = useAppContext();
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 766px)' });
 
@@ -29,7 +29,7 @@ const DeleteNote = ({ setEditNote }) => {
   });
 
   const onClick = () => {
-    deleteNote({ variables: { id: appData.note.id } });
+    deleteNote({ variables: { id: selectedNote.id } });
     if (isTabletOrMobile) {
       setEditNote(false);
     }

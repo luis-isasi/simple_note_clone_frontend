@@ -17,7 +17,7 @@ const HeaderApp = ({
   showMarkdown,
   setShowMakdown,
   allNotes,
-  note,
+  selectedNote,
   trash,
   setEditNote,
 }) => {
@@ -50,12 +50,12 @@ const HeaderApp = ({
   });
 
   const handlerBtnDeleteForever = () => {
-    deleteForevereNote({ variables: { id: note.id } });
+    deleteForevereNote({ variables: { id: selectedNote.id } });
     setEditNote(false);
   };
 
   const handlerBtnRestore = () => {
-    restoreNote({ variables: { id: note.id } });
+    restoreNote({ variables: { id: selectedNote.id } });
     //------------
     setEditNote(false);
     //------------
@@ -72,9 +72,9 @@ const HeaderApp = ({
       </button>
       {(allNotes || name) && (
         <>
-          {note && (
+          {selectedNote && (
             <>
-              {note.isMarkdown && (
+              {selectedNote.isMarkdown && (
                 <ShowMarkdown
                   showMarkdown={showMarkdown}
                   setShowMakdown={setShowMakdown}
@@ -87,7 +87,7 @@ const HeaderApp = ({
           )}
         </>
       )}
-      {trash && note && (
+      {trash && selectedNote && (
         <DivTrash>
           <button className="btnDelete" onClick={handlerBtnDeleteForever}>
             Delete Forever

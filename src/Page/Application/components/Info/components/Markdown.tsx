@@ -5,21 +5,21 @@ import styled from 'styled-components';
 import { Switch, Input, Label } from './SwitchStyled';
 
 const Markdown = ({
-  note,
+  selectedNote,
   updateNote,
   selectNote,
-  note: { id, text, isMarkdown },
+  selectedNote: { id, text, isMarkdown },
 }) => {
   const handledInputCheck = (e) => {
     const checked = e.target.checked;
 
     if (checked) {
-      selectNote({ ...note, isMarkdown: true });
+      selectNote({ ...selectedNote, isMarkdown: true });
       updateNote({
         variables: { id, text, isMarkdown: true },
       });
     } else {
-      selectNote({ ...note, isMarkdown: false });
+      selectNote({ ...selectedNote, isMarkdown: false });
       updateNote({
         variables: { id, text, isMarkdown: false },
       });

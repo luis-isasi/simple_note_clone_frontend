@@ -12,7 +12,7 @@ import PinNote from './components/PinNote';
 import Markdown from './components/Markdown';
 
 const Info = ({ className, id, setSwitchPinned }) => {
-  const { note, showInfo, selectNote } = useAppContext();
+  const { selectedNote, showInfo, selectNote } = useAppContext();
 
   const [pinNote] = useMutation(PIN_NOTE);
   const [unpinNote] = useMutation(UN_PIN_NOTE);
@@ -20,15 +20,19 @@ const Info = ({ className, id, setSwitchPinned }) => {
 
   return (
     <Div className={className} id={id}>
-      <InfoNote note={note} showInfo={showInfo} />
+      <InfoNote selectedNote={selectedNote} showInfo={showInfo} />
       <PinNote
-        note={note}
+        selectedNote={selectedNote}
         pinNote={pinNote}
         unpinNote={unpinNote}
         selectNote={selectNote}
         setSwitchPinned={setSwitchPinned}
       />
-      <Markdown updateNote={updateNote} note={note} selectNote={selectNote} />
+      <Markdown
+        updateNote={updateNote}
+        selectedNote={selectedNote}
+        selectNote={selectNote}
+      />
     </Div>
   );
 };

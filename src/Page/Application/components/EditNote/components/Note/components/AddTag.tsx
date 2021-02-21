@@ -9,7 +9,11 @@ import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const AddTag = () => {
-  const { note, addTagInCurrentNote, deleteTagInCurrentNote } = useAppContext();
+  const {
+    selectedNote,
+    addTagInCurrentNote,
+    deleteTagInCurrentNote,
+  } = useAppContext();
   const [tag, setTag] = React.useState('');
 
   const apolloClient = useApolloClient();
@@ -48,7 +52,7 @@ const AddTag = () => {
     createTag({
       variables: {
         name: tag,
-        noteId: note.id,
+        noteId: selectedNote.id,
       },
     }).then(({ data: { createTag } }) => {
       //update cache with new Tag
@@ -60,7 +64,7 @@ const AddTag = () => {
   };
 
   const renderTags = () => {
-    return note.tags.map((tag) => (
+    return selectedNote.tags.map((tag) => (
       <BtnTag key={tag.id} onClick={handlerTag(tag, tag.id)}>
         {tag.name}
       </BtnTag>

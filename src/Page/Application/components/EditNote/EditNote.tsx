@@ -10,7 +10,7 @@ import Note from './components/Note';
 const EditNote = ({
   showMarkdown,
   setShowMakdown,
-  note,
+  selectedNote,
   trash,
   allNotes,
   setEditNote,
@@ -29,31 +29,31 @@ const EditNote = ({
           <HeaderDesktop
             showMarkdown={showMarkdown}
             setShowMakdown={setShowMakdown}
-            note={note}
+            selectedNote={selectedNote}
             trash={trash}
             allNotes={allNotes}
           />
           <Note
             showMarkdown={showMarkdown}
-            note={note}
+            selectedNote={selectedNote}
             trash={trash}
             updateNote={updateNote}
           />
         </>
       )}
-      {isTabletOrMobile && note && editNote && (
+      {isTabletOrMobile && selectedNote && editNote && (
         <>
           <HeaderMovil
             showMarkdown={showMarkdown}
             setShowMakdown={setShowMakdown}
-            note={note}
+            selectedNote={selectedNote}
             trash={trash}
             allNotes={allNotes}
             setEditNote={setEditNote}
           />
           <Note
             showMarkdown={showMarkdown}
-            note={note}
+            selectedNote={selectedNote}
             trash={trash}
             updateNote={updateNote}
           />

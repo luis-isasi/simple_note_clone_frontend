@@ -10,7 +10,7 @@ import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 import { MarkdownCSS } from './components/MarkdownCSS';
 
-const Note = ({ showMarkdown, note, trash, updateNote }) => {
+const Note = ({ showMarkdown, selectedNote, trash, updateNote }) => {
   const { setTextSelectedNote } = useAppContext();
 
   const onUpdateNodeDebounce = React.useCallback(
@@ -31,28 +31,28 @@ const Note = ({ showMarkdown, note, trash, updateNote }) => {
     } = e;
 
     setTextSelectedNote(value);
-    onUpdateNodeDebounce(note.id, value);
+    onUpdateNodeDebounce(selectedNote.id, value);
   };
 
   return (
     <Div>
-      {note ? (
+      {selectedNote ? (
         <>
-          {note.isMarkdown && showMarkdown ? (
+          {selectedNote.isMarkdown && showMarkdown ? (
             <CodeMarkdown>
               <MarkdownCSS
                 style={{
                   color: `${(props) => props.theme.colorText} !important`,
                 }}
               >
-                <Markdown>{note.text}</Markdown>
+                <Markdown>{selectedNote.text}</Markdown>
               </MarkdownCSS>
             </CodeMarkdown>
           ) : (
             <TextArea
               id="textNote"
               onChange={onChange}
-              value={note.text}
+              value={selectedNote.text}
               // value={textNote}
               autoFocus
             ></TextArea>
