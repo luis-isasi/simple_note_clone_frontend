@@ -30,8 +30,6 @@ const ListNotes = ({
   const shortcuts = new Shortcuts();
   const client = useApolloClient();
 
-  console.log({ note });
-
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
   });

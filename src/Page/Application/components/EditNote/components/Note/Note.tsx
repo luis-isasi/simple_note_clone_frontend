@@ -12,16 +12,16 @@ import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 import { MarkdownCSS } from './components/MarkdownCSS';
 
-const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
-  const [updateNote] = useMutation(UPDATE_NOTE);
+const Note = ({ showMarkdown, note, trash }) => {
+  const [updateNote, { loading, error }] = useMutation(UPDATE_NOTE);
 
   const { setTextSelectedNote } = useAppContext();
 
+  console.log({ loading });
+  console.log({ error });
+
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {
-      console.log('MANDANDO DEBOUNCE');
-      console.log({ text });
-
       updateNote({
         variables: {
           id,
@@ -36,10 +36,8 @@ const Note = ({ showMarkdown, note, trash, textNote, setTextNote }) => {
     const {
       target: { value },
     } = e;
-    console.log({ value });
 
     setTextSelectedNote(value);
-    // setTextNote(_value);
     onUpdateNodeDebounce(note.id, value);
   };
 

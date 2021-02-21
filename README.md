@@ -2,7 +2,7 @@
 **Simple Note Clone** is a clone of **[Simplenote](https://simplenote.com/)** to create, edit, delete and  reset personal notes. 
 
 
-## Librerias usadas: 
+## Used libraries: 
 
  * "@apollo/client": "3.3.6"
  *  "@babel/plugin-transform-runtime": "7.12.10"

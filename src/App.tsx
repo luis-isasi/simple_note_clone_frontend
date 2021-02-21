@@ -61,8 +61,8 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <SettingsContextProvider>
-      <AppSessionProvider>
-        <ApolloProvider client={client}>
+      <ApolloProvider client={client}>
+        <AppSessionProvider>
           <GlobalStyle />
           <Router>
             <Switch>
@@ -90,8 +90,8 @@ const App = () => {
               </Route>
             </Switch>
           </Router>
-        </ApolloProvider>
-      </AppSessionProvider>
+        </AppSessionProvider>
+      </ApolloProvider>
     </SettingsContextProvider>
   );
 };

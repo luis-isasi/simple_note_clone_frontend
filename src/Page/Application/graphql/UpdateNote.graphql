@@ -1,4 +1,4 @@
-#import "./NoteFragment.graphql"
+#import "./Fragments/NoteFragment.graphql"
 
 mutation UpdateNote (
   $id: ID!,

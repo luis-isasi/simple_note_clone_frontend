@@ -1,4 +1,5 @@
-#import "./NoteFragment.graphql"
+#import "./Fragments/NoteFragment.graphql"
+
 mutation DeleteNote (
   $id: ID!
 ){

@@ -7,7 +7,8 @@ import { Shortcuts } from 'shortcuts';
 import { useMediaQuery } from 'react-responsive';
 
 import CREATE_NOTE from 'GraphqlApp/CreateNote.graphql';
-import NOTE_FRAGMENT from 'GraphqlApp/NoteFragment.graphql';
+import GET_NOTES from 'GraphqlApp/GetNotes.graphql';
+import NOTE_FRAGMENT from 'GraphqlApp/Fragments/NoteFragment.graphql';
 import { HoverText, colorIcon, colorPinned } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
@@ -52,20 +53,39 @@ const CreateNote = ({
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote] = useMutation(CREATE_NOTE, {
-    update(cache, { data: { createNote } }) {
-      cache.modify({
-        fields: {
-          notes(existingNotes = []) {
-            const newNoteRef = cache.writeFragment({
-              data: createNote,
-              fragment: NOTE_FRAGMENT,
-            });
-
-            return [newNoteRef, ...existingNotes];
-          },
+    update(cache, { data: { createNote: noteCreated } }) {
+      const data = cache.readQuery({
+        query: GET_NOTES,
+        variables: {
+          isInTrash: false,
+          text: '',
+          tagId: null,
         },
       });
-      selectNote(createNote);
+      cache.writeQuery({
+        query: GET_NOTES,
+        variables: {
+          isInTrash: false,
+          text: '',
+          tagId: null,
+        },
+        data: {
+          notes: [noteCreated, ...data.notes],
+        },
+      });
+      // cache.modify({
+      //   fields: {
+      //     notes(existingNotes = []) {
+      //       const newNoteRef = cache.writeFragment({
+      //         data: createNote,
+      //         fragment: NOTE_FRAGMENT,
+      //       });
+
+      //       return [newNoteRef, ...existingNotes];
+      //     },
+      //   },
+      // });
+      selectNote(noteCreated);
       if (onClickClear) onClickClear();
     },
     // refetchQueries: [

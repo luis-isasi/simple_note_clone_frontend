@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { useApolloClient, gql } from '@apollo/client';
-import { USER_SETTINGS } from 'Constants';
 
 import { Note, Tag } from 'TypesApp';
 

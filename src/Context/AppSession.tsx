@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { USER_SESSION_KEY, USER_SETTINGS } from '../Constants';
+import { USER_SESSION_KEY } from '../Constants';
 
 type RawUser = {
   token: string;
@@ -39,33 +39,11 @@ export const AppSessionProvider = ({ children }) => {
   }, []);
 
   const signinUser = (_data: RawUser) => {
-    // const user_settings = JSON.parse(localStorage.getItem(USER_SETTINGS));
-
     const data = {
       token: _data.token,
       email: _data.user.email,
       id: _data.user.id,
     };
-
-    //verificamos que se este haciendo un nuevo login con otro user
-    //para poder restablecer user_settings
-    // if (user_settings) {
-    //   if (user_settings.email !== _data.user.email) {
-    //     const newSettings = {
-    //       // email: _data.user.email,
-    //       theme: 'light',
-    //     };
-
-    //     localStorage.setItem(USER_SETTINGS, JSON.stringify(newSettings));
-    //   }
-    // } else {
-    //   // const newSettings = {
-    //   //   // email: _data.user.email,
-    //   //   // theme: 'light',
-    //   // };
-
-    //   // localStorage.setItem(USER_SETTINGS, JSON.stringify(newSettings));
-    // }
 
     localStorage.setItem(USER_SESSION_KEY, JSON.stringify(data));
     setUser(data);
@@ -74,6 +52,7 @@ export const AppSessionProvider = ({ children }) => {
   const logoutUser = () => {
     localStorage.removeItem(USER_SESSION_KEY);
     setUser(undefined);
+    window.location.reload();
   };
 
   return (
