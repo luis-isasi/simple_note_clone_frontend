@@ -2,23 +2,16 @@ import * as React from 'react';
 
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client';
 import debounce from 'lodash/debounce';
 
 import { useAppContext } from 'ContextApp/AppContext';
 import { scrollbarStyle } from 'StylesApp';
-import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 import { MarkdownCSS } from './components/MarkdownCSS';
 
-const Note = ({ showMarkdown, note, trash }) => {
-  const [updateNote, { loading, error }] = useMutation(UPDATE_NOTE);
-
+const Note = ({ showMarkdown, note, trash, updateNote }) => {
   const { setTextSelectedNote } = useAppContext();
-
-  console.log({ loading });
-  console.log({ error });
 
   const onUpdateNodeDebounce = React.useCallback(
     debounce((id: string, text: string) => {

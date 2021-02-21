@@ -1,11 +1,13 @@
 import * as React from 'react';
 
 import styled, { keyframes } from 'styled-components';
+import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router';
 import { Shortcuts } from 'shortcuts';
 import { useMediaQuery } from 'react-responsive';
 
 import { USER_SESSION_KEY } from 'Constants';
+import UPDATE_NOTE from 'GraphqlApp/UpdateNote.graphql';
 import Main from './components/Main';
 import Info from './components/Info';
 import Sidebar from './components/Sidebar';
@@ -30,9 +32,11 @@ const Application = () => {
 
   const [editNote, setEditNote] = React.useState(false);
   const [switchPinned, setSwitchPinned] = React.useState(false);
-  const [addingNoteWithText, setAddingNoteWithText] = React.useState(false);
-
   const [showMarkdown, setShowMakdown] = React.useState(false);
+
+  const [updateNote, { loading: loadingUpdateTextNote }] = useMutation(
+    UPDATE_NOTE
+  );
 
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -84,6 +88,7 @@ const Application = () => {
               setEditNote={setEditNote}
               switchPinned={switchPinned}
               setSwitchPinned={setSwitchPinned}
+              loadingUpdateTextNote={loadingUpdateTextNote}
             />
             <EditNote
               showMarkdown={showMarkdown}
@@ -93,6 +98,7 @@ const Application = () => {
               allNotes={allNotes}
               setEditNote={setEditNote}
               editNote={editNote}
+              updateNote={updateNote}
             />
           </Div>
           {info && (

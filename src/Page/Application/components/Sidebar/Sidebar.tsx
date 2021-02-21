@@ -11,7 +11,12 @@ import Search from './components/Header/components/Search';
 import ListNotes from './components/ListNotes';
 import { IconAnimation, Error } from 'StylesApp';
 
-const Sidebar = ({ setEditNote, switchPinned, setSwitchPinned }) => {
+const Sidebar = ({
+  setEditNote,
+  switchPinned,
+  setSwitchPinned,
+  loadingUpdateTextNote,
+}) => {
   const {
     note,
     selectNote,
@@ -22,7 +27,6 @@ const Sidebar = ({ setEditNote, switchPinned, setSwitchPinned }) => {
 
   const [searchGraphqlVariable, setSearchGV] = React.useState('');
   const [search, setSearch] = React.useState('');
-
   const [filterNotes, setFilterNotes] = React.useState({
     listNotes: undefined,
     lengthPinned: undefined,
@@ -99,6 +103,7 @@ const Sidebar = ({ setEditNote, switchPinned, setSwitchPinned }) => {
           setEditNote={setEditNote}
           switchPinned={switchPinned}
           setSwitchPinned={setSwitchPinned}
+          loadingUpdateTextNote={loadingUpdateTextNote}
         />
       );
     }

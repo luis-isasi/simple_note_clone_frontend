@@ -14,7 +14,7 @@
       "Components/*": [
         "src/Components/*"
       ],
-      "Images/": [
+      "Images/*": [
         "src/Images/*"
       ],
       "Constants": [

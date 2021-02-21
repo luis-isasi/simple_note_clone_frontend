@@ -10,6 +10,7 @@ const Index = ({
   setEditNote,
   switchPinned,
   setSwitchPinned,
+  loadingUpdateTextNote,
 }) => {
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -23,6 +24,7 @@ const Index = ({
           setEditNote={setEditNote}
           switchPinned={switchPinned}
           setSwitchPinned={setSwitchPinned}
+          loadingUpdateTextNote={loadingUpdateTextNote}
         />
       )}
       {isTabletOrMobile && !editNote && (
@@ -30,6 +32,7 @@ const Index = ({
           setEditNote={setEditNote}
           switchPinned={switchPinned}
           setSwitchPinned={setSwitchPinned}
+          loadingUpdateTextNote={loadingUpdateTextNote}
         />
       )}
     </>
