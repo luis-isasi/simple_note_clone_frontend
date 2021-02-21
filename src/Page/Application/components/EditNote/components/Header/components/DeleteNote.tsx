@@ -15,13 +15,12 @@ const DeleteNote = ({ setEditNote }) => {
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 766px)' });
 
-  const [deleteNote] = useMutation(DELETE_NOTE, {
+  const [deleteNote, { loading }] = useMutation(DELETE_NOTE, {
     update(cache, { data: { deleteNote } }) {
       cache.modify({
         // id: cache.identify(deleteNote),
         fields: {
           notes(existingNotes, { DELETE }) {
-            // console.log({ existingNotes });
             return DELETE;
           },
         },
@@ -37,7 +36,7 @@ const DeleteNote = ({ setEditNote }) => {
   };
 
   return (
-    <Button onClick={onClick}>
+    <Button onClick={onClick} disabled={loading}>
       <DeleteForeverOutlinedIcon style={{ fontSize: 28 }} />
     </Button>
   );

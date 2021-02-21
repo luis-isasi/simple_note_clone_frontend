@@ -57,7 +57,7 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
         <>
           <ToggleSidebar />
           {note && (
-            <DivOptions>
+            <Options>
               {note.isMarkdown && (
                 <ShowMarkdown
                   showMarkdown={showMarkdown}
@@ -67,7 +67,7 @@ const HeaderApp = ({ showMarkdown, setShowMakdown, allNotes, note, trash }) => {
               <Share />
               <DeleteNote />
               <InformationNote />
-            </DivOptions>
+            </Options>
           )}
         </>
       )}
@@ -124,7 +124,7 @@ const Header = styled.header`
   }
 `;
 
-const DivOptions = styled.div`
+const Options = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
