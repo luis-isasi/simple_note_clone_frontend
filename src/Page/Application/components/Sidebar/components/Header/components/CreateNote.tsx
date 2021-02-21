@@ -86,7 +86,6 @@ const CreateNote = ({
       //   },
       // });
       selectNote(noteCreated);
-      if (onClickClear) onClickClear();
     },
     // refetchQueries: [
     //   {
@@ -106,6 +105,8 @@ const CreateNote = ({
         text: _text,
       },
     });
+
+    if (onClickClear) onClickClear();
   };
 
   return (
