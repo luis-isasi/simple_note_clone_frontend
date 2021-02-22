@@ -48,32 +48,32 @@
 ![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/user_login.gif)
 
 * Dark mode
-![](https://github.com/Luis16Isasi/project_files/blob/master/change_dark_mode.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/change_dark_mode.gif)
 
 * Add note 
-![](https://github.com/Luis16Isasi/project_files/blob/master/add_note_and_edit.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/add_note_and_edit.gif)
 
 * Add tag and search by tag
-![](https://github.com/Luis16Isasi/project_files/blob/master/add_tag_and_search_by_tag.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/add_tag_and_search_by_tag.gif)
 
 * Delete tag of note
-![](https://github.com/Luis16Isasi/project_files/blob/master/delete_tag_of_note.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/delete_tag_of_note.gif)
 
 * Delete and restore note
-![](https://github.com/Luis16Isasi/project_files/blob/master/delete_and_restore_note.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/delete_and_restore_note.gif)
 
 * Delete forever note
-![](https://github.com/Luis16Isasi/project_files/blob/master/delete_forever_note.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/delete_forever_note.gif)
 
 * Put the note at the top 
-![](https://github.com/Luis16Isasi/project_files/blob/master/pin_to_top.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/pin_to_top.gif)
 
 * Markdown 
-![](https://github.com/Luis16Isasi/project_files/blob/master/desabled_markdown.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/desabled_markdown.gif)
 
 * Show note information 
-![](https://github.com/Luis16Isasi/project_files/blob/master/show_info_note.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/show_info_note.gif)
 
 * Show shortcuts
-![](https://github.com/Luis16Isasi/project_files/blob/master/show_shorcuts.gif)
+![](https://github.com/Luis16Isasi/project_files/blob/master/simple_note_clone_gifs/show_shorcuts.gif)
 
