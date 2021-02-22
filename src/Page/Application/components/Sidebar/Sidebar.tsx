@@ -20,8 +20,8 @@ const Sidebar = ({
   const {
     selectedNote,
     selectNote,
-    trash,
-    allNotes,
+    isTrash,
+    isAllNotes,
     searchTag: { id: _tagId, name: _tagName },
   } = useAppContext();
 
@@ -33,7 +33,11 @@ const Sidebar = ({
   });
 
   const { loading, error, data } = useQuery(GET_NOTES, {
-    variables: { text: searchGraphqlVariable, isInTrash: trash, tagId: _tagId },
+    variables: {
+      text: searchGraphqlVariable,
+      isInTrash: isTrash,
+      tagId: _tagId,
+    },
   });
 
   React.useEffect(() => {
@@ -98,8 +102,8 @@ const Sidebar = ({
           selectNote={selectNote}
           searchGraphqlVariable={searchGraphqlVariable}
           onClickClear={onClickClear}
-          trash={trash}
-          allNotes={allNotes}
+          isTrash={isTrash}
+          isAllNotes={isAllNotes}
           setEditNote={setEditNote}
           switchPinned={switchPinned}
           setSwitchPinned={setSwitchPinned}
@@ -113,13 +117,13 @@ const Sidebar = ({
 
   return (
     <Div>
-      <Header allNotes={allNotes} trash={trash} tagName={_tagName} />
+      <Header isAllNotes={isAllNotes} isTrash={isTrash} tagName={_tagName} />
       <Search
         search={search}
         onChange={onChange}
         onClickClear={onClickClear}
-        allNotes={allNotes}
-        trash={trash}
+        isAllNotes={isAllNotes}
+        isTrash={isTrash}
       />
       {renderListNotes()}
     </Div>

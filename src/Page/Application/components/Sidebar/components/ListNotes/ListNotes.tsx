@@ -26,8 +26,8 @@ const ListNotes = ({
   selectNote,
   searchGraphqlVariable,
   onClickClear,
-  trash,
-  allNotes,
+  isTrash,
+  isAllNotes,
   setEditNote,
   switchPinned,
   setSwitchPinned,
@@ -109,7 +109,7 @@ const ListNotes = ({
         ]);
       }
     };
-  }, [listNotes, trash, allNotes]);
+  }, [listNotes, isTrash, isAllNotes]);
 
   React.useEffect(() => {
     const currentNotesLength = listNoteLength.current;
@@ -143,7 +143,7 @@ const ListNotes = ({
     if (isDesktopOrLaptop) {
       indexNote.current = 0;
     }
-  }, [trash, allNotes, searchGraphqlVariable]);
+  }, [isTrash, isAllNotes, searchGraphqlVariable]);
 
   React.useEffect(() => {
     if (selectedNote && listNotes.length > 0) {
@@ -232,7 +232,7 @@ const ListNotes = ({
   return (
     <ContentListNotes>
       <Ul>{renderNotes()}</Ul>
-      {trash && listNotes.length && (
+      {isTrash && listNotes.length && (
         <BtnEmptyTrash onClick={emptyTrash}>Empty Trash</BtnEmptyTrash>
       )}
     </ContentListNotes>

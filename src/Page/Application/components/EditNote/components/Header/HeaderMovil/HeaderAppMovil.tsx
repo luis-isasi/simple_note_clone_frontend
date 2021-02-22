@@ -16,9 +16,9 @@ import Share from '../components/Share';
 const HeaderApp = ({
   showMarkdown,
   setShowMakdown,
-  allNotes,
+  isAllNotes,
   selectedNote,
-  trash,
+  isTrash,
   setEditNote,
 }) => {
   const {
@@ -70,7 +70,7 @@ const HeaderApp = ({
       <button className="btnBack" onClick={onClick}>
         <ArrowBackOutlinedIcon />
       </button>
-      {(allNotes || name) && (
+      {(isAllNotes || name) && (
         <>
           {selectedNote && (
             <>
@@ -87,7 +87,7 @@ const HeaderApp = ({
           )}
         </>
       )}
-      {trash && selectedNote && (
+      {isTrash && selectedNote && (
         <DivTrash>
           <button className="btnDelete" onClick={handlerBtnDeleteForever}>
             Delete Forever

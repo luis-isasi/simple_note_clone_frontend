@@ -10,7 +10,7 @@ import InputTag from './InputTag';
 import DELETE_TAG from 'GraphqlApp/DeleteTag.graphql';
 
 const ListTagForEdit = ({ tags }) => {
-  const { setAllNotes, setTrash, setSearchTag } = useAppContext();
+  const { setIsAllNotes, setIsTrash, setSearchTag } = useAppContext();
 
   const [deleteTag] = useMutation(DELETE_TAG, {
     update(cache, { data: deleteTag }) {
@@ -28,12 +28,12 @@ const ListTagForEdit = ({ tags }) => {
     //DELETE_TAG
     deleteTag({ variables: { id: tagId } });
     //SELECT ALL NOTES
-    setTrash(false);
+    setIsTrash(false);
     setSearchTag({
       id: null,
       name: undefined,
     });
-    setAllNotes(true);
+    setIsAllNotes(true);
   };
 
   return tags.map(({ id, name }) => (

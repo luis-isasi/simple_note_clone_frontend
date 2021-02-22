@@ -4,18 +4,11 @@ import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 
-import {
-  colorIcon,
-  colorBorder,
-  scrollbarStyle,
-  backgroundColor,
-  colorText,
-  backgroundContentModal,
-} from 'StylesApp';
+import { colorIcon, scrollbarStyle } from 'StylesApp';
 
-const ShortcutsModal = ({ setShortcutsModal }) => {
+const ShortcutsModal = ({ setIsOpenModalShortcuts }) => {
   const onClick = () => {
-    setShortcutsModal(false);
+    setIsOpenModalShortcuts(false);
   };
 
   const ViewShortcuts = [

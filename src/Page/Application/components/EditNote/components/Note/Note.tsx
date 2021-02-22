@@ -10,7 +10,7 @@ import AddTag from './components/AddTag';
 import SimpleNoteBlack from 'Images/simplenNoteBlack-logo.png';
 import { MarkdownCSS } from './components/MarkdownCSS';
 
-const Note = ({ showMarkdown, selectedNote, trash, updateNote }) => {
+const Note = ({ showMarkdown, selectedNote, isTrash, updateNote }) => {
   const { setTextSelectedNote } = useAppContext();
 
   const onUpdateNodeDebounce = React.useCallback(
@@ -57,7 +57,7 @@ const Note = ({ showMarkdown, selectedNote, trash, updateNote }) => {
               autoFocus
             ></TextArea>
           )}
-          {!trash && <AddTag />}
+          {!isTrash && <AddTag />}
         </>
       ) : (
         <DivLogo>

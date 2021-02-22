@@ -10,37 +10,37 @@ type AppState = {
   setTextSelectedNote(text: string): void;
   addTagInCurrentNote(tag: Tag): void;
   deleteTagInCurrentNote(tag: Tag): void;
-  allNotes: boolean;
-  setAllNotes(allNotes: boolean): void;
-  trash: boolean;
-  setTrash(trash: boolean): void;
-  sidebar: boolean;
-  setSidebar(sidebar: boolean): void;
+  isAllNotes: boolean;
+  setIsAllNotes(isAllNotes: boolean): void;
+  isTrash: boolean;
+  setIsTrash(isTrash: boolean): void;
+  isOpenSidebar: boolean;
+  setIsOpenSidebar(isOpenSidebar: boolean): void;
   searchTag: Tag;
   setSearchTag(tag: Tag): void;
-  main: boolean;
+  isOpenMain: boolean;
   showMain(show: boolean): void;
-  info: boolean;
+  isOpenInfo: boolean;
   showInfo(show: boolean): void;
-  shortcutsModal: boolean;
-  setShortcutsModal(shortcutsModal: boolean): void;
+  isOpenModalShortcuts: boolean;
+  setIsOpenModalShortcuts(isOpenModalShortcuts: boolean): void;
 };
 
 const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export const AppContextProvider = ({ children }) => {
   const [selectedNote, setSelectedNote] = React.useState(undefined);
-  const [allNotes, setAllNotes] = React.useState(true);
-  const [trash, setTrash] = React.useState(false);
-  const [sidebar, setSidebar] = React.useState(true);
+  const [isAllNotes, setIsAllNotes] = React.useState(true);
+  const [isTrash, setIsTrash] = React.useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = React.useState(true);
   const [searchTag, setSearchTag] = React.useState({
     id: null,
     name: undefined,
   });
-  const [main, setMain] = React.useState(false);
-  const [info, setInfo] = React.useState(false);
+  const [isOpenMain, setIsOpenMain] = React.useState(false);
+  const [isOpenInfo, setIsOpenInfo] = React.useState(false);
 
-  const [shortcutsModal, setShortcutsModal] = React.useState(false);
+  const [isOpenModalShortcuts, setIsOpenModalShortcuts] = React.useState(false);
 
   const client = useApolloClient();
 
@@ -53,7 +53,7 @@ export const AppContextProvider = ({ children }) => {
     Main.classList.add('hidingMain');
     _app.removeEventListener('click', onClickMain);
     setTimeout(() => {
-      setMain(false);
+      setIsOpenMain(false);
     }, 200);
   }, []);
 
@@ -62,7 +62,7 @@ export const AppContextProvider = ({ children }) => {
 
     //show Main
     if (show) {
-      setMain(show);
+      setIsOpenMain(show);
       app.addEventListener('click', onClickMain);
     }
 
@@ -85,7 +85,7 @@ export const AppContextProvider = ({ children }) => {
     _app.removeEventListener('click', onClickInfo);
     //luego de la animacion desmontamos el componente del dom
     setTimeout(() => {
-      setInfo(false);
+      setIsOpenInfo(false);
       _app.classList.remove('hideInfo');
     }, 200);
   }, []);
@@ -95,7 +95,7 @@ export const AppContextProvider = ({ children }) => {
 
     //ShowInfo
     if (show) {
-      setInfo(show);
+      setIsOpenInfo(show);
       app.addEventListener('click', onClickInfo);
     }
 
@@ -199,20 +199,20 @@ export const AppContextProvider = ({ children }) => {
         setTextSelectedNote,
         addTagInCurrentNote,
         deleteTagInCurrentNote,
-        allNotes,
-        setAllNotes,
-        trash,
-        setTrash,
-        sidebar,
-        setSidebar,
+        isAllNotes,
+        setIsAllNotes,
+        isTrash,
+        setIsTrash,
+        isOpenSidebar,
+        setIsOpenSidebar,
         searchTag,
         setSearchTag,
-        main,
+        isOpenMain,
         showMain,
-        info,
+        isOpenInfo,
         showInfo,
-        shortcutsModal,
-        setShortcutsModal,
+        isOpenModalShortcuts,
+        setIsOpenModalShortcuts,
       }}
     >
       {children}

@@ -9,7 +9,7 @@ import { useAppContext } from 'ContextApp/AppContext';
 import { useMediaQuery } from 'react-responsive';
 
 const Main = () => {
-  const { showMain, main, showInfo, info } = useAppContext();
+  const { showMain, isOpenMain, showInfo, isOpenInfo } = useAppContext();
   const shortcuts = new Shortcuts();
 
   const isDesktopOrLaptop = useMediaQuery({
@@ -30,15 +30,15 @@ const Main = () => {
         shortcuts.remove({ shortcut: 'Ctrl+Shift+U' });
       }
     };
-  }, [main, info]);
+  }, [isOpenMain, isOpenInfo]);
 
   const onClick = () => {
-    if (info) {
+    if (isOpenInfo) {
       showInfo(false);
     }
 
     //Mostrando Main
-    showMain(!main);
+    showMain(!isOpenMain);
   };
 
   return (

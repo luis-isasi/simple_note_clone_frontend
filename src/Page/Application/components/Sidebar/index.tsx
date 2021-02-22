@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import Sidebar from './Sidebar';
 
 const Index = ({
-  sidebar,
+  isOpenSidebar,
   editNote,
   setEditNote,
   switchPinned,
@@ -19,7 +19,7 @@ const Index = ({
 
   return (
     <>
-      {isDesktopOrLaptop && sidebar && (
+      {isDesktopOrLaptop && isOpenSidebar && (
         <Sidebar
           setEditNote={setEditNote}
           switchPinned={switchPinned}

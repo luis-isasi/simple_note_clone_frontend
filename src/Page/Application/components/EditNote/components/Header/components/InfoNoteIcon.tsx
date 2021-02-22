@@ -9,7 +9,7 @@ import { HoverText } from 'StylesApp';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const InformationNote = () => {
-  const { showInfo, info, showMain, main } = useAppContext();
+  const { showInfo, isOpenInfo, showMain, isOpenMain } = useAppContext();
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 766px)' });
 
@@ -28,15 +28,15 @@ const InformationNote = () => {
         shortcuts.remove({ shortcut: 'Ctrl+Shift+Y' });
       }
     };
-  }, [info, main]);
+  }, [isOpenInfo, isOpenMain]);
 
   const onClick = () => {
-    if (main) {
+    if (isOpenMain) {
       showMain(false);
     }
 
     //mostrando info de la Note seleccionada
-    showInfo(!info);
+    showInfo(!isOpenInfo);
   };
 
   return (

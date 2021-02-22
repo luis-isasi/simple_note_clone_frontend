@@ -9,10 +9,10 @@ import Settings from './components/Settings';
 
 const MainOptions = () => {
   const {
-    allNotes,
-    setAllNotes,
-    trash,
-    setTrash,
+    isAllNotes,
+    setIsAllNotes,
+    isTrash,
+    setIsTrash,
     setSearchTag,
     showMain,
   } = useAppContext();
@@ -20,16 +20,16 @@ const MainOptions = () => {
   return (
     <Div>
       <AllNotes
-        allNotes={allNotes}
-        setAllNotes={setAllNotes}
-        setTrash={setTrash}
+        isAllNotes={isAllNotes}
+        setIsAllNotes={setIsAllNotes}
+        setIsTrash={setIsTrash}
         setSearchTag={setSearchTag}
         showMain={showMain}
       />
       <Trash
-        trash={trash}
-        setTrash={setTrash}
-        setAllNotes={setAllNotes}
+        isTrash={isTrash}
+        setIsAllNotes={setIsAllNotes}
+        setIsTrash={setIsTrash}
         setSearchTag={setSearchTag}
         showMain={showMain}
       />

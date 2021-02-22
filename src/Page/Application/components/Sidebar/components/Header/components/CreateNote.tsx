@@ -18,7 +18,7 @@ const CreateNote = ({
   searchGraphqlVariable,
   onClickClear,
 }) => {
-  const { selectNote, trash } = useAppContext();
+  const { selectNote, isTrash } = useAppContext();
 
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 767px)',
@@ -27,7 +27,7 @@ const CreateNote = ({
   const shortcuts = new Shortcuts();
 
   React.useEffect(() => {
-    if (isDesktopOrLaptop && !trash) {
+    if (isDesktopOrLaptop && !isTrash) {
       shortcuts.add([
         // Adding some shortcuts
         {
@@ -49,7 +49,7 @@ const CreateNote = ({
         ]);
       }
     };
-  }, [trash]);
+  }, [isTrash]);
 
   //luego de hacer el mutation debemos de actualizar la cache manuelamente
   const [createNote] = useMutation(CREATE_NOTE, {
@@ -113,7 +113,7 @@ const CreateNote = ({
     <BtnNewNote
       onClick={onClick}
       hover={hover}
-      disabled={trash}
+      disabled={isTrash}
       id="btn-new-note"
     >
       {children || <PostAddIcon />}

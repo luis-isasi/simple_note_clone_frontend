@@ -8,7 +8,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useAppContext } from 'ContextApp/AppContext';
 
-const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
+const Search = ({ search, onChange, onClickClear, isAllNotes, isTrash }) => {
   const {
     searchTag: { name },
   } = useAppContext();
@@ -45,7 +45,9 @@ const Search = ({ search, onChange, onClickClear, allNotes, trash }) => {
       <InputSearch
         id="InputSearchNote"
         type="text"
-        placeholder={name || (allNotes ? 'Search Notes..' : trash && 'Trash')}
+        placeholder={
+          name || (isAllNotes ? 'Search Notes..' : isTrash && 'Trash')
+        }
         value={search}
         onChange={onChange}
       />

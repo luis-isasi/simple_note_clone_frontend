@@ -11,8 +11,8 @@ const EditNote = ({
   showMarkdown,
   setShowMakdown,
   selectedNote,
-  trash,
-  allNotes,
+  isTrash,
+  isAllNotes,
   setEditNote,
   editNote,
   updateNote,
@@ -30,13 +30,13 @@ const EditNote = ({
             showMarkdown={showMarkdown}
             setShowMakdown={setShowMakdown}
             selectedNote={selectedNote}
-            trash={trash}
-            allNotes={allNotes}
+            isTrash={isTrash}
+            isAllNotes={isAllNotes}
           />
           <Note
             showMarkdown={showMarkdown}
             selectedNote={selectedNote}
-            trash={trash}
+            isTrash={isTrash}
             updateNote={updateNote}
           />
         </>
@@ -47,14 +47,14 @@ const EditNote = ({
             showMarkdown={showMarkdown}
             setShowMakdown={setShowMakdown}
             selectedNote={selectedNote}
-            trash={trash}
-            allNotes={allNotes}
+            isTrash={isTrash}
+            isAllNotes={isAllNotes}
             setEditNote={setEditNote}
           />
           <Note
             showMarkdown={showMarkdown}
             selectedNote={selectedNote}
-            trash={trash}
+            isTrash={isTrash}
             updateNote={updateNote}
           />
         </>

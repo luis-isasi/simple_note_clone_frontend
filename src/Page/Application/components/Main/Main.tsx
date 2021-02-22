@@ -8,14 +8,14 @@ import HelperUser from './components/HelperUser';
 import { useAppContext } from 'ContextApp/AppContext';
 
 const Main = ({ className, id }) => {
-  const { setSearchTag, setShortcutsModal, showMain } = useAppContext();
+  const { setSearchTag, setIsOpenModalShortcuts, showMain } = useAppContext();
 
   return (
     <Div className={className} id={id}>
       <ContentMain>
         <MainOptions />
         <Tags setSearchTag={setSearchTag} showMain={showMain} />
-        <HelperUser setShortcutsModal={setShortcutsModal} />
+        <HelperUser setIsOpenModalShortcuts={setIsOpenModalShortcuts} />
       </ContentMain>
     </Div>
   );

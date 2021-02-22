@@ -20,14 +20,14 @@ import ShortcutsModal from './Modals/ShortcutsModal';
 
 const Application = () => {
   const {
-    main,
-    info,
-    sidebar,
-    shortcutsModal,
-    setShortcutsModal,
-    allNotes,
+    isOpenMain,
+    isOpenInfo,
+    isOpenSidebar,
+    isOpenModalShortcuts,
+    setIsOpenModalShortcuts,
+    isAllNotes,
     selectedNote,
-    trash,
+    isTrash,
   } = useAppContext();
 
   const [editNote, setEditNote] = React.useState(false);
@@ -62,7 +62,7 @@ const Application = () => {
         shortcut: 'Ctrl+Shift+O',
         handler: (e) => {
           e.preventDefault();
-          setShortcutsModal(!shortcutsModal);
+          setIsOpenModalShortcuts(!isOpenModalShortcuts);
         },
       });
     }
@@ -71,19 +71,19 @@ const Application = () => {
         shortcuts.remove({ shortcut: 'Ctrl+Shift+O' });
       }
     };
-  }, [shortcutsModal]);
+  }, [isOpenModalShortcuts]);
 
   if (theme !== undefined) {
     return (
       <>
         <App>
-          {main && <Main className="mainActive" id="main" />}
+          {isOpenMain && <Main className="mainActive" id="main" />}
           <Div
-            className={main ? 'showMain' : info && 'showInfo'}
+            className={isOpenMain ? 'showMain' : isOpenInfo && 'showInfo'}
             id="Application"
           >
             <Sidebar
-              sidebar={sidebar}
+              isOpenSidebar={isOpenSidebar}
               editNote={editNote}
               setEditNote={setEditNote}
               switchPinned={switchPinned}
@@ -94,14 +94,14 @@ const Application = () => {
               showMarkdown={showMarkdown}
               setShowMakdown={setShowMakdown}
               selectedNote={selectedNote}
-              trash={trash}
-              allNotes={allNotes}
+              isTrash={isTrash}
+              isAllNotes={isAllNotes}
               setEditNote={setEditNote}
               editNote={editNote}
               updateNote={updateNote}
             />
           </Div>
-          {info && (
+          {isOpenInfo && (
             <Info
               className="infoActive"
               id="info"
@@ -109,8 +109,8 @@ const Application = () => {
             />
           )}
         </App>
-        {shortcutsModal && (
-          <ShortcutsModal setShortcutsModal={setShortcutsModal} />
+        {isOpenModalShortcuts && (
+          <ShortcutsModal setIsOpenModalShortcuts={setIsOpenModalShortcuts} />
         )}
       </>
     );

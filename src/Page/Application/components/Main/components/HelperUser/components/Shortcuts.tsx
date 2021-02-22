@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import styled from 'styled-components';
 
-const Shortcuts = ({ setShortcutsModal }) => {
+const Shortcuts = ({ setIsOpenModalShortcuts }) => {
   const onClick = () => {
-    setShortcutsModal(true);
+    setIsOpenModalShortcuts(true);
   };
 
   return <Button onClick={onClick}>Keyboard Shortcuts</Button>;

@@ -5,20 +5,26 @@ import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import { colorIcon } from 'StylesApp';
 import { Button, Div } from './Styled';
 
-const Trash = ({ trash, setTrash, setAllNotes, setSearchTag, showMain }) => {
+const Trash = ({
+  isTrash,
+  setIsTrash,
+  setIsAllNotes,
+  setSearchTag,
+  showMain,
+}) => {
   const onClick = () => {
-    setAllNotes(false);
+    setIsAllNotes(false);
     setSearchTag({
       id: null,
       name: undefined,
     });
-    setTrash(true);
+    setIsTrash(true);
     //close Main
     showMain(false);
   };
   return (
-    <Button select={trash} onClick={onClick}>
-      <Div select={trash}>
+    <Button select={isTrash} onClick={onClick}>
+      <Div select={isTrash}>
         <span>
           <DeleteForeverOutlinedIcon />
         </span>

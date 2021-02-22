@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import MainIcon from './components/MainIcon';
 import CreateNote from './components/CreateNote';
 
-const Header = ({ allNotes, trash, tagName }) => {
+const Header = ({ isAllNotes, isTrash, tagName }) => {
   return (
     <Div>
       <MainIcon />
       <h3>
-        {allNotes && !tagName && 'All Notes'}
-        {trash && !tagName && 'Trash'}
-        {tagName && allNotes && 'Notes with  Selected Tag'}
-        {tagName && trash && 'Notes with  Selected Tag'}
+        {isAllNotes && !tagName && 'All Notes'}
+        {isTrash && !tagName && 'Trash'}
+        {tagName && isAllNotes && 'Notes with  Selected Tag'}
+        {tagName && isTrash && 'Notes with  Selected Tag'}
       </h3>
       <CreateNote hover={true} />
     </Div>

@@ -7,11 +7,11 @@ import Shortcuts from './components/Shortcuts';
 import HelpSupport from './components/HelpSupport';
 import About from './components/About';
 
-const HelperUser = ({ setShortcutsModal }) => {
+const HelperUser = ({ setIsOpenModalShortcuts }) => {
   return (
     <Div>
       <Connection />
-      <Shortcuts setShortcutsModal={setShortcutsModal} />
+      <Shortcuts setIsOpenModalShortcuts={setIsOpenModalShortcuts} />
       <Content>
         <HelpSupport />
         <About />

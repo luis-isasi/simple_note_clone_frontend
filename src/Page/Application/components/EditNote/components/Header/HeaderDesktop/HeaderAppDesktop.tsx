@@ -17,9 +17,9 @@ import Share from '../components/Share';
 const HeaderApp = ({
   showMarkdown,
   setShowMakdown,
-  allNotes,
+  isAllNotes,
   selectedNote,
-  trash,
+  isTrash,
 }) => {
   const {
     searchTag: { name },
@@ -58,8 +58,8 @@ const HeaderApp = ({
   };
 
   return (
-    <Header allNotes={allNotes} name={name}>
-      {(allNotes || name) && (
+    <Header isAllNotes={isAllNotes} name={name}>
+      {(isAllNotes || name) && (
         <>
           <ToggleSidebar />
           {selectedNote && (
@@ -77,7 +77,7 @@ const HeaderApp = ({
           )}
         </>
       )}
-      {trash && selectedNote && (
+      {isTrash && selectedNote && (
         <DivTrash>
           <button className="btnDelete" onClick={handlerBtnDeleteForever}>
             Delete Forever
@@ -119,7 +119,9 @@ const flexRowEnd = css`
 
 const Header = styled.header`
   ${(props) =>
-    props.allNotes || props.name ? `${flexRowCenterBetween}` : `${flexRowEnd}`}
+    props.isAllNotes || props.name
+      ? `${flexRowCenterBetween}`
+      : `${flexRowEnd}`}
 
   flex-basis: 55px;
   min-height: 55px;

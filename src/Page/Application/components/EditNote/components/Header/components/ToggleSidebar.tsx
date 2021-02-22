@@ -8,7 +8,7 @@ import { useAppContext } from 'ContextApp/AppContext';
 import { HoverText } from 'StylesApp';
 
 const ToggleSidebar = () => {
-  const { sidebar, setSidebar } = useAppContext();
+  const { isOpenSidebar, setIsOpenSidebar } = useAppContext();
   const shortcuts = new Shortcuts();
 
   React.useEffect(() => {
@@ -23,14 +23,14 @@ const ToggleSidebar = () => {
     return () => {
       shortcuts.remove({ shortcut: 'Ctrl+Shift+F' });
     };
-  }, [sidebar]);
+  }, [isOpenSidebar]);
 
   const onClick = () => {
-    setSidebar(!sidebar);
+    setIsOpenSidebar(!isOpenSidebar);
   };
 
   return (
-    <Button onClick={onClick} hide={sidebar} id="btnToggle">
+    <Button onClick={onClick} hide={isOpenSidebar} id="btnToggle">
       <VerticalAlignBottomIcon />
     </Button>
   );
