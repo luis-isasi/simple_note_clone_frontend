@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a56cbbd1-94ca-434c-ba90-d401408d1099/deploy-status)](https://app.netlify.com/sites/simple-note-clone/deploys)
+
 # Simple Note Clone
 **Simple Note Clone** is a clone of **[Simplenote](https://simplenote.com/)** to create, edit, delete and  reset personal notes. 
 
